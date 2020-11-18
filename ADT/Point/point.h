@@ -24,4 +24,5 @@ typedef struct {
 void printWahana(koordinatWahana P);
 
 
+
 #endif /* point_h */
