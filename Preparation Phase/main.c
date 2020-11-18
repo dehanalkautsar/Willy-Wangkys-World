@@ -18,9 +18,9 @@ int main(){
     
     printf("// Welcome to Willy wangky's fum factory!!////\n New game / load game / exit? //\n");
     
-    repeat{
+    do{
         scanf("%s", &choice);
-    }until(choice=="new" || choice=="load" || choice =="exit")
+    }while (choice=="new" || choice=="load" || choice =="exit");
     
     if (choice=="new"){
         char* nama;
@@ -38,18 +38,18 @@ int main(){
     return 0;
 }
 
-int preparation_phase(int day) { // Parameternya masih harus ditambah ADT Player, Peta
+/* RESERVED FOR PREPRATATON PHASE */
+
+void preparation_phase(int* day) { // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
-
+    char* input;
     /* ALGORITMA */
     
     /* Inisialisasi */
-
-    
     status = true;
     while (status) {
-        printf("Preparation phase day %d\n",day);
+        printf("Preparation phase day %d\n",*day);
         // Panggil fungsi gambar peta
         
         // Panggil legend peta
@@ -61,47 +61,87 @@ int preparation_phase(int day) { // Parameternya masih harus ditambah ADT Player
         // Panggil status aksi, waktu dan uang yang dibutuhkan
 
         // Panggil input
-        
+        input = input_prepration_phase();   // Sudah divalidasi
         // Jalankan aksi input
+        action_prepration_phase(input,status); // Not finished
     }
-    
+    *day++;
 }
 
-/* RESERVED FOR FUNCTION IN PREPRATATON PHASE */
+
 char* input_prepration_phase() {
     /* KAMUS */
-    char* input_user;
+    char input_user[10];
     char* valid_input[10] = {"w","a","s","d","build","upgrade","buy","undo","execute","main"};
-    boolean isValid = fa
+    boolean valid = false;
 
+    /* ALGORITMA */
     do {
         printf("Masukkan perintah :\n");
-        scanf("%s",&input_user);
-    } while ();
-    
+        scanf("%s",input_user);
+
+        int i = 0;
+        while (!valid && i<10) {
+            if (!strcmp(input_user,valid_input[i])) {   // Note, strcmp kalau sama malah return 0
+                valid = true;
+            } else {
+                i++;
+            } 
+        }
+        if (!valid) {
+           printf("Perintah salah, coba lagi\n"); 
+        }
+        
+    } while (!valid);
 
     return input_user;
 }
 
+void action_prepration_phase(char* input,boolean status) { // Tambah parameter player sama map buat diupdate, 
+/* Menjalankan perintah input */
 
+/* KAMUS*/
 
-
-
-
+/* ALGORITMA */
+    if ((!strcmp("w",input)) || (!strcmp("a",input)) || (!strcmp("s",input)) || (!strcmp("d",input))) {
+        // Update peta
+    } else if (!strcmp("build",input)) {
+        // Lakukan build
+    } else if (!strcmp("upgrade",input)) {
+        // Lakukan upgrade
+    } else if (!strcmp("buy",input)) {
+        // Lakukan buy
+    } else if (!strcmp("undo",input)) {
+        // Lakukan undo
+    } else if (!strcmp("execute",input)) {
+        // Lakukan execute
+    } else if (!strcmp("main",input)) {
+        // Lakukan main
+    } else {
+        printf("Something wrong happened");
+    }
+}
 
 /* END OF RESERVED */
 
 int main_phase(int day) {
     /* KAMUS */
     boolean status;
+    char* input;
     /* ALGORITMA */
     status = true;
     while (status) {
-        printf("//Mengeksekusi perintah dari stack //\n")
+        printf("//Mengeksekusi perintah dari stack //\n");
         printf("Main phase day %d\n", day);
         // PANGGIL FUNGSI GAMBAR PETA
 
         // PANGGIL LEGEND DATA
+        printf("Legend:\n");
+        printf("A = Antrian\n");
+        printf("P = Player\n");
+        printf("W = Wahana\n");
+        printf("O = Office\n");
+        printf("<, ^, >, V = Gerbang\n");
 
         // PANGGIL STATUS PLAYER
 
@@ -110,6 +150,7 @@ int main_phase(int day) {
         // PANGGIL FUNGSI ANTRIAN
 
         // PANGGIL FUNGSI INPUT
+        input = input_main_phase();
 
         // JALANKAN FUNGSI INPUT
     }
@@ -121,17 +162,60 @@ int main_phase(int day) {
 char* input_main_phase() {
     /* KAMUS */
     char* input_user;
-    char* valid_input[5] =
+    char* valid_input[9] = {"w","a","s","d","serve","repair","detail","office","prepare"};
+    boolean valid = false;
+
+    int i = 0;
+
     /* ALGORITHM */
-    printf("Masukkan Perintah :\n");
-    scanf("%s",&input_user);
+    do {
+        printf("Masukkan Perintah :\n");
+        scanf("%s",&input_user);
+
+        while (!valid && i<9) {
+            if (!strcmp(input_user,valid_input[i])) {   // Note, strcmp kalau sama malah 0
+                valid = true;
+            } else {
+                i++;
+            }
+        }
+        
+        if (!valid) {
+           printf("Perintah salah, coba lagi\n"); 
+        }
+        
+    } while (!valid);
 
     return input_user;
 }
 
 
+void action_input_main(char* input,boolean status) { // Tambah parameter player sama map buat diupdate, 
+/* Menjalankan perintah input */
+
+/* KAMUS*/
+
+/* ALGORITMA */
+    if ((!strcmp("w",input)) || (!strcmp("a",input)) || (!strcmp("s",input)) || (!strcmp("d",input))) {
+        // Update peta
+    } else if (!strcmp("build",input)) {
+        // Lakukan build
+    } else if (!strcmp("upgrade",input)) {
+        // Lakukan upgrade
+    } else if (!strcmp("buy",input)) {
+        // Lakukan buy
+    } else if (!strcmp("undo",input)) {
+        // Lakukan undo
+    } else if (!strcmp("execute",input)) {
+        // Lakukan execute
+    } else if (!strcmp("main",input)) {
+        // Lakukan main
+    } else {
+        printf("Something wrong happened");
+    }
+}
 
 
 
 
-/* END OF RESERVED 
+/* END OF RESERVED */
