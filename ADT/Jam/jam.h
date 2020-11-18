@@ -16,13 +16,11 @@
 typedef struct {
     int HH; /* integer [0..23] */
     int MM; /* integer [0..59] */
-    int SS; /* integer [0..59] */
 } JAM;
 
 /* *** Notasi Akses: selektor JAM *** */
 #define Hour(J) (J).HH
 #define Minute(J) (J).MM
-#define Second(J) (J).SS
 
 /* ***************************************************************** */
 /* DEFINISI PRIMITIF                                                 */
@@ -34,7 +32,7 @@ boolean IsJAMValid (int H, int M, int S);
 /* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
 
 /* *** Konstruktor: Membentuk sebuah JAM dari komponen-komponennya *** */
-JAM MakeJAM (int HH, int MM, int SS);
+JAM MakeJAM (int HH, int MM);
 /* Membentuk sebuah JAM dari komponen-komponennya yang valid */
 /* Prekondisi : HH, MM, SS valid untuk membentuk JAM */
 
@@ -66,12 +64,12 @@ void TulisJAM (JAM J);
 /* ***************************************************************** */
 /* KELOMPOK KONVERSI TERHADAP TYPE                                   */
 /* ***************************************************************** */
-long JAMToDetik (JAM J);
+long JAMToMenit (JAM J);
 /* Diberikan sebuah JAM, mengkonversi menjadi jumlah detik dari pukul 0:0:0 */
 /* Rumus : detik = 3600*HH + 60*MM + SS */
 /* Nilai maksimum = 3600*23+59*60+59 */
 
-JAM DetikToJAM (long N);
+JAM MenitToJAM (long N);
 /* Mengirim  konversi detik ke JAM */
 /* Catatan: Jika N >= 86400, maka harus dikonversi dulu menjadi jumlah detik yang
    mewakili jumlah detik yang mungkin dalam 1 hari, yaitu dengan rumus:
@@ -92,14 +90,16 @@ boolean JGT (JAM J1, JAM J2);
 /* *** Operator aritmatika JAM *** */
 JAM NextDetik (JAM J);
 /* Mengirim 1 detik setelah J dalam bentuk JAM */
-JAM NextNDetik (JAM J, int N);
+JAM NextNMenit (JAM J, int N);
+/* Mengirim N detik setelah J dalam bentuk JAM */
+JAM NextNJam (JAM J, int N);
 /* Mengirim N detik setelah J dalam bentuk JAM */
 JAM PrevDetik (JAM J);
 /* Mengirim 1 detik sebelum J dalam bentuk JAM */
 JAM PrevNDetik (JAM J, int N);
 /* Mengirim N detik sebelum J dalam bentuk JAM */
 /* *** Kelompok Operator Aritmetika *** */
-long Durasi (JAM JAw, JAM JAkh);
+JAM Durasi (JAM JAw, JAM JAkh);
 /* Mengirim JAkh-JAw dlm Detik, dengan kalkulasi */
 /* Jika JAw > JAkh, maka JAkh adalah 1 hari setelah JAw */
 

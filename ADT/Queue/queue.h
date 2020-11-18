@@ -11,11 +11,15 @@
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef int infotype;
+typedef char* infotype;
+typedef struct{
+        char* Wahana;
+        int Kesabaran; 
+} infotypeQ;
 typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
-typedef struct { infotype * T;   /* tabel penyimpan elemen */
+typedef struct { infotypeQ * T;   /* tabel penyimpan elemen */
                  address HEAD;  /* alamat penghapusan */
                  address TAIL;  /* alamat penambahan */
                  int MaxEl;     /* Max elemen queue */
@@ -40,7 +44,7 @@ int NBElmt (Queue Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */
-void MakeEmpty (Queue * Q, int Max);
+void MakeQueue (Queue * Q, int Max);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max */
@@ -54,11 +58,11 @@ void DeAlokasi(Queue * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (Queue * Q, infotype X);
+void Enqueue (Queue * Q, infotypeQ X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Dequeue (Queue * Q, infotype * X);
+void Dequeue (Queue * Q, infotypeQ * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 

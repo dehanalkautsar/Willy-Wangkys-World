@@ -5,34 +5,29 @@
 #include "boolean.h"
 
 #define BrsMin 0
-#define BrsMax 4
+#define BrsMax 50
 #define KolMin 0
-#define KolMax 4
+#define KolMax 50
 
 typedef int indeks;
 typedef char ElType;
-typedef struct {
-    ElType Mem[BrsMax+1][KolMax+1];
-    int NBrsEff;
-    int NKolEff;
+typedef struct
+{
+   ElType Mem[BrsMax + 1][KolMax + 1];
+   int NBrsEff;
+   int NKolEff;
 } MATRIKS;
 
 #define NBrsEff(M) (M).NBrsEff
 #define NKolEff(M) (M).NKolEff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
+#define Elmt(M, i, j) (M).Mem[(i)][(j)]
 
-void MakeMATRIKS (int NB, int NK, MATRIKS * M);
+indeks GetFirstIdxBrs(MATRIKS M);
 
-indeks GetFirstIdxBrs (MATRIKS M);
+indeks GetFirstIdxKol(MATRIKS M);
 
-indeks GetFirstIdxKol (MATRIKS M);
+indeks GetLastIdxBrs(MATRIKS M);
 
-indeks GetLastIdxBrs (MATRIKS M);
+indeks GetLastIdxKol(MATRIKS M);
 
-indeks GetLastIdxKol (MATRIKS M);
-
-void UpdateMATRIKS (MATRIKS *M, int x, int y, char input);
-
-int NBElmt (MATRIKS M);
-
-#endif 
+#endif

@@ -41,14 +41,14 @@ int NBElmt (Queue Q)
 }
 
 /* *** Kreator *** */
-void MakeEmpty (Queue * Q, int Max)
+void MakeQueue (Queue * Q, int Max)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
-    (*Q).T = (infotype*) malloc((Max+1)*sizeof(infotype));
+    (*Q).T = (infotypeQ*) malloc((Max+1)*sizeof(infotypeQ));
     if ((*Q).T != NULL) {
         Head(*Q) = Nil;
         Tail(*Q) = Nil;
@@ -71,7 +71,7 @@ void DeAlokasi(Queue * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (Queue * Q, infotype X)
+void Enqueue (Queue * Q, infotypeQ X)
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
@@ -87,10 +87,11 @@ void Enqueue (Queue * Q, infotype X)
         Tail(*Q)++;
     }
 
-    InfoTail(*Q) = X;
+    InfoTail(*Q).Kesabaran = X.Kesabaran;
+    InfoTail(*Q).Wahana = X.Wahana;
 }
 
-void Dequeue (Queue * Q, infotype * X)
+void Dequeue (Queue * Q, infotypeQ * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 

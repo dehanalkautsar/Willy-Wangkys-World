@@ -10,18 +10,23 @@ typedef struct {
     //wahana *wahana;
     int X; /* absis   */
     int Y; /* ordinat */
-} koordinatWahana;
+} Koordinat;
 
 /* *** Notasi Akses: Selektor POINT *** */
-#define Kol(P) (P).X
-#define Brs(P) (P).Y
+#define absis(P) (P).X
+#define ordinat(P) (P).Y
 //#define wahana(C) (P).wahana
+
+void geserKanan(Koordinat *P);
+void geserKiri(Koordinat *P);
+void geserAtas(Koordinat *P);
+void geserBawah(Koordinat *P);
 
 // Make Wahana
 //koordinatWahana *makeKoordinatWahana(wahana *wahana, int row, int kol);
 
 //print Wahana
-void printWahana(koordinatWahana P);
+void printWahana(Koordinat P);
 
 
 
