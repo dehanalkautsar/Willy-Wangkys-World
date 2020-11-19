@@ -16,7 +16,7 @@ typedef struct tElmtlist {
 	infotype info;
 	address next;
 } ElmtList;
-typedef struct {
+typedef struct tList{
 	address First;
 } List;
 
@@ -30,11 +30,11 @@ typedef struct {
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (List L);
-/* Mengirim true jika list kosong */
+boolean IsEmpty (tList L);
+/* Mengirim true jika tList kosong */
 
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateEmpty (List *L);
+void CreateEmpty (tList *L);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 

@@ -241,42 +241,43 @@ void input_prepration_phase(boolean* status) {
 
 }
 
-void build(Pemain P, Elmt_Wahana W, int Need_Money, JAM Need_Jam){
+void build(Pemain P, Elmt_Wahana W, int *Need_Money, JAM *Need_Jam){
     JAM WaktuBuild = MakeJAM(1,0);
     JAM TempJam = MakeJAM(0,0);
     long TempMenit = 0;
     // 1st Step menampilakan wahana dasar yang mungkin dibuat (hasil file load eksternal)
     // pending menunggu file eksternal
 
-    //2nd step pilih wahana
+    //2nd step
+    //pilih wahana
 
     //3rd step cek resource player dengan requirement wahana
-    boolean EnoughResource = false;
-    if ((Need_Money<=P.uang)&&(JLT(WaktuBuild,P.jamPemain))){
-        Need_Money = Need_Money + W.Harga;      // Tambah need_money
-        TempMenit = JAMToMenit(WaktuBuild)+ JAMToMenit(Need_Jam); //Konvert jam lalu ditambah ke need_jam
-        Need_Jam = MenitToJAM(TempMenit);       
+    if ((Need_Money<=P.uang)&&(JLT(WaktuBuild,P.jamPemain))){ //JLT sudah diubah jump least than equal
+        *Need_Money = *Need_Money + W.Harga;      // Tambah need_money
+        TempMenit = JAMToMenit(WaktuBuild)+ JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+        *Need_Jam = MenitToJAM(TempMenit);       
     }
     else{
-        if (Need)
-    }
-    while (!EnoughResource){
-        if ( (W.Harga<P.uang)&&(JLT(WaktuBuild,P.jamPemain)) ){   // Cek uang&waktu apakah cukup
-            Need_Jam = Need_Jam + WaktuBuild;
-            Need_Money = Need_Money + W.Harga;
-            EnoughResource = true;
+        if (Need_Money>P.uang){
+            printf("Uang player tidak cukup");
+        }
+        else if (JGT(WaktuBuild,P.jamPemain)){
+            printf("Waktu tersisa tidak cukup");
         }
     }
-    
     //4th step masukan perintah eksekusi ke dalam stack
 
 }
 
 
-void upgrade(Pemain P, Peta M) {
+void upgrade(Pemain P, Peta M, int* Need_Money, JAM* Need_Jam) {
     /* KAMUS LOKAL */
+    JAM WaktuBuild = MakeJAM(1,30);
     wahana W;
     Upgrade_Wahana U1,U2;
+    Kata K1, K2;
+    int choice;
+    boolean valid;
 
     /* ALGORITMA */
     /* 1. Cek Wahana disekitar kita */
@@ -289,7 +290,52 @@ void upgrade(Pemain P, Peta M) {
     printf("- %s\n",Nama_Upgrade(U1));
     printf("- %s\n",Nama_Upgrade(U2));
 
-    /* 3. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
+    K1 = StringToKata(Nama_Upgrade(U1));
+    K2 = StringToKata(Nama_Upgrade(U2));
+
+    /* 3. Input User */
+    choice = 0;
+    valid = false;
+    STARTKATA();
+    while(!EndKata) {
+        if (IsKataSama(K1,CKata)) {
+            choice = 1;
+        } else if (IsKataSama(K2,CKata)) {
+            choice = 2;
+        } else {
+            printf("Input tidak valid\n");
+        }
+
+        IgnoreBlank();
+        ADVKATA(); //Cek kata selanjutnya
+    }
+
+    if (choice == 1) {
+        /* 4. Check apakah uang dan resource memenuhi */
+        if (/*TBO*/) {
+
+        } else {
+            printf("Error: Resource atau Uang tidak memenuhi");
+        }
+        
+    } else if (choice == 2) {
+        /* 4. Check apakah uang dan resource memenuhi */
+        if (/*TBO*/) {
+
+        } else {
+            printf("Error: Resource atau Uang tidak memenuhi");
+        }
+
+    }
+
+
+    /* 5. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
+    if ((choice == 1 || choice == 2) && valid) {
+
+
+    }
+
+    
 }
 
 /* END OF RESERVED */
@@ -451,8 +497,9 @@ void serve(Elmt_Wahana W, Pemain *P){ // parameternya harusnya wahana, sama play
         //proses serve
         uang(*P) += Harga_Wahana(W);
         // queue nya masih bingung
+        
     }else{
-        printf("Oops! Wahana tidak tersedia..")
+        printf("Oops! Wahana tidak tersedia..");
     }
 }
 

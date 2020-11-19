@@ -27,7 +27,7 @@ typedef struct {
 /* ***************************************************************** */
 /* KELOMPOK VALIDASI TERHADAP TYPE                                   */
 /* ***************************************************************** */
-boolean IsJAMValid (int H, int M, int S);
+boolean IsJAMValid (int H, int M);
 /* Mengirim true  jika H,M,S dapat membentuk J yang valid */
 /* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
 
@@ -88,7 +88,7 @@ boolean JLT (JAM J1, JAM J2);
 boolean JGT (JAM J1, JAM J2);
 /* Mengirimkan true jika J1>J2, false jika tidak */
 /* *** Operator aritmatika JAM *** */
-JAM NextDetik (JAM J);
+JAM NextMenit (JAM J);
 /* Mengirim 1 detik setelah J dalam bentuk JAM */
 JAM NextNMenit (JAM J, int N);
 /* Mengirim N detik setelah J dalam bentuk JAM */

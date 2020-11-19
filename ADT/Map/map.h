@@ -5,30 +5,31 @@
 #include "../Matriks/matriks.h"
 #include "../Wahana/bintree_wahana.h"
 
-typedef struct{
-  Elmt_Wahana Wahana;
-  Koordinat KoordinatWahana;
-  address Next;
-} Elmt_List_Wahana;
-
-
-typedef struct {
-    address First;
-
-} List_Wahana
-
 typedef struct
 {
-  MATRIKS Peta;
-  List_Wahana L_Wahana;
+  MATRIKS mapMatriks;
+  ListWahana mapListWahana; 
 } Map;
 
+typedef struct ElementWahana *address;
 
+typedef struct {
+  address first;
+} ListWahana;
 
+typedef struct {
+  InfoWahana infoWahana;
+  address next;
+} ElementWahana;
 
-Peta.Wahana[0].Elmt_Wahana
-Peta.Wahana[1].KoordinatWahana
+typedef struct {
+  Elmt_Wahana ElementWahana;
+  Koordinat KoordinatWahana;
+} InfoWahana;
 
+#define infoElementWahana(P) (P)->infoWahana.ElementWahana
+#define infoKoordinatWahana(P) (P)->infoWahana.KoordinatWahana
+#define next(P) (P)->next
+#define first(L) ((L).First)
 
-
-void printMap(Peta M);
+#endif

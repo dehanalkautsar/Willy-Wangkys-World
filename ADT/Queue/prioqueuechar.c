@@ -46,7 +46,7 @@ void MakeEmpty (PrioQueueChar * Q, int Max)
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
-    (*Q).T = (infotype*) malloc((Max)*sizeof(infotype));
+    (*Q).T = (infotypeQ*) malloc((Max)*sizeof(infotypeQ));
     if ((*Q).T != NULL) {
         MaxEl(*Q) = Max;
     } else {
@@ -69,7 +69,7 @@ void DeAlokasi(PrioQueueChar * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueChar * Q, infotype X)
+void Enqueue (PrioQueueChar * Q, infotypeQ X)
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut mengecil berdasarkan prio */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
@@ -97,7 +97,7 @@ void Enqueue (PrioQueueChar * Q, infotype X)
 
         b = Tail(*Q); // b berada di tail Q yang sudah ditambah
 
-        while (a != Head(*Q) && Elmt(*Q,a).prio > X.prio) {
+        while (a != Head(*Q) && Elmt(*Q,a).kesabaran > X.kesabaran) {
             // Tukar urutan
             Elmt(*Q,b) = Elmt(*Q,a);
             // b sekarang maju ke a
@@ -110,7 +110,7 @@ void Enqueue (PrioQueueChar * Q, infotype X)
             }
         } // Kondisi keluar loop antara a berada di head atau sudah menemukan posisi
 
-        if (Elmt(*Q,a).prio <= X.prio) {
+        if (Elmt(*Q,a).kesabaran <= X.kesabaran) {
             Elmt(*Q,b) = X;
         } else { // Elmt(*Q,a).prio > X.prio
             // Tukar posisi
@@ -122,7 +122,7 @@ void Enqueue (PrioQueueChar * Q, infotype X)
     } 
 }
 
-void Dequeue (PrioQueueChar * Q, infotype * X)
+void Dequeue (PrioQueueChar * Q, infotypeQ * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
@@ -159,7 +159,7 @@ void PrintPrioQueueChar (PrioQueueChar Q)
     p = Head(Q);
 
     while (p != Tail(Q)) {
-        printf("%d %c\n",Elmt(Q,p).prio,Elmt(Q,p).info);
+        printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
 
         if (p==(MaxEl(Q)-1)) {
             p = 0;
@@ -169,7 +169,7 @@ void PrintPrioQueueChar (PrioQueueChar Q)
 
     } // Berhenti ketika p sudah di tail atau p kosong
     if (p!=Nil) {
-        printf("%d %c\n",Elmt(Q,p).prio,Elmt(Q,p).info);
+        printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
     }
 
     printf("#\n");

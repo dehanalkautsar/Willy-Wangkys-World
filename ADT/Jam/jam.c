@@ -1,10 +1,10 @@
 #include "jam.h"
 
-boolean IsJAMValid (int H, int M, int S)
+boolean IsJAMValid (int H, int M)
 /* Mengirim true  jika H,M,S dapat membentuk J yang valid */
 /* dipakai untuk mentest SEBELUM membentuk sebuah Jam */
 {
-    return ((H >=0 && H <= 23) && (M >=0 && M <= 59) && (S >= 0 && S <= 59));
+    return ((H >=0 && H <= 23) && (M >=0 && M <= 59));
 }
 /* *** Konstruktor: Membentuk sebuah JAM dari komponen-komponennya *** */
 JAM MakeJAM (int HH, int MM)
@@ -34,16 +34,16 @@ void BacaJAM (JAM * J)
    1 3 4
    --> akan terbentuk JAM <1,3,4> */
 {
-    int HH, MM, SS;
+    int HH, MM;
     
-    scanf("%d %d %d", &HH, &MM, &SS);
+    scanf("%d %d", &HH, &MM);
     
-    while (!IsJAMValid(HH, MM, SS)){
+    while (!IsJAMValid(HH, MM)){
         printf("Jam tidak valid\n");
-        scanf("%d %d %d", &HH, &MM, &SS);
+        scanf("%d %d", &HH, &MM);
     }
     
-    *J = MakeJAM(HH, MM, SS);
+    *J = MakeJAM(HH, MM);
         
     
 }
@@ -93,34 +93,35 @@ JAM MenitToJAM (long N)
 /* KELOMPOK OPERASI TERHADAP TYPE                                    */
 /* ***************************************************************** */
 /* *** Kelompok Operator Relational *** */
-// boolean JEQ (JAM J1, JAM J2)
-// /* Mengirimkan true jika J1=J2, false jika tidak */
-// {
-//     return (JAMToDetik(J1) == JAMToDetik(J2));
-// }
-// boolean JNEQ (JAM J1, JAM J2)
-// /* Mengirimkan true jika J1 tidak sama dengan J2 */
-// {
-//     return (!(JEQ(J1, J2)));
-// }
-// boolean JLT (JAM J1, JAM J2)
-// /* Mengirimkan true jika J1<J2, false jika tidak */
-// {
-//     return (JAMToDetik(J1) < JAMToDetik(J2));
-// }
-// boolean JGT (JAM J1, JAM J2)
-// /* Mengirimkan true jika J1>J2, false jika tidak */
-// /* *** Operator aritmatika JAM *** */
-// {
-//     return (JAMToDetik(J1) > JAMToDetik(J2));
-// }
-// JAM NextDetik (JAM J)
-// /* Mengirim 1 detik setelah J dalam bentuk JAM */
-// {
-//     long now = JAMToDetik(J);
+boolean JEQ (JAM J1, JAM J2)
+/* Mengirimkan true jika J1=J2, false jika tidak */
+{
+     return (JAMToMenit(J1) == JAMToMenit(J2));
+}
+boolean JNEQ (JAM J1, JAM J2)
+/* Mengirimkan true jika J1 tidak sama dengan J2 */
+{
+    return (!(JEQ(J1, J2)));
+}
+boolean JLT (JAM J1, JAM J2)
+/* Mengirimkan true jika J1<=J2, false jika tidak */
+{
+    return (JAMToMenit(J1) <= JAMToMenit(J2));
+}
+boolean JGT (JAM J1, JAM J2)
+/* Mengirimkan true jika J1>J2, false jika tidak */
+/* *** Operator aritmatika JAM *** */
+{
+    return (JAMToMenit(J1) > JAMToMenit(J2));
+}
+JAM NextMenit (JAM J)
+/* Mengirim 1 detik setelah J dalam bentuk JAM */
+{
+    long now = JAMToMenit(J);
     
-//     return DetikToJAM(now + 1);
-// }
+    return MenitToJAM(now + 1);
+}
+
 JAM NextNMenit (JAM J, int N)
 /* Mengirim N detik setelah J dalam bentuk JAM */
 {
@@ -169,3 +170,4 @@ JAM Durasi (JAM JAw, JAM JAkh)
     
     return hasil;
 }
+
