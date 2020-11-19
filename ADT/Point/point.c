@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "point.h"
 
+void makeKoordinat(Koordinat *P ,int x, int y) {
+  absis(P) = x;
+  ordinat(P) = y;
+}
+
 void geserKanan(Koordinat *P){
   absis(*P) += 1;
 }

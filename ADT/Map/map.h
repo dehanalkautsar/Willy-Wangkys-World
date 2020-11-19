@@ -3,9 +3,32 @@
 
 #include <stdio.h>
 #include "../Matriks/matriks.h"
+#include "../Wahana/bintree_wahana.h"
 
-void printMap(MATRIKS M);
-void updateMap(MATRIKS *M, int x, int y, char input);
-void makeMap(MATRIKS *M, int row, int column, int mapIndex);
+typedef struct{
+  Elmt_Wahana Wahana;
+  Koordinat KoordinatWahana;
+  address Next;
+} Elmt_List_Wahana;
 
-#endif
+
+typedef struct {
+    address First;
+
+} List_Wahana
+
+typedef struct
+{
+  MATRIKS Peta;
+  List_Wahana L_Wahana;
+} Map;
+
+
+
+
+Peta.Wahana[0].Elmt_Wahana
+Peta.Wahana[1].KoordinatWahana
+
+
+
+void printMap(Peta M);

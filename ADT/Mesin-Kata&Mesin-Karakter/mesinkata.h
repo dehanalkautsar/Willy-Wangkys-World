@@ -48,4 +48,7 @@ void SalinKata();
 
 boolean IsKataSama (Kata K1,Kata K2);
 
+int PanjangString(char* string);
+Kata StringToKata(char* string);
+
 #endif

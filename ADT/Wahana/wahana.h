@@ -3,21 +3,28 @@
 
 #include "../Point/point.h"
 #include "../Jam/boolean.h"
+#include "../Tree/bintree.h"
 
-typedef struct 
-{
-     char* Nama;
-     char* Tipe;
-     int Harga;
-     koordinatWahana Lokasi;
-     char* Deskripsi;
-     int Kapasitas;
-     // history upgrade wahana
-     int Durasi;
-     // Ukuran Wahana (Bonus)
-     
+// Go to bintree wahana dude!
+// typedef struct
+// {
+//      char* Nama;
+//      char* Tipe;
+//      int Harga;
+//      Koordinat Lokasi;
+//      char* Deskripsi;
+//      int Kapasitas;
+//      // history upgrade wahana
+//      int Durasi;
+//      // Ukuran Wahana (Bonus)
+//      boolean statusWahana;
+// } Elmt_Wahana;
 
-} wahana;
+
+
+
+
+
 
 
 #endif

@@ -17,6 +17,7 @@ typedef struct {
 #define ordinat(P) (P).Y
 //#define wahana(C) (P).wahana
 
+void makeKoordinat(Koordinat*P, int x, int y);
 void geserKanan(Koordinat *P);
 void geserKiri(Koordinat *P);
 void geserAtas(Koordinat *P);

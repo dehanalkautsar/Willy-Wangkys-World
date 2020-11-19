@@ -16,7 +16,7 @@ void IgnoreBlank()
 void STARTKATA()
 {
     START();
-    IgnoreBlank();
+  k();
     if (CC == MARK)
     {
         EndKata = true;
@@ -74,4 +74,30 @@ boolean IsKataSama (Kata K1,Kata K2)
     }
 
     return sama; 
+}
+
+
+int PanjangString(char* string) {
+    int i = 0;
+    while (string[i] != '\0') {
+        i++;
+    }
+    return i;
+}
+
+Kata StringToKata(char* string) {
+    /* KAMUS LOKAL */
+    Kata Pass;
+    int n;
+
+    /* ALGORITMA */
+    n = PanjangString(string);
+    Pass.Length = n;
+    
+    for (int i = 0; i < n; i++)
+    {
+        Pass.TabKata[i] = string[i];
+    }
+    
+    return Pass;
 }

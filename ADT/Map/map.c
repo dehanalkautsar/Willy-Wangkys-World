@@ -4,7 +4,7 @@
 #include "map.h"
 #include "../Matriks/matriks.h"
 
-void makeMap(MATRIKS *M, int row, int column, int mapIndex)
+void makeMap(Peta *M, int row, int column, int mapIndex)
 {
     NBrsEff(*M) = row;
     NKolEff(*M) = column;
@@ -49,7 +49,7 @@ void makeMap(MATRIKS *M, int row, int column, int mapIndex)
     }
 }
 
-void printMap(MATRIKS M)
+void printMap(Peta M)
 {
     for (int i = GetFirstIdxBrs(M); i <= GetLastIdxBrs(M); i++)
     {
@@ -61,7 +61,7 @@ void printMap(MATRIKS M)
     }
 }
 
-void updateMap(MATRIKS *M, int x, int y, char input)
+void updateMap(Peta *M, int x, int y, char input)
 {
     Elmt(*M, x, y) = input;
 }

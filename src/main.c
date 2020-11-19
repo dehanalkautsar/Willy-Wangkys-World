@@ -12,25 +12,52 @@
 #include "../ADT/Queue/queue.h"
 #include "../ADT/Stack/stackt.h"
 #include "../ADT/Player/pemain.h"
+#include "../ADT/Tree/bintree.h"
+#include "../ADT/Wahana/bintree_wahana.h"
+#include "../ADT/Map/map.h"
 
 int main(){
-    char* choice;
+    // char* choice;
+    Kata New, Load, Exit;
     
-    printf("// Welcome to Willy wangky's fum factory!!////\n New game / load game / exit? //\n");
+    New.Length = 3;
+    New.TabKata[0] = 'n';
+    New.TabKata[1] = 'e';
+    New.TabKata[2] = 'w';
+
+    Load.Length = 4;
+    Load.TabKata[0] = 'l';
+    Load.TabKata[1] = 'o';
+    Load.TabKata[2] = 'a';
+    Load.TabKata[3] = 'd';
+
+    Exit.Length = 4;
+    Exit.TabKata[0] = 'e';
+    Exit.TabKata[1] = 'x';
+    Exit.TabKata[2] = 'i';
+    Exit.TabKata[3] = 't';
+
     
-    do{
-        scanf("%s", &choice);
-    }while (choice=="new" || choice=="load" || choice =="exit");
+    printf("// Welcome to Willy wangky's fum factory!!//\n New game / load game / exit? //\n");
     
-    if (choice=="new"){   
-        //new game
-    }else if(choice=="load"){
-        //continue game
-    }else{
+    /* ALGORITMA */
+    STARTKATA();
+    while(!EndKata) {
+        if (IsKataSama(New,CKata)) {
+            // New Game
+        } else if (IsKataSama(Load,CKata)) {
+            // Load Game
+        } else if (IsKataSama(Exit,CKata)) {
+            // Exit
             printf("// Thanks for playing!!! //");
-            return 0;
+        } else {
+            printf("Input tidak valid\n");
         }
-    
+
+        IgnoreBlank();
+        ADVKATA(); //Cek kata selanjutnya
+    }
+
     return 0;
 }
 
@@ -42,9 +69,21 @@ void game_on(int* day) { // Masih perlu tambah parameter (Player)
     isGoing = true;
     while (isGoing) {
         preparation_phase(*day);
-        main_phase(day,&isGoing);
+        main_phase(day,isGoing);
     }
     // Terminasi program
+}
+
+void enter_office(int day, boolean isGoing) { //parameternya belum dimasukin
+    /* KAMUS */
+    boolean stillInOffice;
+    /* ALGORITMA */
+    stillInOffice = true;
+    
+    while (stillInOffice) {
+        office(&stillInOffice);
+    }
+    main_phase(&day, isGoing);
 }
 
 /* NEW GAME */
@@ -74,6 +113,9 @@ void new_game() {
 /* TBA */
 
 /* GENERAL PROCEDURE FOR PREPARATION AND MAIN */
+
+// Bikin fungsi buat ambil wahana dari txt
+
 
 
 /* END OF RESERVE */
@@ -122,7 +164,7 @@ void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Playe
         TulisJAM(OPJam);
         printf("\n");
 
-        SisaJam = Durasi(CJam,OPJam)
+        SisaJam = Durasi(CJam,OPJam);
         if (JAMToMenit(SisaJam) != 0) {
             if (Minute(SisaJam) == 0) {
                 print("Time Remaining: %d hour(s)\n",Hour(SisaJam));
@@ -158,58 +200,19 @@ void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Playe
 // Not finished, tambah parameter yang kurang
 void input_prepration_phase(boolean* status) {
     /* KAMUS */
-    Kata W, A, S, D, Build, Upgrade, Buy, Undo, Execute, Main;
+    Kata W, A, S, D, Build, Upgrade, Buy, Undo, Execute, Main, Quit;
     
-    W.Length = 1;
-    W.TabKata[0] = 'w';
-    A.Length = 1;
-    A.TabKata[0] = 'a';
-    S.Length = 1;
-    S.TabKata[0] = 's';
-    D.Length = 1;
-    D.TabKata[0] = 'd';
-
-    Build.Length = 5;
-    Build.TabKata[0] = 'b';
-    Build.TabKata[1] = 'u';
-    Build.TabKata[2] = 'i';
-    Build.TabKata[3] = 'l';
-    Build.TabKata[4] = 'd';
-
-    Upgrade.Length = 7;
-    Upgrade.TabKata[0] = 'u';
-    Upgrade.TabKata[1] = 'p';
-    Upgrade.TabKata[2] = 'g';
-    Upgrade.TabKata[3] = 'r';
-    Upgrade.TabKata[4] = 'a';
-    Upgrade.TabKata[5] = 'd';
-    Upgrade.TabKata[6] = 'e';
-
-    Buy.Length = 3;
-    Buy.TabKata[0] = 'b';
-    Buy.TabKata[1] = 'u';
-    Buy.TabKata[2] = 'y';
-
-    Undo.Length = 4;
-    Undo.TabKata[0] = 'u';
-    Undo.TabKata[1] = 'n';
-    Undo.TabKata[2] = 'd';
-    Undo.TabKata[3] = 'o';
-
-    Execute.Length = 7;
-    Execute.TabKata[0] = 'e';
-    Execute.TabKata[1] = 'x';
-    Execute.TabKata[2] = 'e';
-    Execute.TabKata[3] = 'c';
-    Execute.TabKata[4] = 'u';
-    Execute.TabKata[5] = 't';
-    Execute.TabKata[6] = 'e';
-
-    Main.Length = 4;
-    Main.TabKata[0] = 'm';
-    Main.TabKata[1] = 'a';
-    Main.TabKata[2] = 'i';
-    Main.TabKata[3] = 'n';
+    W = StringToKata("w");
+    A = StringToKata("a");
+    S = StringToKata("s");
+    D = StringToKata("d");
+    Build = StringToKata("build");
+    Upgrade = StringToKata("upgrade");
+    Buy = StringToKata("buy");
+    Undo = StringToKata("undo");
+    Execute = StringToKata("execute");
+    Main = StringToKata("main");
+    
     
     /* ALGORITMA */
     STARTKATA();
@@ -238,30 +241,81 @@ void input_prepration_phase(boolean* status) {
 
 }
 
+void build(Pemain P, Elmt_Wahana W, int Need_Money, JAM Need_Jam){
+    JAM WaktuBuild = MakeJAM(1,0);
+    JAM TempJam = MakeJAM(0,0);
+    long TempMenit = 0;
+    // 1st Step menampilakan wahana dasar yang mungkin dibuat (hasil file load eksternal)
+    // pending menunggu file eksternal
+
+    //2nd step pilih wahana
+
+    //3rd step cek resource player dengan requirement wahana
+    boolean EnoughResource = false;
+    if ((Need_Money<=P.uang)&&(JLT(WaktuBuild,P.jamPemain))){
+        Need_Money = Need_Money + W.Harga;      // Tambah need_money
+        TempMenit = JAMToMenit(WaktuBuild)+ JAMToMenit(Need_Jam); //Konvert jam lalu ditambah ke need_jam
+        Need_Jam = MenitToJAM(TempMenit);       
+    }
+    else{
+        if (Need)
+    }
+    while (!EnoughResource){
+        if ( (W.Harga<P.uang)&&(JLT(WaktuBuild,P.jamPemain)) ){   // Cek uang&waktu apakah cukup
+            Need_Jam = Need_Jam + WaktuBuild;
+            Need_Money = Need_Money + W.Harga;
+            EnoughResource = true;
+        }
+    }
+    
+    //4th step masukan perintah eksekusi ke dalam stack
+
+}
+
+
+void upgrade(Pemain P, Peta M) {
+    /* KAMUS LOKAL */
+    wahana W;
+    Upgrade_Wahana U1,U2;
+
+    /* ALGORITMA */
+    /* 1. Cek Wahana disekitar kita */
+    // TBA
+
+    /* 2. Tampilkan daftar upgrade */
+    // Udah ada wahana di sekitar kita
+    U1 = Left_Upgrade(W);
+    U2 = Right_Upgrade(W);
+    printf("- %s\n",Nama_Upgrade(U1));
+    printf("- %s\n",Nama_Upgrade(U2));
+
+    /* 3. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
+}
 
 /* END OF RESERVED */
 
+/* RESERVE FROM MAIN PHASE */
 
-int main_phase(int* day, boolean* isGoing) { //parameternya masih kurang ditambah lagi sama ADT ADT yg belom
+void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
-    char* input;
+    JAM CurrentJam;
+    JAM CloseJam;
+    JAM SisaJam;
+
     /* ALGORITMA */
+    /* Inisialisasi */
+    CurrentJam = MakeJAM(9,0);
+    CloseJam = MakeJAM(21,0);
+
     status = true;
-    //disini masukin fungsi random buat antrian
-    //spawn antrian
-    Queue antrian;
-    MakeQueue(&antrian,5);
-    for (int i = 0; i<5; i++){
-        //proses isi antrian
-    }
 
+    /* Looping preparation phase */
     while (status) {
-        printf("//Mengeksekusi perintah dari stack //\n");
-        printf("Main phase day %d\n", day);
-        // PANGGIL FUNGSI GAMBAR PETA
-
-        // PANGGIL LEGEND DATA
+        printf("Main phase day %d\n",*day);
+        // Panggil fungsi gambar peta
+        
+        // Panggil legend peta
         printf("Legend:\n");
         printf("A = Antrian\n");
         printf("P = Player\n");
@@ -269,79 +323,187 @@ int main_phase(int* day, boolean* isGoing) { //parameternya masih kurang ditamba
         printf("O = Office\n");
         printf("<, ^, >, V = Gerbang\n");
 
-        // PANGGIL STATUS PLAYER
+        // Panggil status player
+            // Need ADT Player
 
-        // PANGGIL CURENT, CLOSING, DAN TIME REMAINING
+        // Panggil current waktu dan limit waktu
+        printf("Current Time: ");
+        TulisJAM(CurrentJam);
+        printf("\n");
+        printf("Opening Time: ");
+        TulisJAM(CloseJam);
+        printf("\n");
 
-        // PANGGIL FUNGSI ANTRIAN
+        SisaJam = Durasi(CurrentJam,CloseJam);
+        if (JAMToMenit(SisaJam) != 0) {
+            if (Minute(SisaJam) == 0) {
+                print("Time Remaining: %d hour(s)\n",Hour(SisaJam));
+            } else {
+                print("Time Remaining: %d hour(s) %d minute(s)\n",Hour(SisaJam),Minute(SisaJam));
+            }
+        } else {
+            print("Time Remaining: 0\n");
+        }
+        
+        // Panggil Priority Queue buat tampilan antrian
 
-        // PANGGIL FUNGSI INPUT
-        input = input_main_phase();
+        // Panggil wahana apa yang rusak.
 
-        // JALANKAN FUNGSI INPUT
-    }
+        input_main_phase(&status); //panggil input dan jalankan
+        
     *day++;
-
-    return 0;
+    }
 }
+
 
 /* RESERVED FOR FUNCTION IN MAIN PHASE */
-char* input_main_phase() {
+
+// Not finished, tambah parameter yang kurang
+void input_main_phase(boolean* status, int day, boolean isGoing) {
     /* KAMUS */
-    char* input_user;
-    char* valid_input[9] = {"w","a","s","d","serve","repair","detail","office","prepare"};
-    boolean valid = false;
+    Kata W, A, S, D, Serve, Repair, Detail, Office, Prepare, Quit;
+    
+    W.Length = 1;
+    W.TabKata[0] = 'w';
+    A.Length = 1;
+    A.TabKata[0] = 'a';
+    S.Length = 1;
+    S.TabKata[0] = 's';
+    D.Length = 1;
+    D.TabKata[0] = 'd';
 
-    int i = 0;
+    Serve.Length = 5;
+    Serve.TabKata[0] = 's';
+    Serve.TabKata[1] = 'e';
+    Serve.TabKata[2] = 'r';
+    Serve.TabKata[3] = 'v';
+    Serve.TabKata[4] = 'e';
 
-    /* ALGORITHM */
-    do {
-        printf("Masukkan Perintah :\n");
-        scanf("%s",&input_user); /* JANGAN LUPA NANTI MASUKINNYA KE ADT MESIN KATA / MESIN KARAKTER */
+    Repair.Length = 6;
+    Repair.TabKata[0] = 'r';
+    Repair.TabKata[1] = 'e';
+    Repair.TabKata[2] = 'p';
+    Repair.TabKata[3] = 'a';
+    Repair.TabKata[4] = 'i';
+    Repair.TabKata[5] = 'r';
 
-        while (!valid && i<9) {
-            if (!strcmp(input_user,valid_input[i])) {   // Note, strcmp kalau sama malah 0
-                valid = true;
-            } else {
-                i++;
-            }
+    Detail.Length = 6;
+    Detail.TabKata[0] = 'd';
+    Detail.TabKata[1] = 'e';
+    Detail.TabKata[2] = 't';
+    Detail.TabKata[3] = 'a';
+    Detail.TabKata[4] = 'i';
+    Detail.TabKata[5] = 'l';
+
+    Office.Length = 6;
+    Office.TabKata[0] = 'o';
+    Office.TabKata[1] = 'f';
+    Office.TabKata[2] = 'f';
+    Office.TabKata[3] = 'i';
+    Office.TabKata[4] = 'c';
+    Office.TabKata[5] = 'e';
+
+    Prepare.Length = 7;
+    Prepare.TabKata[0] = 'p';
+    Prepare.TabKata[1] = 'r';
+    Prepare.TabKata[2] = 'e';
+    Prepare.TabKata[3] = 'p';
+    Prepare.TabKata[4] = 'a';
+    Prepare.TabKata[5] = 'r';
+    Prepare.TabKata[6] = 'e';
+
+    Quit.Length = 4;
+    Quit.TabKata[0] = 'm';
+    Quit.TabKata[1] = 'a';
+    Quit.TabKata[2] = 'i';
+    Quit.TabKata[3] = 'n';
+    
+    /* ALGORITMA */
+    STARTKATA();
+    while(!EndKata) {
+        if ((IsKataSama(W,CKata)) || (IsKataSama(A,CKata)) || (IsKataSama(S,CKata)) || (IsKataSama(D,CKata))) {
+            // Update peta
+        } else if (IsKataSama(Serve,CKata)) {
+            // Lakukan serve
+        } else if (IsKataSama(Repair,CKata)) {
+            // Lakukan repair
+        } else if (IsKataSama(Detail,CKata)) {
+            // Lakukan detail
+        } else if (IsKataSama(Office,CKata)) {
+            enter_office(day,isGoing);
+        } else if (IsKataSama(Prepare,CKata)) {
+            // Lakukan prepare
+        } else if (IsKataSama(Quit,CKata)) {
+            // Lakukan quit
+        } else {
+            printf("Input tidak valid\n");
         }
-        
-        if (!valid) {
-           printf("Perintah salah, coba lagi\n"); 
-        }
-        
-    } while (!valid);
 
-    return input_user;
+        IgnoreBlank();
+        ADVKATA(); //Cek kata selanjutnya
+    }
+
 }
 
-
-void action_input_main(char* input,boolean status) { // Tambah parameter player sama map buat diupdate, 
-/* Menjalankan perintah input */
-
-/* KAMUS*/
-
-/* ALGORITMA */
-    if ((!strcmp("w",input)) || (!strcmp("a",input)) || (!strcmp("s",input)) || (!strcmp("d",input))) {
-        // Update peta
-    } else if (!strcmp("serve",input)) {
-        // Lakukan serve
-    } else if (!strcmp("repair",input)) {
-        // Lakukan repair
-    } else if (!strcmp("detail",input)) {
-        // Lakukan detail
-    } else if (!strcmp("office",input)) {
-        // Lakukan office
-    } else if (!strcmp("prepare",input)) {
-        // Lakukan prepare
-    } else {
-        printf("Something wrong happened\n");
+void serve(Elmt_Wahana W, Pemain *P){ // parameternya harusnya wahana, sama player
+    // check wahana error atau engga
+    if (W.statusWahana){
+        //proses serve
+        uang(*P) += Harga_Wahana(W);
+        // queue nya masih bingung
+    }else{
+        printf("Oops! Wahana tidak tersedia..")
     }
 }
 
+void office(boolean* stillInOffice) { //parameter belom dimasukin, belum pernah ditest juga
+    /* KAMUS */
+    Kata Details, Report, Exit;
+    
+
+    Details.Length = 7;
+    Details.TabKata[0] = 'D';
+    Details.TabKata[1] = 'e';
+    Details.TabKata[2] = 't';
+    Details.TabKata[3] = 'a';
+    Details.TabKata[4] = 'i';
+    Details.TabKata[5] = 'l';
+    Details.TabKata[6] = 's';
+
+    Report.Length = 6;
+    Report.TabKata[0] = 'R';
+    Report.TabKata[1] = 'e';
+    Report.TabKata[2] = 'p';
+    Report.TabKata[3] = 'o';
+    Report.TabKata[4] = 'r';
+    Report.TabKata[5] = 't';
+
+    Exit.Length = 4;
+    Exit.TabKata[0] = 'E';
+    Exit.TabKata[1] = 'x';
+    Exit.TabKata[2] = 'i';
+    Exit.TabKata[3] = 't';
 
 
+    /* ALGORITMA */
+    if (stillInOffice) {
+        printf("Masukkan perintah (Details / Report / Exit) :\n");
+        STARTKATA();
+        while (!EndKata) {
+            if (IsKataSama(Details,CKata)) {
+                // lakukan details, akses list wahana dan detail
+            } else if (IsKataSama(Report,CKata)) {
+                // lakukan report, akses list wahana dan report
+            } else if (IsKataSama(Exit,CKata)) {
+                stillInOffice = false;
+            } else {
+                printf("Input tidak valid\n");
+            }
 
+            IgnoreBlank();
+            ADVKATA();
+        }
+    }
 
+}
 /* END OF RESERVED OF MAIN PHASE FUNCTION/PROCEDURE */
