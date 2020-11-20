@@ -1,5 +1,4 @@
 #include "bintree_wahana.h"
-#include "listrek.h"
 #include "boolean.h"
 #include "string.h"
 
@@ -180,11 +179,11 @@ boolean SearchTree (BinTree P, wahana X) {
 /* Mengirimkan true jika ada node dari P yang bernilai X */
 
 /* *** Fungsi-Fungsi Lain *** */
-int NbElmt (BinTree P) {
+int NbElmt_Tree (BinTree P) {
 	if (P == Nil)
 		return 0;
 	else
-		return 1 + NbElmt(Left(P)) + NbElmt(Right(P));
+		return 1 + NbElmt_Tree(Left(P)) + NbElmt_Tree(Right(P));
 }
 /* Mengirimkan banyaknya elemen (node) pohon biner P */
 int NbDaun (BinTree P) {
@@ -304,43 +303,43 @@ void DelDaun (BinTree *P, wahana X) {
 			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
 	}
 }
-/* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
-/* F.S. Semua daun bernilai X dihapus dari P. */
-List MakeListDaun (BinTree P) {
-	if (IsTreeEmpty(P))
-		return Nil;
-	if (IsTreeOneElmt(P))
-		return Alokasi(ID_Wahana(Akar(P)));
-	else
-		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
-}
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-   jika semua alokasi list berhasil.
-   Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
-List MakeListPreorder (BinTree P) {
-	if (IsTreeEmpty(P))
-		return Nil;
-	if (IsTreeOneElmt(P))
-		return Alokasi(Akar(P));
-	else
-		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
-}
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-   dengan urutan preorder, jika semua alokasi berhasil.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
-List MakeListLevel (BinTree P, int N) {
-	if (!IsTreeEmpty(P) && N == 1)
-		return Alokasi(Akar(P));
-	else if (!IsTreeEmpty(P))
-		return Concat(MakeListLevel(Left(P), N-1), MakeListLevel(Right(P), N-1));
-	else
-		return Nil;
-}
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-   yang levelnya=N, jika semua alokasi berhasil.
-   Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
+// /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
+// /* F.S. Semua daun bernilai X dihapus dari P. */
+// List MakeListDaun (BinTree P) {
+// 	if (IsTreeEmpty(P))
+// 		return Nil;
+// 	if (IsTreeOneElmt(P))
+// 		return Alokasi(ID_Wahana(Akar(P)));
+// 	else
+// 		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
+// }
+// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
+//    jika semua alokasi list berhasil.
+//    Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+//    Menghasilkan list kosong jika ada alokasi yang gagal. */
+// List MakeListPreorder (BinTree P) {
+// 	if (IsTreeEmpty(P))
+// 		return Nil;
+// 	if (IsTreeOneElmt(P))
+// 		return Alokasi(Akar(P));
+// 	else
+// 		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
+// }
+// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+//    dengan urutan preorder, jika semua alokasi berhasil.
+//    Menghasilkan list kosong jika ada alokasi yang gagal. */
+// List MakeListLevel (BinTree P, int N) {
+// 	if (!IsTreeEmpty(P) && N == 1)
+// 		return Alokasi(Akar(P));
+// 	else if (!IsTreeEmpty(P))
+// 		return Concat(MakeListLevel(Left(P), N-1), MakeListLevel(Right(P), N-1));
+// 	else
+// 		return Nil;
+// }
+// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+//    yang levelnya=N, jika semua alokasi berhasil.
+//    Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+//    Menghasilkan list kosong jika ada alokasi yang gagal. */

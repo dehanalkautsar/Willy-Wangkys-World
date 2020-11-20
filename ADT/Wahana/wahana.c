@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h> 
 #include "bintree_wahana.h"
-#include "../ADT/Mesin-Kata&Mesin-Karakter/mesinkata.h"
+// #include "../Mesin-Kata&Mesin-Karakter/mesinkar_file.h"
 
 /* ADT WAHANA */
 /* BELUM ADA UPGRADE */
@@ -20,8 +20,8 @@ wahana MakeWahana(int ID, char* Nama, int Harga, char* Deskripsi, int Kapasitas,
 // ID,Nama,Harga,Deskripsi,Kapasitas,Durasi
 
 // Parameter input/output list of wahana
-void Read_File_Wahana(wahana* W[30], char* nama_file) {
-    int ID, char* Nama; int Harga; char* Deskripsi; int Kapasitas; int Durasi_Menit;
+void Read_File_Wahana(wahana W[30], char* nama_file) {
+    int ID; char* Nama; int Harga; char* Deskripsi; int Kapasitas; int Durasi_Menit;
     FILE *fp;
     char buff[255];
 
@@ -84,8 +84,6 @@ void Make_Tree_Wahana(BinTree *Tree_Wahana,char* nama_file) {
     AddDaun(Tree_Wahana,W[2],W[6],false);
     
         
-    }
-    
 }
 
 
