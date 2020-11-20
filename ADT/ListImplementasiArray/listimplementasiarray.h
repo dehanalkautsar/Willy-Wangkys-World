@@ -42,8 +42,10 @@ typedef struct {
    Definisi elemen pertama : T[i] dengan i=1 */
   
 /* ********** SELEKTOR ********** */
-#define ActOrBarang(T,i) (T).Tab[(i)].actionorbarang
-#define DurasiOrHarga(T,i) (T).Tab[(i)].durasiorharga
+#define Act(T,i) (T).Tab[(i)].actionorbarang
+#define Durasiz(T,i) (T).Tab[(i)].durasiorharga
+#define Barang(T,i) (T).Tab[(i)].actionorbarang
+#define Harga(T,i) (T).Tab[(i)].durasiorharga
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */

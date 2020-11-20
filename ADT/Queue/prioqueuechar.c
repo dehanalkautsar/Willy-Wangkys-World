@@ -15,23 +15,23 @@
 /* INDEKS YANG DIPAKAI [0..MaxEl(Q)-1] (ini berisi sejumlah MaxEl) */
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueChar Q)
+boolean isEmptyPQ (PrioQueue Q)
 /* Mengirim true jika Q kosong: lihat definisi di atas */
 {
     return (Tail(Q)==Nil && Head(Q)==Nil);
 }
 
-boolean IsFull (PrioQueueChar Q)
+boolean IsFull (PrioQueue Q)
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
 {
     return (NBElmt(Q)==MaxEl(Q));
 }
 
-int NBElmt (PrioQueueChar Q)
+int NBElmt (PrioQueue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
-    if (IsEmpty(Q)) {
+    if (isEmptyPQ(Q)) {
         return 0;
     } else {
         return ((MaxEl(Q) + Tail(Q) - Head(Q)) % MaxEl(Q))+1;
@@ -39,7 +39,7 @@ int NBElmt (PrioQueueChar Q)
 }
 
 /* *** Kreator *** */
-void MakeEmpty (PrioQueueChar * Q, int Max)
+void MakeEmpty (PrioQueue * Q, int Max)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max */
@@ -57,7 +57,7 @@ void MakeEmpty (PrioQueueChar * Q, int Max)
 }
 
 /* *** Destruktor *** */
-void DeAlokasi(PrioQueueChar * Q)
+void DeAlokasi(PrioQueue * Q)
 /* Proses: Mengembalikan memori Q */
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
@@ -69,7 +69,7 @@ void DeAlokasi(PrioQueueChar * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueChar * Q, infotypeQ X)
+void Enqueue (PrioQueue * Q, infotypeQ X)
 /* Proses: Menambahkan X pada Q dengan aturan priority queue, terurut mengecil berdasarkan prio */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
@@ -80,11 +80,12 @@ void Enqueue (PrioQueueChar * Q, infotypeQ X)
 
     /* Algoritma */
     // Kasus Kosong
-    if (IsEmpty(*Q)) {
+    if (isEmptyPQ(*Q)) {
         Head(*Q)++; 
         Tail(*Q)++;
         // Isi info tail
-        InfoTail(*Q) = X;   
+        InfoTail(*Q).kesabaran = X.kesabaran;
+        InfoTail(*Q).Wahana = X.Wahana;
     } else { // Kasus Tidak Kosong
         a = Tail(*Q); // a berada di tail Q awal
 
@@ -122,7 +123,7 @@ void Enqueue (PrioQueueChar * Q, infotypeQ X)
     } 
 }
 
-void Dequeue (PrioQueueChar * Q, infotypeQ * X)
+void Dequeue (PrioQueue * Q, infotypeQ * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
@@ -141,38 +142,59 @@ void Dequeue (PrioQueueChar * Q, infotypeQ * X)
     }
 }
 
-/* Operasi Tambahan */
-void PrintPrioQueueChar (PrioQueueChar Q)
-/* Mencetak isi queue Q ke layar */
-/* I.S. Q terdefinisi, mungkin kosong */
-/* F.S. Q tercetak ke layar dengan format:
-<prio-1> <elemen-1>
-...
-<prio-n> <elemen-n>
-#
-*/
+
+void makeQueue (PrioQueue *Q)
+/* Prosedur ini buat bikin antriannya */
 {
-    /* Kamus Lokal */
-    address p;
+    char *wahana[] = {"Wangky's World", "Subway rush", "Fear Factor"};
+    MakeEmpty(Q,5);
+    infotypeQ X;
 
-    /* Algoritma */
-    p = Head(Q);
 
-    while (p != Tail(Q)) {
-        printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
-
-        if (p==(MaxEl(Q)-1)) {
-            p = 0;
-        } else {
-            p++;
-        }
-
-    } // Berhenti ketika p sudah di tail atau p kosong
-    if (p!=Nil) {
-        printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
+    for (int i=0; i<5; i++){
+        int r = (rand() % 3);
+        for (int j = 0; )
+        //X.Wahana = random dari array wahana customer
+        X.kesabaran = (rand() % (10-0+1));
+        //Enqueue(*Q,X);
     }
 
-    printf("#\n");
-
 }
+
+
+
+// /* Operasi Tambahan */
+// void PrintPrioQueueChar (PrioQueue Q)
+// /* Mencetak isi queue Q ke layar */
+// /* I.S. Q terdefinisi, mungkin kosong */
+// /* F.S. Q tercetak ke layar dengan format:
+// <prio-1> <elemen-1>
+// ...
+// <prio-n> <elemen-n>
+// #
+// */
+// {
+//     /* Kamus Lokal */
+//     address p;
+
+//     /* Algoritma */
+//     p = Head(Q);
+
+//     while (p != Tail(Q)) {
+//         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
+
+//         if (p==(MaxEl(Q)-1)) {
+//             p = 0;
+//         } else {
+//             p++;
+//         }
+
+//     } // Berhenti ketika p sudah di tail atau p kosong
+//     if (p!=Nil) {
+//         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
+//     }
+
+//     printf("#\n");
+
+// }
 

@@ -10,6 +10,7 @@
 #include "../ADT/Mesin-Kata&Mesin-Karakter/mesinkata.h"
 #include "../ADT/Point/point.h"
 #include "../ADT/Queue/queue.h"
+#include "../ADT/Queue/prioqueuechar.h"
 #include "../ADT/Stack/stackt.h"
 #include "../ADT/Player/pemain.h"
 #include "../ADT/Tree/bintree.h"
@@ -395,7 +396,7 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
 
         // Panggil wahana apa yang rusak.
 
-        input_main_phase(&status); //panggil input dan jalankan
+        input_main_phase(&status,day,isGoing); //panggil input dan jalankan
         
     *day++;
     }
@@ -496,11 +497,33 @@ void serve(Elmt_Wahana W, Pemain *P){ // parameternya harusnya wahana, sama play
     if (W.statusWahana){
         //proses serve
         uang(*P) += Harga_Wahana(W);
-        // queue nya masih bingung
+        // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
+        //kalo iya dilayani terus wahana itu dihapus dari list antrian customer tsb
+            //kalo wishlist wahana udah kosong, pengunjung dequeue
+            //kalo wishlist masih ada, prioritas (kesabaran) makin ke depan
+        //kalo engga, cek customer berikutnya
         
     }else{
         printf("Oops! Wahana tidak tersedia..");
     }
+}
+
+void repair() {
+    //belum dicoding
+}
+
+void detail() { //parameternya belum dimasukin, harusnya ADT wahana, point, tree
+    /* KAMUS */
+
+    /* ALGORITMA */
+    printf("// Melihat detail wahana //\n");
+    printf("// Nama : \n");                     //print nama wahana yang ingin dilihat detail nya
+    printf("// Lokasi : \n");                   //print dimana letak lokasi wahana
+    printf("// Upgrade(s) : \n");               //print upgrade(s)
+    printf("// History : \n");                  //print history upgrade wahana
+    printf("// Status : \n");                   //print status wahana berfungsi atau tidak
+
+
 }
 
 void office(boolean* stillInOffice) { //parameter belom dimasukin, belum pernah ditest juga

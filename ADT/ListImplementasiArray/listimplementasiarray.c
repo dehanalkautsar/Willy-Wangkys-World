@@ -18,8 +18,8 @@ void MakeEmpty (TabACTBAHAN * T)
 {
      int i;
      for (i=IdxMin;i <= IdxMax; i++) {
-          ActOrBarang(*T,i) = "";
-          DurasiOrHarga(*T,i) = ValUndef;
+          Act(*T,i) = "";
+          Durasiz(*T,i) = ValUndef;
      }
 }
 
@@ -31,7 +31,7 @@ int NbElmt (TabACTBAHAN T)
 {
      int count = 0;
      int i = IdxMin;
-     while (((DurasiOrHarga(T,i) != ValUndef)) && i<=IdxMax)
+     while (((Durasiz(T,i) != ValUndef)) && i<=IdxMax)
      {
           count = count + 1;
           i++;
@@ -115,9 +115,9 @@ void BacaIsi (TabACTBAHAN * T)
           for ( i = IdxMin; i < N; i++)
           {
                scanf("%c\n", &nilaiIdx1);
-               ActOrBarang(*T,i) = nilaiIdx1;
+               Act(*T,i) = nilaiIdx1;
                scanf("%d\n", &nilaiIdx2);
-               DurasiOrHarga(*T,i) = nilaiIdx2;
+               Durasiz(*T,i) = nilaiIdx2;
           }
      }
 }
@@ -143,7 +143,7 @@ void TulisIsiTab (TabACTBAHAN T)
      else {
           for ( i = 0; i < NbElmt(T); i++)
           {
-               printf("     - %c\n", ActOrBarang(T,i));
+               printf("     - %c\n", Act(T,i));
           }
      }
 }
@@ -163,7 +163,7 @@ IdxType Search1 (TabACTBAHAN T, char* X)
           return IdxUndef;
      }
      else {
-          while ((ActOrBarang(T,i)!=X) && i<=GetLastIdx(T))
+          while ((Act(T,i)!=X) && i<=GetLastIdx(T))
           {
                i++;
           }
@@ -184,7 +184,7 @@ boolean SearchB (TabACTBAHAN T, char* X)
      boolean found = false;
      while (i<=GetLastIdx(T) && found==false)
      {
-          if (ActOrBarang(T,i)==X)
+          if (Act(T,i)==X)
           {
           found = true;
      }
@@ -204,15 +204,15 @@ void AddAsLastEl (TabACTBAHAN * T, char* X, int Y)
 {
      int i=IdxMin;
      if (IsEmpty(*T)) {
-          ActOrBarang(*T,i) = X;
-          DurasiOrHarga(*T,i) = Y;
+          Act(*T,i) = X;
+          Durasiz(*T,i) = Y;
      }
      else {
-          while (DurasiOrHarga(*T,i) != ValUndef) {
+          while (Durasi(*T,i) != ValUndef) {
                i++;
           }
-          ActOrBarang(*T,i) = X;
-          DurasiOrHarga(*T,i) = Y;
+          Act(*T,i) = X;
+          Durasiz(*T,i) = Y;
      }
 }
 void DelLastEl (TabACTBAHAN * T, char* * X, int * Y)
@@ -224,8 +224,8 @@ void DelLastEl (TabACTBAHAN * T, char* * X, int * Y)
 {
      int i;
      i = GetLastIdx(*T);
-     *X = ActOrBarang(*T,i);
-     *Y = DurasiOrHarga(*T,i);
-     DurasiOrHarga(*T,i) = ValUndef;
-     ActOrBarang(*T,i) = "";
+     *X = Act(*T,i);
+     *Y = Durasi(*T,i);
+     Durasiz(*T,i) = ValUndef;
+     Act(*T,i) = "";
 }

@@ -17,6 +17,7 @@ BinTree Tree (wahana Akar, BinTree L, BinTree R) {
 }
 /* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
 /* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
+
 void MakeTree (wahana Akar, BinTree L, BinTree R, BinTree *P) {
 	*P = Tree(Akar, L, R);
 }
@@ -171,7 +172,7 @@ A
 boolean SearchTree (BinTree P, wahana X) {
 	if (P == Nil)
 		return false;
-	else if (!strcmp(Nama_Wahana(Akar(P)),Nama_Wahana(X)))
+	else if (ID_Wahana(Akar(P))==ID_Wahana(X))
 		return true;
 	else
 		return SearchTree(Left(P), X) || SearchTree(Right(P), X);
@@ -213,7 +214,7 @@ boolean IsSkewRight (BinTree P) {
 /* Mengirimkan true jika P adalah pohon condong kanan */
 /* Pohon kosong adalah pohon condong kanan */
 int Level (BinTree P, wahana X) {
-	if (!strcmp(Nama_Wahana(Akar(P)),Nama_Wahana(X)))
+	if (ID_Wahana(Akar(P))==ID_Wahana(X))
 		return 1;
 	else if (SearchTree(Left(P),X))
 		return 1 + Level(Left(P), X);
@@ -248,99 +249,98 @@ void AddDaunTerkiri (BinTree *P, wahana X) {
 }
 // /* I.S. P boleh kosong */
 // /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
-// void AddDaun (BinTree *P, wahana X, wahana Y, boolean Kiri) {
-// 	if (!IsTreeEmpty(*P)) {
-// 		if (IsTreeOneElmt(*P) && !strcmp(Nama_Wahana(Akar(*P)),Nama_Wahana(X))) {
-// 			if (Kiri)
-// 				Left(*P) = Tree(Y, Nil, Nil);
-// 			else
-// 				Right(*P) = Tree(Y, Nil, Nil);
-// 		} else {
-// 			List daun = MakeListDaun(Left(*P));
-// 			if (Search(daun, X))
-// 				AddDaun(&Left(*P), X, Y, Kiri);
-// 			else
-// 				AddDaun(&Right(*P), X, Y, Kiri);
-// 		}
-// 	}
-// }
-// /* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
-// /* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
-//         sebagai anak Kanan X (jika Kiri = false) */
-// /*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
-// void DelDaunTerkiri (BinTree *P, wahana *X) {
-// 	if (IsTreeOneElmt(*P))
-// 		*X = Akar(*P), *P = Nil;
-// 	else if (IsUnerRight(*P)) {
-// 		if (IsTreeOneElmt(Right(*P))) {
-// 			*X = Akar(Right(*P));
-// 			DealokNode(Right(*P));
-// 			Right(*P) = Nil;
-// 		} else
-// 			DelDaunTerkiri(&Right(*P), X);
-// 	} else if (IsTreeOneElmt(Left(*P))) {
-// 		*X = Akar(Left(*P));
-// 		DealokNode(Left(*P));
-// 		Left(*P) = Nil;
-// 	} else
-// 		DelDaunTerkiri(&Left(*P), X);
-// }
-// /* I.S. P tidak kosong */
-// /* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
-//         disimpan pada daun terkiri yang dihapus */
-// void DelDaun (BinTree *P, wahana X) {
-// 	if (!IsTreeEmpty(*P)) {
-// 		if (IsTreeOneElmt(*P)) {
-// 			if (!strcmp(Nama_Wahana(Akar(*P)),Nama_Wahana(X)))
-// 				DealokNode(*P), *P = Nil;
-// 		} else if (Left(*P) != Nil && !strcmp(Nama_Wahana(Akar(Left(*P))),Nama_Wahana(X)) && IsTreeOneElmt(Left(*P))) {
-// 			DealokNode(Left(*P));
-// 			Left(*P) = Nil;
-// 		} else if (Right(*P) != Nil && !strcmp(Nama_Wahana(Akar(Right(*P))),Nama_Wahana(X)) && IsTreeOneElmt(Right(*P))) {
-// 			DealokNode(Right(*P));
-// 			Right(*P) = Nil;
-// 		}
-// 		if (!IsTreeEmpty(*P))
-// 			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
-// 	}
-// }
+void AddDaun (BinTree *P, wahana X, wahana Y, boolean Kiri) {
+	if (!IsTreeEmpty(*P)) {
+		if (IsTreeOneElmt(*P) && ID_Wahana(Akar(*P))==ID_Wahana(X)) {
+			if (Kiri)
+				Left(*P) = Tree(Y, Nil, Nil);
+			else
+				Right(*P) = Tree(Y, Nil, Nil);
+		} else {
+			if (SearchTree(Left(*P), X))
+				AddDaun(&Left(*P), X, Y, Kiri);
+			else
+				AddDaun(&Right(*P), X, Y, Kiri);
+		}
+	}
+}
+/* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
+        sebagai anak Kanan X (jika Kiri = false) */
+/*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
+void DelDaunTerkiri (BinTree *P, wahana *X) {
+	if (IsTreeOneElmt(*P))
+		*X = Akar(*P), *P = Nil;
+	else if (IsUnerRight(*P)) {
+		if (IsTreeOneElmt(Right(*P))) {
+			*X = Akar(Right(*P));
+			DealokNode(Right(*P));
+			Right(*P) = Nil;
+		} else
+			DelDaunTerkiri(&Right(*P), X);
+	} else if (IsTreeOneElmt(Left(*P))) {
+		*X = Akar(Left(*P));
+		DealokNode(Left(*P));
+		Left(*P) = Nil;
+	} else
+		DelDaunTerkiri(&Left(*P), X);
+}
+/* I.S. P tidak kosong */
+/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
+        disimpan pada daun terkiri yang dihapus */
+void DelDaun (BinTree *P, wahana X) {
+	if (!IsTreeEmpty(*P)) {
+		if (IsTreeOneElmt(*P)) {
+			if (ID_Wahana(Akar(*P))==ID_Wahana(X))
+				DealokNode(*P), *P = Nil;
+		} else if (Left(*P) != Nil && ID_Wahana(Akar(Left(*P)))==ID_Wahana(X) && IsTreeOneElmt(Left(*P))) {
+			DealokNode(Left(*P));
+			Left(*P) = Nil;
+		} else if (Right(*P) != Nil && ID_Wahana(Akar(Right(*P)))==ID_Wahana(X) && IsTreeOneElmt(Right(*P))) {
+			DealokNode(Right(*P));
+			Right(*P) = Nil;
+		}
+		if (!IsTreeEmpty(*P))
+			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
+	}
+}
 /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
 /* F.S. Semua daun bernilai X dihapus dari P. */
-// List MakeListDaun (BinTree P) {
-// 	if (IsTreeEmpty(P))
-// 		return Nil;
-// 	if (IsTreeOneElmt(P))
-// 		return Alokasi(Nama_Wahana(Akar(P)));
-// 	else
-// 		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-//    jika semua alokasi list berhasil.
-//    Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListPreorder (BinTree P) {
-// 	if (IsTreeEmpty(P))
-// 		return Nil;
-// 	if (IsTreeOneElmt(P))
-// 		return Alokasi(Akar(P));
-// 	else
-// 		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    dengan urutan preorder, jika semua alokasi berhasil.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListLevel (BinTree P, int N) {
-// 	if (!IsTreeEmpty(P) && N == 1)
-// 		return Alokasi(Akar(P));
-// 	else if (!IsTreeEmpty(P))
-// 		return Concat(MakeListLevel(Left(P), N-1), MakeListLevel(Right(P), N-1));
-// 	else
-// 		return Nil;
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    yang levelnya=N, jika semua alokasi berhasil.
-//    Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
+List MakeListDaun (BinTree P) {
+	if (IsTreeEmpty(P))
+		return Nil;
+	if (IsTreeOneElmt(P))
+		return Alokasi(ID_Wahana(Akar(P)));
+	else
+		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
+}
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
+   jika semua alokasi list berhasil.
+   Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+List MakeListPreorder (BinTree P) {
+	if (IsTreeEmpty(P))
+		return Nil;
+	if (IsTreeOneElmt(P))
+		return Alokasi(Akar(P));
+	else
+		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
+}
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+   dengan urutan preorder, jika semua alokasi berhasil.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+List MakeListLevel (BinTree P, int N) {
+	if (!IsTreeEmpty(P) && N == 1)
+		return Alokasi(Akar(P));
+	else if (!IsTreeEmpty(P))
+		return Concat(MakeListLevel(Left(P), N-1), MakeListLevel(Right(P), N-1));
+	else
+		return Nil;
+}
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+   yang levelnya=N, jika semua alokasi berhasil.
+   Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */

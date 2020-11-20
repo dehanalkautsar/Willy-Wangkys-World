@@ -15,7 +15,7 @@ typedef struct Material
 {
   char* NamaMaterial;
   int Kuantitas;
-}Material;
+} Material;
 
 typedef struct
 {
@@ -30,7 +30,6 @@ typedef struct
 #define uang(P) (P).uang
 #define posisiPemain(P) (P).posisiPemain
 #define jamPemain(P) (P).jamPemain
-
 
 void makePemain(Pemain *P, int uang, char* nama, Koordinat posisiPemain, JAM jamPemain);
 void setKoordinatPemain(Pemain *P, char input, MATRIKS M);

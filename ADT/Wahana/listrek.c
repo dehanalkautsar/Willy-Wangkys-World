@@ -45,7 +45,7 @@ void Dealokasi (address P)
 
 /* *** Primitif-primitif yang harus direalisasikan *** */
 /* Pemeriksaan Kondisi List */
-int IsEmpty(List L)
+int IsEmptyLR(List L)
 /* Mengirimkan 1 jika L kosong dan 0 jika L tidak kosong */
 {
     /* KAMUS LOKAL */
@@ -53,7 +53,7 @@ int IsEmpty(List L)
     return (L == Nil);
 }
 
-int IsOneElmt(List L)
+int IsOneElmtLR(List L)
 /* Mengirimkan 1 jika L berisi 1 elemen dan 0 jika > 1 elemen atau kosong */
 {
     /* KAMUS LOKAL */
@@ -66,7 +66,7 @@ int IsOneElmt(List L)
 }
 
 /* *** Selektor *** */
-infotype FirstElmt (List L)
+infotype FirstElmtLR (List L)
 /* Mengirimkan elemen pertama sebuah list L yang tidak kosong */
 {
     /* KAMUS LOKAL */
@@ -74,7 +74,7 @@ infotype FirstElmt (List L)
     return Info(L);
 }
 
-List Tail(List L)
+List TailLR(List L)
 /* Mengirimkan list L tanpa elemen pertamanya, mungkin menjadi list kosong */
 {
     /* KAMUS LOKAL */
@@ -182,7 +182,7 @@ void MConcat (List L1, List L2, List *LHsl)
     }
 }
 
-void PrintList (List L)
+void PrintListR (List L)
 /* I.S. L terdefinisi. */
 /* F.S. Setiap elemen list dicetak. */
 {
@@ -194,7 +194,7 @@ void PrintList (List L)
     }
 }
 
-int NbElmtList (List L)
+int NbElmtListR (List L)
 /* Mengirimkan banyaknya elemen list L, Nol jika L kosong */
 {
     /* KAMUS LOKAL */
@@ -206,7 +206,7 @@ int NbElmtList (List L)
     }
 }
 
-boolean Search (List L, infotype X)
+boolean SearchLR (List L, infotype X)
 /* Mengirim true jika X adalah anggota list, false jika tidak */
 {
     /* KAMUS LOKAL */
@@ -224,7 +224,7 @@ boolean Search (List L, infotype X)
 
 /*** Pencarian nilai ekstrim ***/
 /* Prekondisi untuk Max/Min/Sum/Average : List tidak kosong */
-infotype MaxList (List L)
+infotype MaxListR (List L)
 /* Mengirimkan nilai info(P) yang maksimum */
 {
     /* KAMUS LOKAL */
@@ -240,7 +240,7 @@ infotype MaxList (List L)
     }
 }
 
-infotype MinList (List L)
+infotype MinListR (List L)
 /* Mengirimkan nilai info(P) yang minimum */
 {
     /* KAMUS LOKAL */
@@ -256,7 +256,7 @@ infotype MinList (List L)
     }
 }
 
-infotype SumList (List L)
+infotype SumListR (List L)
 /* Mengirimkan total jumlah elemen List L */
 {
     /* KAMUS LOKAL */
@@ -268,7 +268,7 @@ infotype SumList (List L)
     }
 }
 
-float AverageList (List L)
+float AverageListR (List L)
 /* Mengirimkan nilai rata-rata elemen list L */
 {
     /* KAMUS LOKAL */
@@ -282,7 +282,7 @@ float AverageList (List L)
 }
 
 /*** Operasi-Operasi Lain ***/
-List InverseList (List L)
+List InverseListR (List L)
 /* Mengirimkan list baru, hasil invers dari L dengan menyalin semua elemen list.
 Semua elemen list baru harus dialokasi */
 /* Jika alokasi gagal, hasilnya list kosong */

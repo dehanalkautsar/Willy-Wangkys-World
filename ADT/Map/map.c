@@ -3,22 +3,24 @@
 #include <stdlib.h>
 #include "map.h"
 #include "../Matriks/matriks.h"
+#include "../Point/point.h"
 
-void makeMap(Peta *M, int row, int column, int mapIndex)
+void makeMap(Map *M, int row, int column, int mapIndex)
 {
-    NBrsEff(*M) = row;
-    NKolEff(*M) = column;
+    NBrsEff(mapMatriks(*M)) = row;
+    NKolEff(mapMatriks(*M)) = column;
+
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < column; j++)
         {
             if (i == 0 || i == (row - 1) || j == 0 || j == (column - 1))
             {
-                Elmt(*M, i, j) = '*';
+                Elmt(mapMatriks(*M), i, j) = '*';
             }
             else
             {
-                Elmt(*M, i, j) = '-';
+                Elmt(mapMatriks(*M), i, j) = '-';
             }
         }
     }
@@ -47,21 +49,57 @@ void makeMap(Peta *M, int row, int column, int mapIndex)
     default:
         break;
     }
+
+    // Inisialisasi list
+    for(int i = 0; i <= IdxMax; i++){
+        listWahana(*M, i) = Nil;
+    }
 }
 
-void printMap(Peta M)
+void printMap(Map M)
 {
-    for (int i = GetFirstIdxBrs(M); i <= GetLastIdxBrs(M); i++)
+    for (int i = GetFirstIdxBrs(mapMatriks(M)); i <= GetLastIdxBrs(mapMatriks(M)); i++)
     {
-        for (int j = GetFirstIdxKol(M); j <= GetLastIdxKol(M); j++)
+        for (int j = GetFirstIdxKol(mapMatriks(M)); j <= GetLastIdxKol(mapMatriks(M)); j++)
         {
-            printf("%c", Elmt(M, i, j));
+            printf("%c", Elmt(mapMatriks(M), i, j));
         }
         printf("\n");
     }
 }
 
-void updateMap(Peta *M, int x, int y, char input)
+int totalWahana(Map M) {
+  int i = 0;
+  while(listWahana(M, i) != Nil) {
+    i++;
+  }
+  return i;
+}
+
+
+
+void wahanaTerdekat(Map M, int x, int y, char* namaWahana[4])  {
+    int totalNamaWahana = 0;
+    int i = 0;
+    while(totalNamaWahana < 4 && i < totalWahana(M)) {
+        if(absis(infoKoordinatWahana(M, i)) == (x + 1) && ordinat(infoKoordinatWahana(M, i)) == y){
+            namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
+            totalNamaWahana++;
+        }else if(absis(infoKoordinatWahana(M, i)) == (x - 1) && ordinat(infoKoordinatWahana(M, i)) == y){
+            namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
+            totalNamaWahana++;
+        }else if(absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y + 1)){
+            namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
+            totalNamaWahana++;
+        }else if(absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y - 1)){
+            namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
+            totalNamaWahana++;
+        }
+        i++;
+    }
+}
+
+void updateMap(Map *M, int x, int y, char input)
 {
-    Elmt(*M, x, y) = input;
+    Elmt(mapMatriks(*M), x, y) = input;
 }

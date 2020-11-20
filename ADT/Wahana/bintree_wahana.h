@@ -12,13 +12,14 @@
 #include "../Point/point.h"
 #include "../Jam/jam.h"
 #include "../ListImplementasiArray/listimplementasiarray.h"
+#include "../Player/pemain.h"
 
 
 /* ADT WAHANA */
 typedef struct tElmt_Wahana
 {
+      int ID;
       char* Nama;
-      char* Tipe;
       int Harga;
       // Koordinat Lokasi;
       char* Deskripsi;
@@ -37,7 +38,7 @@ typedef struct tUpgrade_Wahana
       char* Nama_Upgrade;
       int Cost_Upgrade;
       // Material yang dibutuhkan
-      TabACTBAHAN Bahan_Upgrade;
+      Material Bahan_Upgrade;
       
 } Upgrade_Wahana;
 
@@ -65,11 +66,12 @@ typedef addrNode BinTree;
 #define Left(P) (P)->left
 #define Right(P) (P)->right
 
+#define ID_Wahana(W) W.ID
 #define Nama_Wahana(W) W.Nama
 #define Tipe_Wahana(W) W.Tipe
 #define Harga_Wahana(W) W.Harga
 // #define Lokasi_Wahana(W) W.Lokasi
-#define Deskripsi_Wahana(W) W.Dekripsi
+#define Deskripsi_Wahana(W) W.Deskripsi
 #define Kapasitas_Wahana(W) W.Kapasitas
 #define Durasi_Wahana(W) W.Durasi
 #define Left_Upgrade(W) W.Left_Upgrade
@@ -78,6 +80,10 @@ typedef addrNode BinTree;
 #define Nama_Upgrade(U) U.Nama_Upgrade
 #define Cost_Upgrade(U) U.Cost_Upgrade
 #define Bahan_Upgrade(U) U.Bahan_Upgrade
+
+/* KONSTRUKTOR WAHANA */
+
+
 
 /* *** Konstruktor *** */
 BinTree Tree (wahana Akar, BinTree L, BinTree R);
@@ -185,34 +191,34 @@ int Tinggi (BinTree P);
 void AddDaunTerkiri (BinTree *P, wahana X);
 /* I.S. P boleh kosong */
 /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
-// void AddDaun (BinTree *P, wahana X, wahana Y, boolean Kiri);
-// /* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
-// /* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
-//         sebagai anak Kanan X (jika Kiri = false) */
-// /*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
-// void DelDaunTerkiri (BinTree *P, wahana *X);
-// /* I.S. P tidak kosong */
-// /* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
-//         disimpan pada daun terkiri yang dihapus */
-// void DelDaun (BinTree *P, wahana X);
-// /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
-// /* F.S. Semua daun bernilai X dihapus dari P. */
-// List MakeListDaun (BinTree P);
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-//    jika semua alokasi list berhasil.
-//    Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListPreorder (BinTree P);
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    dengan urutan preorder, jika semua alokasi berhasil.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListLevel (BinTree P, int N);
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    yang levelnya=N, jika semua alokasi berhasil.
-//    Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
+void AddDaun (BinTree *P, wahana X, wahana Y, boolean Kiri);
+/* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
+        sebagai anak Kanan X (jika Kiri = false) */
+/*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
+void DelDaunTerkiri (BinTree *P, wahana *X);
+/* I.S. P tidak kosong */
+/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
+        disimpan pada daun terkiri yang dihapus */
+void DelDaun (BinTree *P, wahana X);
+/* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
+/* F.S. Semua daun bernilai X dihapus dari P. */
+List MakeListDaun (BinTree P);
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
+   jika semua alokasi list berhasil.
+   Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+List MakeListPreorder (BinTree P);
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+   dengan urutan preorder, jika semua alokasi berhasil.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
+List MakeListLevel (BinTree P, int N);
+/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
+/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
+   yang levelnya=N, jika semua alokasi berhasil.
+   Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
+   Menghasilkan list kosong jika ada alokasi yang gagal. */
 
 #endif
