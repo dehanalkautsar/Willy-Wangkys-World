@@ -349,6 +349,7 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
     JAM CurrentJam;
     JAM CloseJam;
     JAM SisaJam;
+    PrioQueue antrean;
 
     /* ALGORITMA */
     /* Inisialisasi */
@@ -356,7 +357,10 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
     CloseJam = MakeJAM(21,0);
 
     status = true;
+    
+    makeQueue(&antrean);
 
+    
     /* Looping preparation phase */
     while (status) {
         printf("Main phase day %d\n",*day);
@@ -393,7 +397,7 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
         }
         
         // Panggil Priority Queue buat tampilan antrian
-
+        
         // Panggil wahana apa yang rusak.
 
         input_main_phase(&status,day,isGoing); //panggil input dan jalankan

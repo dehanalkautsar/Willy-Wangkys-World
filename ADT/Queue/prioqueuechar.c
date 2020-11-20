@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "boolean.h"
 #include "prioqueuechar.h"
+#include "linkedlistQ.h"
 
 /* INDEKS YANG DIPAKAI [0..MaxEl(Q)-1] (ini berisi sejumlah MaxEl) */
 
@@ -140,6 +141,38 @@ void Dequeue (PrioQueue * Q, infotypeQ * X)
             Head(*Q)++;
         }
     }
+}
+
+void printAntrean(PrioQueue Q){
+    address P;
+    P = Head(Q);
+        
+        while (P != Tail(Q)) {
+            address R = Info(P).;
+            address info = info;
+            printf("(");
+            while (R != Nil)
+            {
+                if (R.Next !=Nil){
+
+                }
+                printf("%s, ")
+            }
+            
+        }
+//         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
+
+//         if (p==(MaxEl(Q)-1)) {
+//             p = 0;
+//         } else {
+//             p++;
+//         }
+
+//     } // Berhenti ketika p sudah di tail atau p kosong
+//     if (p!=Nil) {
+//         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
+//     }
+
 }
 
 
