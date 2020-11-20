@@ -10,7 +10,7 @@
 
 #define Nil NULL
 
-typedef int infotype;
+typedef char* infotype;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist { 
 	infotype info;
@@ -124,86 +124,5 @@ void DelAfter (List *L, address *Pdel, address Prec);
 /* F.S. Menghapus Next(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
 
-/****************** PROSES SEMUA ELEMEN LIST ******************/
-void PrintInfo (List L);
-/* I.S. List mungkin kosong */
-/* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika list kosong : menulis [] */
-/* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
-int NbElmt (List L);
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-
-/*** Prekondisi untuk Max/Min/rata-rata : List tidak kosong ***/
-infotype Max (List L);
-/* Mengirimkan nilai info(P) yang maksimum */
-address AdrMax (List L);
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-infotype Min (List L);
-/* Mengirimkan nilai info(P) yang minimum */
-address AdrMin (List L);
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
-float Average (List L);
-/* Mengirimkan nilai rata-rata info(P) */
-
-/****************** PROSES TERHADAP LIST ******************/
-void DelAll (List *L);
-/* Delete semua elemen list dan alamat elemen di-dealokasi */
-
-void InversList (List *L);
-/* I.S. sembarang. */
-/* F.S. elemen list dibalik : */
-/* Elemen terakhir menjadi elemen pertama, dan seterusnya. */
-/* Membalik elemen list, tanpa melakukan alokasi/dealokasi. */
-
-List FInversList (List L);
-/* Mengirimkan list baru, hasil invers dari L */
-/* dengan menyalin semua elemn list. Alokasi mungkin gagal. */
-/* Jika alokasi gagal, hasilnya list kosong */
-/* dan semua elemen yang terlanjur di-alokasi, harus didealokasi */
-
-void CopyList (List *L1, List *L2);
-/* I.S. L1 sembarang. F.S. L2=L1 */
-/* L1 dan L2 "menunjuk" kepada list yang sama.*/
-/* Tidak ada alokasi/dealokasi elemen */
-
-List FCopyList (List L);
-/* Mengirimkan list yang merupakan salinan L */
-/* dengan melakukan alokasi. */
-/* Jika ada alokasi gagal, hasilnya list kosong dan */
-/* semua elemen yang terlanjur di-alokasi, harus didealokasi */
-
-void CpAlokList (List Lin, List *Lout);
-/* I.S. Lin sembarang. */
-/* F.S. Jika semua alokasi berhasil,maka Lout berisi hasil copy Lin */
-/* Jika ada alokasi yang gagal, maka Lout=Nil dan semua elemen yang terlanjur dialokasi, didealokasi */
-/* dengan melakukan alokasi elemen. */
-/* Lout adalah list kosong jika ada alokasi elemen yang gagal */
-
-void Konkat (List L1, List L2, List * L3);
-/* I.S. L1 dan L2 sembarang */
-/* F.S. L1 dan L2 tetap, L3 adalah hasil konkatenasi L1 & L2 */
-/* Jika semua alokasi berhasil, maka L3 adalah hasil konkatenasi*/
-/* Jika ada alokasi yang gagal, semua elemen yang sudah dialokasi */
-/* harus di-dealokasi dan L3=Nil*/
-/* Konkatenasi dua buah list : L1 & L2 menghasilkan L3 yang "baru" */
-/* Elemen L3 adalah hasil alokasi elemen yang “baru”. */
-/* Jika ada alokasi yang gagal, maka L3 harus bernilai Nil*/
-/* dan semua elemen yang pernah dialokasi didealokasi */
-
-void Konkat1 (List *L1, List *L2, List *L3);
-/* I.S. L1 dan L2 sembarang */
-/* F.S. L1 dan L2 kosong, L3 adalah hasil konkatenasi L1 & L2 */
-/* Konkatenasi dua buah list : L1 dan L2    */
-/* menghasilkan L3 yang baru (dengan elemen list L1 dan L2) */
-/* dan L1 serta L2 menjadi list kosong.*/
-/* Tidak ada alokasi/dealokasi pada prosedur ini */
-
-void PecahList (List *L1, List *L2, List L);
-/* I.S. L mungkin kosong */
-/* F.S. Berdasarkan L, dibentuk dua buah list L1 dan L2 */
-/* L tidak berubah: untuk membentuk L1 dan L2 harus alokasi */
-/* L1 berisi separuh elemen L dan L2 berisi sisa elemen L */
-/* Jika elemen L ganjil, maka separuh adalah NbElmt(L) div 2 */
 
 #endif

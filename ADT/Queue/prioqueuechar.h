@@ -15,7 +15,7 @@
 /* Definisi elemen dan address */
 typedef struct {
     int kesabaran;  /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
-    char *Wahana[]; /* elemen Wahana */
+    List Wahana; /* elemen Wahana */
 } infotypeQ;
 typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueChar : */

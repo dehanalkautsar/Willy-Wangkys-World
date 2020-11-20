@@ -150,13 +150,15 @@ void makeQueue (PrioQueue *Q)
     MakeEmpty(Q,5);
     infotypeQ X;
 
-
     for (int i=0; i<5; i++){
         int r = (rand() % 3);
-        for (int j = 0; )
+        CreateEmpty(&X.Wahana);
+        for (int j = 0; j<r; j++){
+            InsVLast(&X.Wahana, wahana[rand() % 3]);
+        }
         //X.Wahana = random dari array wahana customer
         X.kesabaran = (rand() % (10-0+1));
-        //Enqueue(*Q,X);
+        Enqueue(Q,X);
     }
 
 }
