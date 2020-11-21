@@ -16,7 +16,7 @@ void IgnoreBlank()
 void STARTKATA()
 {
     START();
-  k();
+    k();
     if (CC == MARK)
     {
         EndKata = true;
@@ -53,39 +53,44 @@ void SalinKata()
     CKata.Length = i;
 }
 
-boolean IsKataSama (Kata K1,Kata K2)
+boolean IsKataSama(Kata K1, Kata K2)
 {
     /* KAMUS LOKAL */
     int i = 0;
     boolean sama = true;
 
     /* ALGORITMA */
-    if (K1.Length==K2.Length) {
+    if (K1.Length == K2.Length)
+    {
         while (sama && i < K1.Length)
         {
-            if (K1.TabKata[i]!=K2.TabKata[i])
+            if (K1.TabKata[i] != K2.TabKata[i])
             {
                 sama = false;
-            } 
+            }
             i++;
         }
-    } else {
+    }
+    else
+    {
         sama = false;
     }
 
-    return sama; 
+    return sama;
 }
 
-
-int PanjangString(char* string) {
+int PanjangString(char *string)
+{
     int i = 0;
-    while (string[i] != '\0') {
+    while (string[i] != '\0')
+    {
         i++;
     }
     return i;
 }
 
-Kata StringToKata(char* string) {
+Kata StringToKata(char *string)
+{
     /* KAMUS LOKAL */
     Kata Pass;
     int n;
@@ -93,11 +98,29 @@ Kata StringToKata(char* string) {
     /* ALGORITMA */
     n = PanjangString(string);
     Pass.Length = n;
-    
+
     for (int i = 0; i < n; i++)
     {
         Pass.TabKata[i] = string[i];
     }
-    
+
     return Pass;
+}
+
+char *KataToString(Kata Kata)
+{
+    /* KAMUS LOKAL */
+    char buff[256];
+    int n;
+    int i;
+
+    /* ALGORITMA */
+    n = Kata.Length;
+    for (i = 0; i < n; i++)
+    {
+        buff[i] = Kata.TabKata[i];
+    }
+    buff[i + 1] = "\0";
+
+    return buff;
 }

@@ -51,7 +51,8 @@ void makeMap(Map *M, int row, int column, int mapIndex)
     }
 
     // Inisialisasi list
-    for(int i = 0; i <= IdxMax; i++){
+    for (int i = 0; i <= IdxMax; i++)
+    {
         listWahana(*M, i) = Nil;
     }
 }
@@ -68,30 +69,39 @@ void printMap(Map M)
     }
 }
 
-int totalWahana(Map M) {
-  int i = 0;
-  while(listWahana(M, i) != Nil) {
-    i++;
-  }
-  return i;
+int totalWahana(Map M)
+{
+    int i = 0;
+    while (listWahana(M, i) != Nil)
+    {
+        i++;
+    }
+    return i;
 }
 
-
-
-void wahanaTerdekat(Map M, int x, int y, char* namaWahana[4])  {
+void wahanaTerdekat(Map M, int x, int y, char *namaWahana[4])
+{
     int totalNamaWahana = 0;
     int i = 0;
-    while(totalNamaWahana < 4 && i < totalWahana(M)) {
-        if(absis(infoKoordinatWahana(M, i)) == (x + 1) && ordinat(infoKoordinatWahana(M, i)) == y){
+    while (totalNamaWahana < 4 && i < totalWahana(M))
+    {
+        if (absis(infoKoordinatWahana(M, i)) == (x + 1) && ordinat(infoKoordinatWahana(M, i)) == y)
+        {
             namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
             totalNamaWahana++;
-        }else if(absis(infoKoordinatWahana(M, i)) == (x - 1) && ordinat(infoKoordinatWahana(M, i)) == y){
+        }
+        else if (absis(infoKoordinatWahana(M, i)) == (x - 1) && ordinat(infoKoordinatWahana(M, i)) == y)
+        {
             namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
             totalNamaWahana++;
-        }else if(absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y + 1)){
+        }
+        else if (absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y + 1))
+        {
             namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
             totalNamaWahana++;
-        }else if(absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y - 1)){
+        }
+        else if (absis(infoKoordinatWahana(M, i)) == (x) && ordinat(infoKoordinatWahana(M, i)) == (y - 1))
+        {
             namaWahana[totalNamaWahana] = Nama_Wahana(infoElementWahana(M, i));
             totalNamaWahana++;
         }

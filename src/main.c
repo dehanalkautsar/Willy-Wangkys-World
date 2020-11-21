@@ -11,16 +11,18 @@
 #include "../ADT/Point/point.h"
 #include "../ADT/Queue/queue.h"
 #include "../ADT/Queue/prioqueuechar.h"
+#include "../ADT/Queue/linkedlistQ.h"
 #include "../ADT/Stack/stackt.h"
 #include "../ADT/Player/pemain.h"
 #include "../ADT/Tree/bintree.h"
 #include "../ADT/Wahana/bintree_wahana.h"
 #include "../ADT/Map/map.h"
 
-int main(){
+int main()
+{
     // char* choice;
     Kata New, Load, Exit;
-    
+
     New.Length = 3;
     New.TabKata[0] = 'n';
     New.TabKata[1] = 'e';
@@ -38,20 +40,27 @@ int main(){
     Exit.TabKata[2] = 'i';
     Exit.TabKata[3] = 't';
 
-    
-    printf("// Welcome to Willy wangky's fum factory!!//\n New game / load game / exit? //\n");
-    
+    printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
+
     /* ALGORITMA */
     STARTKATA();
-    while(!EndKata) {
-        if (IsKataSama(New,CKata)) {
+    while (!EndKata)
+    {
+        if (IsKataSama(New, CKata))
+        {
             // New Game
-        } else if (IsKataSama(Load,CKata)) {
+        }
+        else if (IsKataSama(Load, CKata))
+        {
             // Load Game
-        } else if (IsKataSama(Exit,CKata)) {
+        }
+        else if (IsKataSama(Exit, CKata))
+        {
             // Exit
             printf("// Thanks for playing!!! //");
-        } else {
+        }
+        else
+        {
             printf("Input tidak valid\n");
         }
 
@@ -63,34 +72,39 @@ int main(){
 }
 
 /* STATUS PERMAINAN */
-void game_on(int* day) { // Masih perlu tambah parameter (Player)
+void game_on(int *day)
+{ // Masih perlu tambah parameter (Player)
     /* KAMUS */
     boolean isGoing;
     /* ALGORITMA */
     isGoing = true;
-    while (isGoing) {
+    while (isGoing)
+    {
         preparation_phase(*day);
-        main_phase(day,isGoing);
+        main_phase(day, isGoing);
     }
     // Terminasi program
 }
 
-void enter_office(int day, boolean isGoing) { //parameternya belum dimasukin
+void enter_office(int day, boolean isGoing)
+{ //parameternya belum dimasukin
     /* KAMUS */
     boolean stillInOffice;
     /* ALGORITMA */
     stillInOffice = true;
-    
-    while (stillInOffice) {
+
+    while (stillInOffice)
+    {
         office(&stillInOffice);
     }
     main_phase(&day, isGoing);
 }
 
 /* NEW GAME */
-void new_game() {
+void new_game()
+{
     /* KAMUS */
-    char* nama;
+    char *nama;
     int start_day;
     int start_money;
 
@@ -102,7 +116,6 @@ void new_game() {
     /* Inisialisasi Permainan */
     start_day = 1;
     start_money = 500;
-
 
     // MakePlayer
 
@@ -117,13 +130,11 @@ void new_game() {
 
 // Bikin fungsi buat ambil wahana dari txt
 
-
-
 /* END OF RESERVE */
 
-
 /* RESERVED FOR PREPRATATON PHASE */
-void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Player, Peta
+void preparation_phase(int day)
+{ // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
     JAM CJam;
@@ -134,18 +145,19 @@ void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Playe
 
     /* ALGORITMA */
     /* Inisialisasi */
-    CJam = MakeJAM(21,0);
-    OPJam = MakeJAM(9,0);
+    CJam = MakeJAM(21, 0);
+    OPJam = MakeJAM(9, 0);
     Need_Money = 0;
-    Need_Time = MakeJAM(0,0);
+    Need_Time = MakeJAM(0, 0);
 
     status = true;
 
     /* Looping preparation phase */
-    while (status) {
-        printf("Preparation phase day %d\n",day);
+    while (status)
+    {
+        printf("Preparation phase day %d\n", day);
         // Panggil fungsi gambar peta
-        
+
         // Panggil legend peta
         printf("Legend:\n");
         printf("A = Antrian\n");
@@ -155,7 +167,7 @@ void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Playe
         printf("<, ^, >, V = Gerbang\n");
 
         // Panggil status player
-            // Need ADT Player
+        // Need ADT Player
 
         // Panggil current waktu dan limit waktu
         printf("Current Time: ");
@@ -165,44 +177,56 @@ void preparation_phase(int day) { // Parameternya masih harus ditambah ADT Playe
         TulisJAM(OPJam);
         printf("\n");
 
-        SisaJam = Durasi(CJam,OPJam);
-        if (JAMToMenit(SisaJam) != 0) {
-            if (Minute(SisaJam) == 0) {
-                print("Time Remaining: %d hour(s)\n",Hour(SisaJam));
-            } else {
-                print("Time Remaining: %d hour(s) %d minute(s)\n",Hour(SisaJam),Minute(SisaJam));
+        SisaJam = Durasi(CJam, OPJam);
+        if (JAMToMenit(SisaJam) != 0)
+        {
+            if (Minute(SisaJam) == 0)
+            {
+                print("Time Remaining: %d hour(s)\n", Hour(SisaJam));
             }
-        } else {
+            else
+            {
+                print("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
+            }
+        }
+        else
+        {
             print("Time Remaining: 0");
         }
-        
+
         // Panggil status jumlah aksi, waktu dan uang yang dibutuhkan
         // Menampilkan Count_isi stack aski : TBA
 
         // Menampilkan total waktu yang dibutuhkan
-        if (JAMToMenit(Need_Time) != 0) {
-            if (Minute(Need_Time) == 0) {
-                print("Total waktu yang dibutuhkan: %d hour(s)\n",Hour(Need_Time));
-            } else {
-                print("Total waktu yang dibutuhkan: %d hour(s) %d minute(s)\n",Hour(Need_Time),Minute(Need_Time));
+        if (JAMToMenit(Need_Time) != 0)
+        {
+            if (Minute(Need_Time) == 0)
+            {
+                print("Total waktu yang dibutuhkan: %d hour(s)\n", Hour(Need_Time));
             }
-        } else {
+            else
+            {
+                print("Total waktu yang dibutuhkan: %d hour(s) %d minute(s)\n", Hour(Need_Time), Minute(Need_Time));
+            }
+        }
+        else
+        {
             print("Total waktu yang dibutuhkan: 0");
         }
         // Menampilkan total uang yang dibutuhkan:
         print("Total uang yang dibutuhkan: %d", Need_Money);
-        
+
         // Panggil input dan jalankan
-        input_prepration_phase(&status);   // Not finished, tambah parameter yang kurang
-        
+        input_preparation_phase(&status); // Not finished, tambah parameter yang kurang
     }
 }
 
 // Not finished, tambah parameter yang kurang
-void input_prepration_phase(boolean* status) {
+void input_preparation_phase(boolean *status)
+{
     /* KAMUS */
     Kata W, A, S, D, Build, Upgrade, Buy, Undo, Execute, Main, Quit;
-    
+
     W = StringToKata("w");
     A = StringToKata("a");
     S = StringToKata("s");
@@ -213,38 +237,53 @@ void input_prepration_phase(boolean* status) {
     Undo = StringToKata("undo");
     Execute = StringToKata("execute");
     Main = StringToKata("main");
-    
-    
+
     /* ALGORITMA */
     STARTKATA();
-    while(!EndKata) {
-        if ((IsKataSama(W,CKata)) || (IsKataSama(A,CKata)) || (IsKataSama(S,CKata)) || (IsKataSama(D,CKata))) {
+    while (!EndKata)
+    {
+        if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
+        {
             // Update peta
-        } else if (IsKataSama(Build,CKata)) {
+        }
+        else if (IsKataSama(Build, CKata))
+        {
             // Lakukan build
-        } else if (IsKataSama(Upgrade,CKata)) {
+        }
+        else if (IsKataSama(Upgrade, CKata))
+        {
             // Lakukan upgrade
-        } else if (IsKataSama(Buy,CKata)) {
+        }
+        else if (IsKataSama(Buy, CKata))
+        {
             // Lakukan buy
-        } else if (IsKataSama(Undo,CKata)) {
+        }
+        else if (IsKataSama(Undo, CKata))
+        {
             // Lakukan undo
-        } else if (IsKataSama(Execute,CKata)) {
+        }
+        else if (IsKataSama(Execute, CKata))
+        {
             // Lakukan execute
-        } else if (IsKataSama(Main,CKata)) {
+        }
+        else if (IsKataSama(Main, CKata))
+        {
             // Lakukan main
-        } else {
+        }
+        else
+        {
             printf("Input tidak valid\n");
         }
 
         IgnoreBlank();
         ADVKATA(); //Cek kata selanjutnya
     }
-
 }
 
-void build(Pemain P, Elmt_Wahana W, int *Need_Money, JAM *Need_Jam){
-    JAM WaktuBuild = MakeJAM(1,0);
-    JAM TempJam = MakeJAM(0,0);
+void build(Pemain P, Elmt_Wahana W, int *Need_Money, JAM *Need_Jam)
+{
+    JAM WaktuBuild = MakeJAM(1, 0);
+    JAM TempJam = MakeJAM(0, 0);
     long TempMenit = 0;
     // 1st Step menampilakan wahana dasar yang mungkin dibuat (hasil file load eksternal)
     // pending menunggu file eksternal
@@ -253,29 +292,32 @@ void build(Pemain P, Elmt_Wahana W, int *Need_Money, JAM *Need_Jam){
     //pilih wahana
 
     //3rd step cek resource player dengan requirement wahana
-    if ((Need_Money<=P.uang)&&(JLT(WaktuBuild,P.jamPemain))){ //JLT sudah diubah jump least than equal
-        *Need_Money = *Need_Money + W.Harga;      // Tambah need_money
-        TempMenit = JAMToMenit(WaktuBuild)+ JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
-        *Need_Jam = MenitToJAM(TempMenit);       
+    if ((Need_Money <= P.uang) && (JLT(WaktuBuild, P.jamPemain)))
+    {                                                               //JLT sudah diubah jump least than equal
+        *Need_Money = *Need_Money + W.Harga;                        // Tambah need_money
+        TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+        *Need_Jam = MenitToJAM(TempMenit);
     }
-    else{
-        if (Need_Money>P.uang){
+    else
+    {
+        if (Need_Money > P.uang)
+        {
             printf("Uang player tidak cukup");
         }
-        else if (JGT(WaktuBuild,P.jamPemain)){
+        else if (JGT(WaktuBuild, P.jamPemain))
+        {
             printf("Waktu tersisa tidak cukup");
         }
     }
     //4th step masukan perintah eksekusi ke dalam stack
-
 }
 
-
-void upgrade(Pemain P, Peta M, int* Need_Money, JAM* Need_Jam) {
+void upgrade(Pemain P, Map M, int *Need_Money, JAM *Need_Jam)
+{
     /* KAMUS LOKAL */
-    JAM WaktuBuild = MakeJAM(1,30);
+    JAM WaktuBuild = MakeJAM(1, 30);
     wahana W;
-    Upgrade_Wahana U1,U2;
+    Upgrade_Wahana U1, U2;
     Kata K1, K2;
     int choice;
     boolean valid;
@@ -288,8 +330,8 @@ void upgrade(Pemain P, Peta M, int* Need_Money, JAM* Need_Jam) {
     // Udah ada wahana di sekitar kita
     U1 = Left_Upgrade(W);
     U2 = Right_Upgrade(W);
-    printf("- %s\n",Nama_Upgrade(U1));
-    printf("- %s\n",Nama_Upgrade(U2));
+    printf("- %s\n", Nama_Upgrade(U1));
+    printf("- %s\n", Nama_Upgrade(U2));
 
     K1 = StringToKata(Nama_Upgrade(U1));
     K2 = StringToKata(Nama_Upgrade(U2));
@@ -298,12 +340,18 @@ void upgrade(Pemain P, Peta M, int* Need_Money, JAM* Need_Jam) {
     choice = 0;
     valid = false;
     STARTKATA();
-    while(!EndKata) {
-        if (IsKataSama(K1,CKata)) {
+    while (!EndKata)
+    {
+        if (IsKataSama(K1, CKata))
+        {
             choice = 1;
-        } else if (IsKataSama(K2,CKata)) {
+        }
+        else if (IsKataSama(K2, CKata))
+        {
             choice = 2;
-        } else {
+        }
+        else
+        {
             printf("Input tidak valid\n");
         }
 
@@ -311,39 +359,41 @@ void upgrade(Pemain P, Peta M, int* Need_Money, JAM* Need_Jam) {
         ADVKATA(); //Cek kata selanjutnya
     }
 
-    if (choice == 1) {
+    if (choice == 1)
+    {
         /* 4. Check apakah uang dan resource memenuhi */
-        if (/*TBO*/) {
-
-        } else {
+        if (true)
+        {
+        }
+        else
+        {
             printf("Error: Resource atau Uang tidak memenuhi");
         }
-        
-    } else if (choice == 2) {
-        /* 4. Check apakah uang dan resource memenuhi */
-        if (/*TBO*/) {
-
-        } else {
-            printf("Error: Resource atau Uang tidak memenuhi");
-        }
-
     }
-
+    else if (choice == 2)
+    {
+        /* 4. Check apakah uang dan resource memenuhi */
+        if (true)
+        {
+        }
+        else
+        {
+            printf("Error: Resource atau Uang tidak memenuhi");
+        }
+    }
 
     /* 5. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
-    if ((choice == 1 || choice == 2) && valid) {
-
-
+    if ((choice == 1 || choice == 2) && valid)
+    {
     }
-
-    
 }
 
 /* END OF RESERVED */
 
 /* RESERVE FROM MAIN PHASE */
 
-void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditambah ADT Player, Peta
+void main_phase(int *day, boolean isGoing)
+{ // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
     JAM CurrentJam;
@@ -353,19 +403,19 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
 
     /* ALGORITMA */
     /* Inisialisasi */
-    CurrentJam = MakeJAM(9,0);
-    CloseJam = MakeJAM(21,0);
+    CurrentJam = MakeJAM(9, 0);
+    CloseJam = MakeJAM(21, 0);
 
     status = true;
-    
+
     makeQueue(&antrean);
 
-    
     /* Looping preparation phase */
-    while (status) {
-        printf("Main phase day %d\n",*day);
+    while (status)
+    {
+        printf("Main phase day %d\n", *day);
         // Panggil fungsi gambar peta
-        
+
         // Panggil legend peta
         printf("Legend:\n");
         printf("A = Antrian\n");
@@ -375,7 +425,7 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
         printf("<, ^, >, V = Gerbang\n");
 
         // Panggil status player
-            // Need ADT Player
+        // Need ADT Player
 
         // Panggil current waktu dan limit waktu
         printf("Current Time: ");
@@ -385,35 +435,41 @@ void main_phase(int* day, boolean isGoing) { // Parameternya masih harus ditamba
         TulisJAM(CloseJam);
         printf("\n");
 
-        SisaJam = Durasi(CurrentJam,CloseJam);
-        if (JAMToMenit(SisaJam) != 0) {
-            if (Minute(SisaJam) == 0) {
-                print("Time Remaining: %d hour(s)\n",Hour(SisaJam));
-            } else {
-                print("Time Remaining: %d hour(s) %d minute(s)\n",Hour(SisaJam),Minute(SisaJam));
+        SisaJam = Durasi(CurrentJam, CloseJam);
+        if (JAMToMenit(SisaJam) != 0)
+        {
+            if (Minute(SisaJam) == 0)
+            {
+                print("Time Remaining: %d hour(s)\n", Hour(SisaJam));
             }
-        } else {
+            else
+            {
+                print("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
+            }
+        }
+        else
+        {
             print("Time Remaining: 0\n");
         }
-        
+
         // Panggil Priority Queue buat tampilan antrian
-        
+        printAntrean(antrean);
         // Panggil wahana apa yang rusak.
 
-        input_main_phase(&status,day,isGoing); //panggil input dan jalankan
-        
-    *day++;
+        input_main_phase(&status, day, isGoing); //panggil input dan jalankan
+
+        *day++;
     }
 }
-
 
 /* RESERVED FOR FUNCTION IN MAIN PHASE */
 
 // Not finished, tambah parameter yang kurang
-void input_main_phase(boolean* status, int day, boolean isGoing) {
+void input_main_phase(boolean *status, int day, boolean isGoing)
+{
     /* KAMUS */
     Kata W, A, S, D, Serve, Repair, Detail, Office, Prepare, Quit;
-    
+
     W.Length = 1;
     W.TabKata[0] = 'w';
     A.Length = 1;
@@ -468,72 +524,95 @@ void input_main_phase(boolean* status, int day, boolean isGoing) {
     Quit.TabKata[1] = 'a';
     Quit.TabKata[2] = 'i';
     Quit.TabKata[3] = 'n';
-    
+
     /* ALGORITMA */
     STARTKATA();
-    while(!EndKata) {
-        if ((IsKataSama(W,CKata)) || (IsKataSama(A,CKata)) || (IsKataSama(S,CKata)) || (IsKataSama(D,CKata))) {
+    while (!EndKata)
+    {
+        if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
+        {
             // Update peta
-        } else if (IsKataSama(Serve,CKata)) {
+        }
+        else if (IsKataSama(Serve, CKata))
+        {
             // Lakukan serve
-        } else if (IsKataSama(Repair,CKata)) {
+        }
+        else if (IsKataSama(Repair, CKata))
+        {
             // Lakukan repair
-        } else if (IsKataSama(Detail,CKata)) {
+        }
+        else if (IsKataSama(Detail, CKata))
+        {
             // Lakukan detail
-        } else if (IsKataSama(Office,CKata)) {
-            enter_office(day,isGoing);
-        } else if (IsKataSama(Prepare,CKata)) {
+        }
+        else if (IsKataSama(Office, CKata))
+        {
+            enter_office(day, isGoing);
+        }
+        else if (IsKataSama(Prepare, CKata))
+        {
             // Lakukan prepare
-        } else if (IsKataSama(Quit,CKata)) {
+        }
+        else if (IsKataSama(Quit, CKata))
+        {
             // Lakukan quit
-        } else {
+        }
+        else
+        {
             printf("Input tidak valid\n");
         }
 
         IgnoreBlank();
         ADVKATA(); //Cek kata selanjutnya
     }
-
 }
 
-void serve(Elmt_Wahana W, Pemain *P){ // parameternya harusnya wahana, sama player
+void serve(Elmt_Wahana W, Pemain *P, PrioQueue Q, char *wahana)
+{ // parameternya harusnya wahana, sama player
     // check wahana error atau engga
-    if (W.statusWahana){
+    int kepala = Head(Q);
+    infotypeQ R = Q.T[kepala];
+    int astaghfirullah;
+    WahanaAntrean cekanjing;
+    
+    if (W.statusWahana)
+    {
         //proses serve
         uang(*P) += Harga_Wahana(W);
         // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
         //kalo iya dilayani terus wahana itu dihapus dari list antrian customer tsb
-            //kalo wishlist wahana udah kosong, pengunjung dequeue
-            //kalo wishlist masih ada, prioritas (kesabaran) makin ke depan
+        //kalo wishlist wahana udah kosong, pengunjung dequeue
+        //kalo wishlist masih ada, prioritas (kesabaran) makin ke depan
         //kalo engga, cek customer berikutnya
-        
-    }else{
+    }
+    else
+    {
         printf("Oops! Wahana tidak tersedia..");
     }
 }
 
-void repair() {
+void repair()
+{
     //belum dicoding
 }
 
-void detail() { //parameternya belum dimasukin, harusnya ADT wahana, point, tree
+void detail()
+{ //parameternya belum dimasukin, harusnya ADT wahana, point, tree
     /* KAMUS */
 
     /* ALGORITMA */
     printf("// Melihat detail wahana //\n");
-    printf("// Nama : \n");                     //print nama wahana yang ingin dilihat detail nya
-    printf("// Lokasi : \n");                   //print dimana letak lokasi wahana
-    printf("// Upgrade(s) : \n");               //print upgrade(s)
-    printf("// History : \n");                  //print history upgrade wahana
-    printf("// Status : \n");                   //print status wahana berfungsi atau tidak
-
-
+    printf("// Nama : \n");       //print nama wahana yang ingin dilihat detail nya
+    printf("// Lokasi : \n");     //print dimana letak lokasi wahana
+    printf("// Upgrade(s) : \n"); //print upgrade(s)
+    printf("// History : \n");    //print history upgrade wahana
+    printf("// Status : \n");     //print status wahana berfungsi atau tidak
 }
 
-void office(boolean* stillInOffice) { //parameter belom dimasukin, belum pernah ditest juga
+void office(boolean *stillInOffice)
+{ //parameter belom dimasukin, belum pernah ditest juga
     /* KAMUS */
     Kata Details, Report, Exit;
-    
 
     Details.Length = 7;
     Details.TabKata[0] = 'D';
@@ -558,19 +637,27 @@ void office(boolean* stillInOffice) { //parameter belom dimasukin, belum pernah 
     Exit.TabKata[2] = 'i';
     Exit.TabKata[3] = 't';
 
-
     /* ALGORITMA */
-    if (stillInOffice) {
+    if (stillInOffice)
+    {
         printf("Masukkan perintah (Details / Report / Exit) :\n");
         STARTKATA();
-        while (!EndKata) {
-            if (IsKataSama(Details,CKata)) {
+        while (!EndKata)
+        {
+            if (IsKataSama(Details, CKata))
+            {
                 // lakukan details, akses list wahana dan detail
-            } else if (IsKataSama(Report,CKata)) {
+            }
+            else if (IsKataSama(Report, CKata))
+            {
                 // lakukan report, akses list wahana dan report
-            } else if (IsKataSama(Exit,CKata)) {
+            }
+            else if (IsKataSama(Exit, CKata))
+            {
                 stillInOffice = false;
-            } else {
+            }
+            else
+            {
                 printf("Input tidak valid\n");
             }
 
@@ -578,6 +665,5 @@ void office(boolean* stillInOffice) { //parameter belom dimasukin, belum pernah 
             ADVKATA();
         }
     }
-
 }
 /* END OF RESERVED OF MAIN PHASE FUNCTION/PROCEDURE */
