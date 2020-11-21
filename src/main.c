@@ -567,19 +567,30 @@ void input_main_phase(boolean *status, int day, boolean isGoing)
     }
 }
 
-void serve(Elmt_Wahana W, Pemain *P, PrioQueue Q, char *wahana)
+void serve(Elmt_Wahana W, Pemain *P, PrioQueue *Q, char *wahana)
 { // parameternya harusnya wahana, sama player
     // check wahana error atau engga
-    int kepala = Head(Q);
-    infotypeQ R = Q.T[kepala];
-    int astaghfirullah;
-    WahanaAntrean cekanjing;
-    
+    int kepala = Head(*Q);
+    infotypeQ X;
+    int P = Head(*Q);
+
     if (W.statusWahana)
     {
         //proses serve
         uang(*P) += Harga_Wahana(W);
         // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
+        if (Search((*Q).T[kepala].Wahana,wahana)!=Nil)
+        {
+            //kalo ternyata ada wahana ybs di head, maka diapus dr list
+            DelP(&(*Q).T[kepala].Wahana, wahana);
+            //kalo list wahana udah kosong dequeue headnya
+            if (IsEmptyW((*Q).T[kepala].Wahana)){
+                Dequeue(&(*Q).T[kepala],&X);
+            }
+            //mengurangi semua kesabaran
+            
+        }
+        
         //kalo iya dilayani terus wahana itu dihapus dari list antrian customer tsb
         //kalo wishlist wahana udah kosong, pengunjung dequeue
         //kalo wishlist masih ada, prioritas (kesabaran) makin ke depan

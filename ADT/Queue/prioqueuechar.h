@@ -14,11 +14,10 @@
 
 /* Definisi elemen dan address */
 
-List L;
 typedef struct
 {
     int kesabaran; /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
-    List Wahana;   /* elemen Wahana */
+    WahanaAntrean Wahana;   /* elemen Wahana */
 } infotypeQ;
 typedef int address; /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueChar : */
@@ -89,7 +88,7 @@ void PrintPrioQueue(PrioQueue Q);
 <prio-n> <elemen-n>
 #
 */
-
+void printAntrean(PrioQueue Q);
 void makeQueue(PrioQueue *Q);
 
 #endif

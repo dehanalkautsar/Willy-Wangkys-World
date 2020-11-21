@@ -27,10 +27,10 @@ typedef struct tUpgrade_Wahana
 typedef struct tElmt_Wahana
 {
    int ID;
-   char *Nama;
+   char Nama[32];
    int Harga;
    // Koordinat Lokasi;
-   char *Deskripsi;
+   char Deskripsi[256];
    int Kapasitas;
    // history upgrade wahana
    JAM Durasi;

@@ -189,16 +189,17 @@ void printAntrean(PrioQueue Q)
             P++;
         }
 
-        if (P != Nil)
-        {
-            infotypeQ R = Q.T[P]; //kesabaran sama list wahana
-            int kesabaran = R.kesabaran;
-            WahanaAntrean Wahana = R.Wahana;
-            address info = info;
 
-            PrintInfo(Wahana);
-            printf(", kesabaran: %d\n", kesabaran);
-        }
+    }
+    
+    if (P != Nil)
+    {
+        infotypeQ R = Q.T[P]; //kesabaran sama list wahana
+        int kesabaran = R.kesabaran;
+        WahanaAntrean Wahana = R.Wahana;
+        address info = info;
+        PrintInfo(Wahana);
+        printf(", kesabaran: %d\n", kesabaran);
     }
     //         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
 

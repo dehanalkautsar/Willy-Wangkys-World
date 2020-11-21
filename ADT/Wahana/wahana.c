@@ -7,13 +7,13 @@
 
 /* ADT WAHANA */
 /* BELUM ADA UPGRADE */
-wahana MakeWahana(int ID, char *Nama, int Harga, char *Deskripsi, int Kapasitas, int Durasi_Menit)
+wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasitas, int Durasi_Menit)
 {
     wahana W;
     ID_Wahana(W) = ID;
-    Nama_Wahana(W) = Nama;
+    strcpy(Nama_Wahana(W),Nama);
     Harga_Wahana(W) = Harga;
-    Deskripsi_Wahana(W) = Deskripsi;
+    strcpy(Deskripsi_Wahana(W),Deskripsi);
     Kapasitas_Wahana(W) = Kapasitas;
     Durasi_Wahana(W) = MenitToJAM(Durasi_Menit);
     return W;
@@ -22,12 +22,12 @@ wahana MakeWahana(int ID, char *Nama, int Harga, char *Deskripsi, int Kapasitas,
 // ID,Nama,Harga,Deskripsi,Kapasitas,Durasi
 
 // Parameter input/output list of wahana
-void Read_File_Wahana(wahana* List_W[], char *nama_file)
+void Read_File_Wahana(wahana *List_W, char *nama_file)
 {
     int ID;
-    char *Nama;
+    char* Nama;
     int Harga;
-    char *Deskripsi;
+    char* Deskripsi;
     int Kapasitas;
     int Durasi_Menit;
     FILE *fp;
@@ -69,12 +69,12 @@ void Read_File_Wahana(wahana* List_W[], char *nama_file)
         }
         
         // printf("%d\n",ID);
-        *List_W[j] = MakeWahana(ID, Nama, Harga, Deskripsi, Kapasitas, Durasi_Menit);
+        List_W[j] = MakeWahana(ID, Nama, Harga, Deskripsi, Kapasitas, Durasi_Menit);
         // printf("%s\n",Nama_Wahana(List_W[j]));
         i = 0;
         j++;
     }
-
+    // printf("%d\n",ID_Wahana(List_W[1]));
     fclose(fp);
     
 }
@@ -82,7 +82,7 @@ void Read_File_Wahana(wahana* List_W[], char *nama_file)
 void Make_Tree_Wahana(BinTree *Tree_Wahana, wahana List_W[])
 {
     // printf("%d\n",ID_Wahana(List_W[0]));
-    printf("%s\n",Nama_Wahana(List_W[0])         );
+    // printf("%s\n",Nama_Wahana(List_W[0])         );
     // printf("%d\n",Harga         );
     // printf("%s\n",Deskripsi     );
     // printf("%d\n",Kapasitas     );
@@ -138,11 +138,10 @@ void main() {
     addrNode P;
     BinTree T;
 
-    Read_File_Wahana(&W[30], "test.txt");
-    printf("%s\n",Nama_Wahana(W[1]));
+    Read_File_Wahana(W, "test.txt");
     // printf("%d\n",ID_Wahana(W[1]));
     Make_Tree_Wahana(&T,W);
-    Print_Tree_Wahana(T);
+    // Print_Tree_Wahana(T);
     P = Search_Wahana(T,122);
     printf("%s",Nama_Wahana(Akar(P)));
 

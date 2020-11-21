@@ -67,7 +67,7 @@ long JAMToMenit (JAM J)
 /* Rumus : detik = 3600*HH + 60*MM + SS */
 /* Nilai maksimum = 3600*23+59*60+59 */
 {
-    return((60*Jam(J))+Menit(J));
+    return((60*Hour(J))+Minute(J));
 }
 
 JAM MenitToJAM (long N)

@@ -12,7 +12,7 @@
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
-boolean IsEmpty (WahanaAntrean L)
+boolean IsEmptyW (WahanaAntrean L)
 /* Mengirim true jika list kosong */
 {
      return First(L) == Nil;
