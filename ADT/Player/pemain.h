@@ -2,9 +2,9 @@
 #define pemain_H
 
 #include <stdio.h>
-#include "point.h"
-#include "jam.h"
-#include "matriks.h"
+#include "../Point/point.h"
+#include "../Jam/jam.h"
+#include "../Map/map.h"
 
 /*  Kamus Umum */
 #define IdxMax 4
@@ -21,11 +21,11 @@ typedef struct Material
 
 typedef struct
 {
-  char* nama;
+  char *nama;
   int uang;
   JAM jamPemain;
   Koordinat posisiPemain;
-  Material ArrMaterial[IdxMax+1];
+  Material ArrMaterial[IdxMax + 1];
 } Pemain;
 
 #define nama(P) (P).nama
@@ -39,7 +39,7 @@ typedef struct
 #define Harga_Material(P) (P).Harga
 #define Kuantitas_Material(P) (P).Kuantitas
 
-void makePemain(Pemain *P, int uang, char* nama, Koordinat posisiPemain, JAM jamPemain);
-void setKoordinatPemain(Pemain *P, char input, MATRIKS M);
+void makePemain(Pemain *P, int uang, char *nama, Koordinat posisiPemain, JAM jamPemain);
+void setKoordinatPemain(Pemain *P, char input, Map M);
 
 #endif

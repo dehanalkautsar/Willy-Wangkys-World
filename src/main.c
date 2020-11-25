@@ -316,7 +316,7 @@ void upgrade(Pemain P, Map M, int *Need_Money, JAM *Need_Jam)
 {
     /* KAMUS LOKAL */
     JAM WaktuBuild = MakeJAM(1, 30);
-    wahana W;
+    Wahana W;
     Upgrade_Wahana U1, U2;
     Kata K1, K2;
     int choice;
@@ -588,7 +588,7 @@ void serve(Elmt_Wahana W, Pemain *P, PrioQueue *Q, char *wahana)
                 Dequeue(&(*Q).T[kepala],&X);
             }
             //mengurangi semua kesabaran
-            
+            kurangSabar(Q);
         }
         
         //kalo iya dilayani terus wahana itu dihapus dari list antrian customer tsb

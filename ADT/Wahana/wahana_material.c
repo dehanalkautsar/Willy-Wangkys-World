@@ -2,27 +2,31 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "bintree_wahana.h"
+#include "bintree_Wahana.h"
 // #include "../Mesin-Kata&Mesin-Karakter/mesinkar_file.h"
 
-/* ADT WAHANA */
-/* BELUM ADA UPGRADE */
-wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasitas, int Durasi_Menit)
+/* ADT Wahana */
+
+
+Wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasitas, int Durasi_Menit, int Upgrade_Biaya, Material Upgrade_M[])
 {
-    wahana W;
+    Wahana W;
     ID_Wahana(W) = ID;
     strcpy(Nama_Wahana(W),Nama);
     Harga_Wahana(W) = Harga;
     strcpy(Deskripsi_Wahana(W),Deskripsi);
     Kapasitas_Wahana(W) = Kapasitas;
     Durasi_Wahana(W) = MenitToJAM(Durasi_Menit);
+    Upgrade_Cost(W) = Upgrade_Biaya;
+    Upgrade_Material(W,1) = Upgrade_M[1];
+    Upgrade_Material(W,2) = Upgrade_M[2];
     return W;
 }
 
 // ID,Nama,Harga,Deskripsi,Kapasitas,Durasi
 
-// Parameter input/output list of wahana
-void Read_File_Wahana(wahana *List_W, char *nama_file)
+// Parameter input/output list of Wahana
+void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[])
 {
     /* INISIALISASI */
     int ID;
@@ -31,6 +35,9 @@ void Read_File_Wahana(wahana *List_W, char *nama_file)
     char* Deskripsi;
     int Kapasitas;
     int Durasi_Menit;
+    int Upgrade_Biaya;
+    Material Upgrade_Material[2];
+    int level;
 
     /* PEMANGGILAN FILE */
     FILE *fp;
@@ -66,13 +73,34 @@ void Read_File_Wahana(wahana *List_W, char *nama_file)
             case 5:
                 Durasi_Menit = atoi(token);
                 break;
+            case 6:
+                Upgrade_Biaya = atoi(token);
+                break;
             }
             i++;
             token = strtok(NULL, ",");
         }
         
+        if (j<1) {
+            level = 1;
+            Upgrade_Material[0] = Database_Material[0];
+            Upgrade_Material[1] = Database_Material[1];
+        } else if (j<3) {
+            level = 2;
+            Upgrade_Material[0] = Database_Material[2];
+            Upgrade_Material[1] = Database_Material[3];
+        } else {
+            level = 3;
+            Upgrade_Material[0] = Database_Material[3];
+            Upgrade_Material[1] = Database_Material[4];
+        }
+
+        Kuantitas_Material(Upgrade_Material[0]) = level*5;
+        Kuantitas_Material(Upgrade_Material[1]) = level*5;
+        
         // printf("%d\n",ID);
-        List_W[j] = MakeWahana(ID, Nama, Harga, Deskripsi, Kapasitas, Durasi_Menit);
+        
+        List_W[j] = MakeWahana(ID, Nama, Harga, Deskripsi, Kapasitas, Durasi_Menit, Upgrade_Biaya, Upgrade_Material);
         // printf("%s\n",Nama_Wahana(List_W[j]));
         i = 0;
         j++;
@@ -82,8 +110,9 @@ void Read_File_Wahana(wahana *List_W, char *nama_file)
     
 }
 
-void Make_Tree_Wahana(BinTree *Tree_Wahana, wahana List_W[])
+void Make_Tree_Wahana(BinTree *Tree_Wahana, Wahana List_W[], Material Database_M[])
 {
+    
     MakeTree(List_W[0], Nil, Nil, Tree_Wahana);
     AddDaun(Tree_Wahana, List_W[0], List_W[1], true);
     AddDaun(Tree_Wahana, List_W[0], List_W[2], false);
@@ -105,11 +134,11 @@ void Print_Tree_Wahana(BinTree T)
     printf(")");
 }
 
-/* Mengembalikan alamat wahana ditemukan, NIL jika gagal ditemukan */
+/* Mengembalikan alamat Wahana ditemukan, NIL jika gagal ditemukan */
 addrNode Search_Wahana(BinTree T, int ID) {
     /* KAMUS LOKAL */
     addrNode P;
-    wahana X = MakeWahana(ID,"dummy",0,"dummy",0,0);
+    Wahana X = MakeWahana(ID,"dummy",0,"dummy",0,0);
 
     /* ALGORITMA */
     if (!SearchTree(T,X)) {
@@ -124,8 +153,7 @@ addrNode Search_Wahana(BinTree T, int ID) {
                 P = Right(P);
             } 
         }
-        return P;
-        
+        return P;  
     }
 }
 
@@ -194,19 +222,49 @@ void Read_File_Material(Material* List_M,char* nama_file)
     fclose(fp);
 }
 
-void main() {
-    wahana W[30];
-    Material M[10];
-    addrNode P;
-    BinTree T;
+/*
+Upgrade_Wahana Make_Upgrade_Wahana(char nama[],int biaya,int level,Material database_M[]) {
+    Upgrade_Wahana UP;
+    Material M1;
+    Material M2;
+    
+    strcpy(Nama_Upgrade(UP),nama);
+    Cost_Upgrade(UP) = biaya;
+    switch (level) {
+    case 1:
+        M1 = database_M[0];
+        M2 = database_M[1];
+        break;
+    case 2:
+        M1 = database_M[2];
+        M2 = database_M[3];
+        break;
+    } 
+    Kuantitas_Material(M1) = level*5;
+    Kuantitas_Material(M2) = level*5;
+    Bahan_Upgrade(UP,0) = M1;
+    Bahan_Upgrade(UP,1) = M2;
+    return UP;
+}
+*/
 
-    Read_File_Wahana(W, "wahana1.txt");
-    Make_Tree_Wahana(&T,W);
+
+
+
+void main() {
+    Wahana Database_W[30];
+    Material Database_M[10];
+    addrNode P;
+    BinTree T_Wahana;
+
+    Read_File_Wahana(Database_W, "Wahana1.txt");
+    Read_File_Material(Database_M, "material.txt");
+    Make_Tree_Wahana(&T_Wahana,Database_W,Database_M);
     // Print_Tree_Wahana(T);
-    P = Search_Wahana(T,122);
+    P = Search_Wahana(T_Wahana,122);
     printf("%s\n",Nama_Wahana(Akar(P)));
 
-    Read_File_Material(M, "material.txt");
-    printf("%s\n",Nama_Material(M[4]));
+    
+    printf("%s\n",Nama_Material(Database_M[4]));
 
 }
