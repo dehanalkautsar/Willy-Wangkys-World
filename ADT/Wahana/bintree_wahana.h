@@ -9,17 +9,17 @@
 #define Nil NULL
 /* Modul lain yang digunakan : */
 #include "boolean.h"
-// #include "point.h"
-#include "jam.h"
-// #include "pemain.h"
+#include "../Point/point.h"
+#include "../Jam/jam.h"
+#include "../Player/pemain.h"
 
 /* ADT UPGRADE WAHANA */
 typedef struct tUpgrade_Wahana
 {
    char *Nama_Upgrade;
    int Cost_Upgrade;
-   // Material yang dibutuhkan
    // Material Bahan_Upgrade;
+   Material Material_Upgrade[2];
 
 } Upgrade_Wahana;
 

@@ -94,90 +94,10 @@ boolean IsBiner(BinTree P)
 		return false;
 }
 
-// /* *** Traversal *** */
-// void PrintPreorder (BinTree P) {
-// 	printf("(");
-// 	if (!IsTreeEmpty(P)) {
-// 		printf("%d", Akar(P));
-// 		PrintPreorder(Left(P));
-// 		PrintPreorder(Right(P));
-// 	}
-// 	printf(")");
-// }
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara preorder: akar, pohon kiri, dan pohon kanan.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (A()()) adalah pohon dengan 1 elemen dengan akar A
-//    (A(B()())(C()())) adalah pohon dengan akar A dan subpohon kiri (B()()) dan subpohon kanan (C()()) */
-// void PrintInorder (BinTree P) {
-// 	printf("(");
-// 	if (!IsTreeEmpty(P)) {
-// 		PrintInorder(Left(P));
-// 		printf("%d", Akar(P));
-// 		PrintInorder(Right(P));
-// 	}
-// 	printf(")");
-// }
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara inorder: pohon kiri, akar, dan pohon kanan.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (()A()) adalah pohon dengan 1 elemen dengan akar A
-//    ((()B())A(()C())) adalah pohon dengan akar A dan subpohon kiri (()B()) dan subpohon kanan (()C()) */
-// void PrintPostorder (BinTree P) {
-// 	printf("(");
-// 	if (!IsTreeEmpty(P)) {
-// 		PrintPostorder(Left(P));
-// 		PrintPostorder(Right(P));
-// 		printf("%d", Akar(P));
-// 	}
-// 	printf(")");
-// }
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara postorder: pohon kiri, pohon kanan, dan akar.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (()()A) adalah pohon dengan 1 elemen dengan akar A
-//    ((()()B)(()()C)A) adalah pohon dengan akar A dan subpohon kiri (()()B) dan subpohon kanan (()()C) */
-// void PrintTreeRec (BinTree P, int level, int h) {
-// 	if (!IsTreeEmpty(P)) {
-// 		int i;
-// 		for (i = 0; i < level * h; i++)
-// 			printf(" ");
-// 		printf("%d\n", Akar(P));
-// 		PrintTreeRec(Left(P), level+1, h);
-// 		PrintTreeRec(Right(P), level+1, h);
-// 	}
-// }
-// void PrintTree (BinTree P, int h) {
-// 	PrintTreeRec(P, 0, h);
-// }
-// /* I.S. P terdefinisi, h adalah jarak indentasi (spasi) */
-// /* F.S. Semua simpul P sudah ditulis dengan indentasi (spasi) */
-// /* Penulisan akar selalu pada baris baru (diakhiri newline) */
-// /* Contoh, jika h = 2:
-// 1) Pohon preorder: (A()()) akan ditulis sbb:
-// A
-// 2) Pohon preorder: (A(B()())(C()())) akan ditulis sbb:
-// A
-//   B
-//   C
-// 3) Pohon preorder: (A(B(D()())())(C()(E()()))) akan ditulis sbb:
-// A
-//   B
-//     D
-//   C
-//     E
-// */
 
 /* *** Searching *** */
+
+/* Mengirimkan true jika ada node dari P yang bernilai X */
 boolean SearchTree (BinTree P, wahana X) {
 	if (P == Nil)
 		return false;
@@ -186,9 +106,10 @@ boolean SearchTree (BinTree P, wahana X) {
 	else
 		return SearchTree(Left(P), X) || SearchTree(Right(P), X);
 }
-/* Mengirimkan true jika ada node dari P yang bernilai X */
+
 
 /* *** Fungsi-Fungsi Lain *** */
+/* Mengirimkan banyaknya elemen (node) pohon biner P */
 int NbElmt_Tree(BinTree P)
 {
 	if (P == Nil)
@@ -196,7 +117,9 @@ int NbElmt_Tree(BinTree P)
 	else
 		return 1 + NbElmt_Tree(Left(P)) + NbElmt_Tree(Right(P));
 }
-/* Mengirimkan banyaknya elemen (node) pohon biner P */
+
+/* Mengirimkan banyaknya daun (node) pohon biner P */
+/* Prekondisi: P tidak kosong */
 int NbDaun(BinTree P)
 {
 	if (IsTreeEmpty(P))
@@ -206,8 +129,9 @@ int NbDaun(BinTree P)
 	else
 		return NbDaun(Left(P)) + NbDaun(Right(P));
 }
-/* Mengirimkan banyaknya daun (node) pohon biner P */
-/* Prekondisi: P tidak kosong */
+
+/* Mengirimkan true jika P adalah pohon condong kiri */
+/* Pohon kosong adalah pohon condong kiri */
 boolean IsSkewLeft(BinTree P)
 {
 	if (IsTreeEmpty(P))
@@ -215,8 +139,9 @@ boolean IsSkewLeft(BinTree P)
 	else
 		return Right(P) == Nil && IsSkewLeft(Left(P));
 }
-/* Mengirimkan true jika P adalah pohon condong kiri */
-/* Pohon kosong adalah pohon condong kiri */
+
+/* Mengirimkan true jika P adalah pohon condong kanan */
+/* Pohon kosong adalah pohon condong kanan */
 boolean IsSkewRight(BinTree P)
 {
 	if (IsTreeEmpty(P))
@@ -224,8 +149,9 @@ boolean IsSkewRight(BinTree P)
 	else
 		return Left(P) == Nil && IsSkewRight(Right(P));
 }
-/* Mengirimkan true jika P adalah pohon condong kanan */
-/* Pohon kosong adalah pohon condong kanan */
+
+/* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P.
+   Akar(P) level-nya adalah 1. Pohon P tidak kosong dan elemen-elemennya unik. */
 int Level(BinTree P, wahana X)
 {
 	if (ID_Wahana(Akar(P)) == ID_Wahana(X))
@@ -235,8 +161,9 @@ int Level(BinTree P, wahana X)
 	else
 		return 1 + Level(Right(P), X);
 }
-/* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P.
-   Akar(P) level-nya adalah 1. Pohon P tidak kosong dan elemen-elemennya unik. */
+
+/* Pohon Biner mungkin kosong. Tinggi pohon kosong = 0.
+   Mengirim "height" yaitu tinggi dari pohon */
 int Tinggi(BinTree P)
 {
 	if (IsTreeEmpty(P))
@@ -251,10 +178,12 @@ int Tinggi(BinTree P)
 			return 1 + b;
 	}
 }
-/* Pohon Biner mungkin kosong. Tinggi pohon kosong = 0.
-   Mengirim "height" yaitu tinggi dari pohon */
+
 
 /* *** Operasi lain *** */
+
+/* I.S. P boleh kosong */
+/* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
 void AddDaunTerkiri(BinTree *P, wahana X)
 {
 	if (IsTreeEmpty(*P))
@@ -264,8 +193,11 @@ void AddDaunTerkiri(BinTree *P, wahana X)
 	else
 		AddDaunTerkiri(P, X);
 }
-// /* I.S. P boleh kosong */
-// /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
+
+/* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
+        sebagai anak Kanan X (jika Kiri = false) */
+/*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
 void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri)
 {
 	if (!IsTreeEmpty(*P))
@@ -288,10 +220,10 @@ void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri)
 		}
 	}
 }
-/* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
-/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
-        sebagai anak Kanan X (jika Kiri = false) */
-/*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
+
+/* I.S. P tidak kosong */
+/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
+        disimpan pada daun terkiri yang dihapus */
 void DelDaunTerkiri(BinTree *P, wahana *X)
 {
 	if (IsTreeOneElmt(*P))
@@ -316,9 +248,7 @@ void DelDaunTerkiri(BinTree *P, wahana *X)
 	else
 		DelDaunTerkiri(&Left(*P), X);
 }
-/* I.S. P tidak kosong */
-/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
-        disimpan pada daun terkiri yang dihapus */
+
 void DelDaun(BinTree *P, wahana X)
 {
 	if (!IsTreeEmpty(*P))
@@ -342,43 +272,4 @@ void DelDaun(BinTree *P, wahana X)
 			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
 	}
 }
-// /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
-// /* F.S. Semua daun bernilai X dihapus dari P. */
-// List MakeListDaun (BinTree P) {
-// 	if (IsTreeEmpty(P))
-// 		return Nil;
-// 	if (IsTreeOneElmt(P))
-// 		return Alokasi(ID_Wahana(Akar(P)));
-// 	else
-// 		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-//    jika semua alokasi list berhasil.
-//    Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListPreorder (BinTree P) {
-// 	if (IsTreeEmpty(P))
-// 		return Nil;
-// 	if (IsTreeOneElmt(P))
-// 		return Alokasi(Akar(P));
-// 	else
-// 		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    dengan urutan preorder, jika semua alokasi berhasil.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListLevel (BinTree P, int N) {
-// 	if (!IsTreeEmpty(P) && N == 1)
-// 		return Alokasi(Akar(P));
-// 	else if (!IsTreeEmpty(P))
-// 		return Concat(MakeListLevel(Left(P), N-1), MakeListLevel(Right(P), N-1));
-// 	else
-// 		return Nil;
-// }
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    yang levelnya=N, jika semua alokasi berhasil.
-//    Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
+
