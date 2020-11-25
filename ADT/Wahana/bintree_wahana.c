@@ -95,8 +95,8 @@ boolean IsBiner(BinTree P)
 }
 
 
-/* *** Searching *** */
 
+/* *** Searching *** */
 /* Mengirimkan true jika ada node dari P yang bernilai X */
 boolean SearchTree (BinTree P, wahana X) {
 	if (P == Nil)
@@ -118,6 +118,7 @@ int NbElmt_Tree(BinTree P)
 		return 1 + NbElmt_Tree(Left(P)) + NbElmt_Tree(Right(P));
 }
 
+
 /* Mengirimkan banyaknya daun (node) pohon biner P */
 /* Prekondisi: P tidak kosong */
 int NbDaun(BinTree P)
@@ -130,6 +131,7 @@ int NbDaun(BinTree P)
 		return NbDaun(Left(P)) + NbDaun(Right(P));
 }
 
+
 /* Mengirimkan true jika P adalah pohon condong kiri */
 /* Pohon kosong adalah pohon condong kiri */
 boolean IsSkewLeft(BinTree P)
@@ -140,6 +142,7 @@ boolean IsSkewLeft(BinTree P)
 		return Right(P) == Nil && IsSkewLeft(Left(P));
 }
 
+
 /* Mengirimkan true jika P adalah pohon condong kanan */
 /* Pohon kosong adalah pohon condong kanan */
 boolean IsSkewRight(BinTree P)
@@ -149,6 +152,7 @@ boolean IsSkewRight(BinTree P)
 	else
 		return Left(P) == Nil && IsSkewRight(Right(P));
 }
+
 
 /* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P.
    Akar(P) level-nya adalah 1. Pohon P tidak kosong dan elemen-elemennya unik. */
@@ -162,8 +166,9 @@ int Level(BinTree P, wahana X)
 		return 1 + Level(Right(P), X);
 }
 
+
 /* Pohon Biner mungkin kosong. Tinggi pohon kosong = 0.
-   Mengirim "height" yaitu tinggi dari pohon */
+Mengirim "height" yaitu tinggi dari pohon */
 int Tinggi(BinTree P)
 {
 	if (IsTreeEmpty(P))
@@ -181,7 +186,6 @@ int Tinggi(BinTree P)
 
 
 /* *** Operasi lain *** */
-
 /* I.S. P boleh kosong */
 /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
 void AddDaunTerkiri(BinTree *P, wahana X)
@@ -193,6 +197,7 @@ void AddDaunTerkiri(BinTree *P, wahana X)
 	else
 		AddDaunTerkiri(P, X);
 }
+
 
 /* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
 /* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
@@ -220,6 +225,7 @@ void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri)
 		}
 	}
 }
+
 
 /* I.S. P tidak kosong */
 /* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
@@ -249,6 +255,9 @@ void DelDaunTerkiri(BinTree *P, wahana *X)
 		DelDaunTerkiri(&Left(*P), X);
 }
 
+
+/* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
+/* F.S. Semua daun bernilai X dihapus dari P. */
 void DelDaun(BinTree *P, wahana X)
 {
 	if (!IsTreeEmpty(*P))
@@ -272,4 +281,3 @@ void DelDaun(BinTree *P, wahana X)
 			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
 	}
 }
-

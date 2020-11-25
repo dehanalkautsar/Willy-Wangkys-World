@@ -9,17 +9,17 @@
 #define Nil NULL
 /* Modul lain yang digunakan : */
 #include "boolean.h"
-#include "../Point/point.h"
-#include "../Jam/jam.h"
-#include "../Player/pemain.h"
+// #include "point.h"
+#include "jam.h"
+#include "pemain.h"
 
 /* ADT UPGRADE WAHANA */
 typedef struct tUpgrade_Wahana
 {
-   char *Nama_Upgrade;
+   char Nama_Upgrade[32];
    int Cost_Upgrade;
-   // Material Bahan_Upgrade;
-   Material Material_Upgrade[2];
+   // Material yang dibutuhkan
+   Material Bahan_Upgrade[2];
 
 } Upgrade_Wahana;
 
@@ -202,19 +202,5 @@ void DelDaun(BinTree *P, wahana X);
 // List MakeListDaun (BinTree P);
 // /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
 // /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-//    jika semua alokasi list berhasil.
-//    Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListPreorder (BinTree P);
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    dengan urutan preorder, jika semua alokasi berhasil.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
-// List MakeListLevel (BinTree P, int N);
-// /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-// /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-//    yang levelnya=N, jika semua alokasi berhasil.
-//    Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-//    Menghasilkan list kosong jika ada alokasi yang gagal. */
 
 #endif
