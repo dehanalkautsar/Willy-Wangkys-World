@@ -1,4 +1,4 @@
-#include "bintree_wahana.h"
+#include "bintree_Wahana.h"
 #include "boolean.h"
 #include "string.h"
 
@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* *** Konstruktor *** */
-BinTree Tree(wahana Akar, BinTree L, BinTree R)
+BinTree Tree(Wahana Akar, BinTree L, BinTree R)
 {
 	addrNode X = AlokNode(Akar);
 	if (X != Nil)
@@ -19,7 +19,7 @@ BinTree Tree(wahana Akar, BinTree L, BinTree R)
 /* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
 /* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
 
-void MakeTree(wahana Akar, BinTree L, BinTree R, BinTree *P)
+void MakeTree(Wahana Akar, BinTree L, BinTree R, BinTree *P)
 {
 	*P = Tree(Akar, L, R);
 }
@@ -28,7 +28,7 @@ void MakeTree(wahana Akar, BinTree L, BinTree R, BinTree *P)
 		jika alokasi berhasil. P = Nil jika alokasi gagal. */
 
 /* Manajemen Memory */
-addrNode AlokNode(wahana X)
+addrNode AlokNode(Wahana X)
 {
 	addrNode P = (addrNode)malloc(sizeof(Node));
 	if (P != Nil)
@@ -98,7 +98,7 @@ boolean IsBiner(BinTree P)
 
 /* *** Searching *** */
 /* Mengirimkan true jika ada node dari P yang bernilai X */
-boolean SearchTree (BinTree P, wahana X) {
+boolean SearchTree (BinTree P, Wahana X) {
 	if (P == Nil)
 		return false;
 	else if (ID_Wahana(Akar(P))==ID_Wahana(X))
@@ -156,7 +156,7 @@ boolean IsSkewRight(BinTree P)
 
 /* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P.
    Akar(P) level-nya adalah 1. Pohon P tidak kosong dan elemen-elemennya unik. */
-int Level(BinTree P, wahana X)
+int Level(BinTree P, Wahana X)
 {
 	if (ID_Wahana(Akar(P)) == ID_Wahana(X))
 		return 1;
@@ -188,7 +188,7 @@ int Tinggi(BinTree P)
 /* *** Operasi lain *** */
 /* I.S. P boleh kosong */
 /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
-void AddDaunTerkiri(BinTree *P, wahana X)
+void AddDaunTerkiri(BinTree *P, Wahana X)
 {
 	if (IsTreeEmpty(*P))
 		*P = Tree(X, Nil, Nil);
@@ -203,7 +203,7 @@ void AddDaunTerkiri(BinTree *P, wahana X)
 /* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
         sebagai anak Kanan X (jika Kiri = false) */
 /*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
-void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri)
+void AddDaun(BinTree *P, Wahana X, Wahana Y, boolean Kiri)
 {
 	if (!IsTreeEmpty(*P))
 	{
@@ -230,7 +230,7 @@ void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri)
 /* I.S. P tidak kosong */
 /* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
         disimpan pada daun terkiri yang dihapus */
-void DelDaunTerkiri(BinTree *P, wahana *X)
+void DelDaunTerkiri(BinTree *P, Wahana *X)
 {
 	if (IsTreeOneElmt(*P))
 		*X = Akar(*P), *P = Nil;
@@ -258,7 +258,7 @@ void DelDaunTerkiri(BinTree *P, wahana *X)
 
 /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
 /* F.S. Semua daun bernilai X dihapus dari P. */
-void DelDaun(BinTree *P, wahana X)
+void DelDaun(BinTree *P, Wahana X)
 {
 	if (!IsTreeEmpty(*P))
 	{

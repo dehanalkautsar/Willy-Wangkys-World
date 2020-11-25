@@ -81,7 +81,7 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
         TAIL "maju" dengan mekanisme circular buffer; */
 {
     /* Kamus Lokal */
-    address a, b;
+    index a, b;
 
     /* Algoritma */
     // Kasus Kosong
@@ -165,9 +165,42 @@ void Dequeue(PrioQueue *Q, infotypeQ *X)
     }
 }
 
+void kurangSabar(PrioQueue *Q){
+    
+    index P;
+    P = Head(*Q);
+
+    while (P != Tail(*Q))
+    {
+        (*Q).T[P].kesabaran -= 1;
+
+        if (P == (MaxEl(*Q) - 1))
+        {
+            P = 0;
+        }
+        else
+        {
+            P++;
+        }
+
+    }
+    
+
+
+    // if (P != Nil)
+    // {
+    //     infotypeQ R = (*Q).T[P]; //kesabaran sama list wahana
+    //     int kesabaran = R.kesabaran;
+    //     WahanaAntrean Wahana = R.Wahana;
+    //     index info = info;
+    //     PrintInfo(Wahana);
+    //     printf(", kesabaran: %d\n", kesabaran);
+    // }
+}
+
 void printAntrean(PrioQueue Q)
 {
-    address P;
+    index P;
     P = Head(Q);
 
     while (P != Tail(Q))
@@ -175,7 +208,7 @@ void printAntrean(PrioQueue Q)
         infotypeQ R = Q.T[P]; //kesabaran sama list wahana
         int kesabaran = R.kesabaran;
         WahanaAntrean Wahana = R.Wahana;
-        address info = info;
+        index info = info;
 
         PrintInfo(Wahana);
         printf(", kesabaran: %d\n", kesabaran);
@@ -189,18 +222,17 @@ void printAntrean(PrioQueue Q)
             P++;
         }
 
-
     }
     
-    if (P != Nil)
-    {
-        infotypeQ R = Q.T[P]; //kesabaran sama list wahana
-        int kesabaran = R.kesabaran;
-        WahanaAntrean Wahana = R.Wahana;
-        address info = info;
-        PrintInfo(Wahana);
-        printf(", kesabaran: %d\n", kesabaran);
-    }
+    // if (P != Nil)
+    // {
+    //     infotypeQ R = Q.T[P]; //kesabaran sama list wahana
+    //     int kesabaran = R.kesabaran;
+    //     WahanaAntrean Wahana = R.Wahana;
+    //     index info = info;
+    //     PrintInfo(Wahana);
+    //     printf(", kesabaran: %d\n", kesabaran);
+    // }
     //         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
 
     //         if (p==(MaxEl(Q)-1)) {
@@ -231,7 +263,8 @@ void makeQueue(PrioQueue *Q)
             InsVLast(&X.Wahana, wahana[rand() % 3]);
         }
         //X.Wahana = random dari array wahana customer
-        X.kesabaran = (rand() % (10 - 0 + 1));
+        X.kesabaran = 5;
+        //X.kesabaran = (rand() % (10 - 2 + 1)+2);
         Enqueue(Q, X);
     }
 }
@@ -248,7 +281,7 @@ void makeQueue(PrioQueue *Q)
 // */
 // {
 //     /* Kamus Lokal */
-//     address p;
+//     index p;
 
 //     /* Algoritma */
 //     p = Head(Q);

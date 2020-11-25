@@ -15,7 +15,7 @@
 boolean IsEmptyW (WahanaAntrean L)
 /* Mengirim true jika list kosong */
 {
-     return First(L) == Nil;
+     return First(L) == Nill;
 }
 
 /****************** PEMBUATAN LIST KOSONG ******************/
@@ -23,24 +23,24 @@ void CreateEmpty (WahanaAntrean *L)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
-     First(*L) = Nil;
+     First(*L) = Nill;
 }
 
 /****************** Manajemen Memori ******************/
 address Alokasi (infotype X)
 /* Mengirimkan address hasil alokasi sebuah elemen */
-/* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
-/* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
-/* Jika alokasi gagal, mengirimkan Nil */
+/* Jika alokasi berhasil, maka address tidak Nill, dan misalnya */
+/* menghasilkan P, maka Info(P)=X, Next(P)=Nill */
+/* Jika alokasi gagal, mengirimkan Nill */
 {
      ElmtList *P = (ElmtList *) malloc(sizeof (ElmtList));
 
-     if (P == Nil) {
-          return Nil;
+     if (P == Nill) {
+          return Nill;
      }
      else {
           (P)->info = X;
-          (P)->next = Nil;
+          (P)->next = Nill;
           return P;
      }
 }
@@ -56,15 +56,15 @@ void Dealokasi (address *P)
 address Search (WahanaAntrean L, infotype X)
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
-/* Jika tidak ada, mengirimkan Nil */
+/* Jika tidak ada, mengirimkan Nill */
 {
      address P;
-     if (First(L) == Nil) {
-          return Nil;
+     if (First(L) == Nill) {
+          return Nill;
      }
      else {
           P = First(L);
-          while (P != Nil) {
+          while (P != Nill) {
                if (Info(P) == X) {
                     return P;
                }
@@ -72,7 +72,7 @@ address Search (WahanaAntrean L, infotype X)
                     P = Next(P);
                }
           }
-          return Nil;
+          return Nill;
      }
 }
 
@@ -83,8 +83,8 @@ boolean FSearch (WahanaAntrean L, address P)
      address Node = First(L);
      boolean found = false;
 
-     if (!IsEmpty(L)) {
-          while (!found && Node != Nil) {
+     if (!IsEmptyW(L)) {
+          while (!found && Node != Nill) {
                if (Node == P) {
                     found = true;
                }
@@ -98,19 +98,19 @@ boolean FSearch (WahanaAntrean L, address P)
      return found;
 }
 address SearchPrec (WahanaAntrean L, infotype X)
-/* Mengirimkan address elemen sebelum elemen yang nilainya=X */
+/* Mengirimkan address elemen sebelum elemen yang Nillainya=X */
 /* Mencari apakah ada elemen list dengan Info(P)=X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */
-/* Jika tidak ada, mengirimkan Nil */
-/* Jika P adalah elemen pertama, maka Prec=Nil */
+/* Jika tidak ada, mengirimkan Nill */
+/* Jika P adalah elemen pertama, maka Prec=Nill */
 /* Search dengan spesifikasi seperti ini menghindari */
 /* traversal ulang jika setelah Search akan dilakukan operasi lain */
 {
-     address Prec = Nil;
+     address Prec = Nill;
      address P = First(L);
      boolean found = false;
 
-     while (!found && P != Nil) {
+     while (!found && P != Nill) {
           if (Info(P) == X) {
                found = true;
           }
@@ -123,23 +123,23 @@ address SearchPrec (WahanaAntrean L, infotype X)
           return Prec;
      }
      else {
-          return Nil;
+          return Nill;
      }
      
      
 }
 
-/****************** PRIMITIF BERDASARKAN NILAI ******************/
+/****************** PRIMITIF BERDASARKAN NillAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
 void InsVFirst (WahanaAntrean *L, infotype X)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
-/* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
+/* menambahkan elemen pertama dengan Nillai X jika alokasi berhasil */
 {
      address P = Alokasi(X);
 
-     if (P != Nil) {
-          if (IsEmpty(*L)) {
+     if (P != Nill) {
+          if (IsEmptyW(*L)) {
                First(*L) = P;
           }
           else {
@@ -152,20 +152,20 @@ void InsVLast (WahanaAntrean *L, infotype X)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
-/* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
+/* berNillai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 {
      address P = Alokasi(X);
      address Node = First(*L);
 
-     if (P != Nil) {
-          if (IsEmpty(*L)) {
+     if (P != Nill) {
+          if (IsEmptyW(*L)) {
                First(*L) = P;
           }
           else {
-               while (Next(Node) != Nil) {
+               while (Next(Node) != Nill) {
                     Node = Next(Node);
                }
-               //Next(Node) = Nil
+               //Next(Node) = Nill
                Next(Node) = P;
           }
      }
@@ -174,7 +174,7 @@ void InsVLast (WahanaAntrean *L, infotype X)
 /*** PENGHAPUSAN ELEMEN ***/
 void DelVFirst (WahanaAntrean *L, infotype *X)
 /* I.S. List L tidak kosong  */
-/* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
+/* F.S. Elemen pertama list dihapus: Nillai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
 {
      address P = First(*L);
@@ -188,7 +188,7 @@ void DelVFirst (WahanaAntrean *L, infotype *X)
 }
 void DelVLast (WahanaAntrean *L, infotype *X)
 /* I.S. list tidak kosong */
-/* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
+/* F.S. Elemen terakhir list dihapus: Nillai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */
 {
      address CurrentNode;
@@ -214,7 +214,7 @@ void InsertAfter (WahanaAntrean *L, address P, address Prec)
 {
      address Node = First(*L);
      address AfterNode = Next(Node);
-     if (IsEmpty(*L)) {
+     if (IsEmptyW(*L)) {
           InsertFirst(L,P);
      }
      else {
@@ -232,11 +232,11 @@ void InsertLast (WahanaAntrean *L, address P)
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 {
      address Node = First(*L);
-     if (IsEmpty(*L)) {
+     if (IsEmptyW(*L)) {
           InsertFirst(L,P);
      }
      else {
-          while (Next(Node) != Nil) {
+          while (Next(Node) != Nill) {
                Node = Next(Node);
           }
           Next(Node) = P;
@@ -259,16 +259,16 @@ void DelP (WahanaAntrean *L, infotype X)
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* Maka P dihapus dari list dan di-dealokasi */
-/* Jika ada lebih dari satu elemen list dengan Info bernilai X */
+/* Jika ada lebih dari satu elemen list dengan Info berNillai X */
 /* maka yang dihapus hanya elemen pertama dengan Info = X */
 /* Jika tidak ada elemen list dengan Info(P)=X, maka list tetap */
 /* List mungkin menjadi kosong karena penghapusan */
 {
      address P = First(*L);
-     address PrevNode = Nil;
+     address PrevNode = Nill;
      boolean found = false;
 
-     while(P != Nil && !found) {
+     while(P != Nill && !found) {
           if (Info(P) == X) {
                found = true;
           }
@@ -279,7 +279,7 @@ void DelP (WahanaAntrean *L, infotype X)
      }
 
      if (found) {
-          if (PrevNode == Nil) { //list satu elemen atau elemen pertama
+          if (PrevNode == Nill) { //list satu elemen atau elemen pertama
                DelFirst(L,&P);
           }
           else { //elemen di tengah atau akhir
@@ -297,18 +297,18 @@ void DelLast (WahanaAntrean *L, address *P)
 /* Last element baru adalah predesesor elemen terakhir yg lama, */
 /* jika ada */
 {
-     address PrevNode = Nil;
+     address PrevNode = Nill;
      *P = First(*L);
 
-     while(Next(*P) != Nil) {
+     while(Next(*P) != Nill) {
           PrevNode = *P;
           *P = Next(*P);
      }
-     if (PrevNode == Nil) { //1 elemen atau elemen pertama
+     if (PrevNode == Nill) { //1 elemen atau elemen pertama
           DelFirst(L,P);
      }
      else {
-          Next(PrevNode) = Nil;
+          Next(PrevNode) = Nill;
      }
 }
 void DelAfter (WahanaAntrean *L, address *Pdel, address Prec)
@@ -330,18 +330,18 @@ void DelAfter (WahanaAntrean *L, address *Pdel, address Prec)
 void PrintInfo (WahanaAntrean L)
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
+/* Contoh : jika ada tiga elemen berNillai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 {
      address P = First(L);
      printf("(");
-     if (!IsEmpty(L)) {
-          while (Next(P) != Nil) {
+     if (!IsEmptyW(L)) {
+          while (Next(P) != Nill) {
                printf("%s, ", Info(P));
                P = Next(P);
           }
-          //Next(P) = Nil
+          //Next(P) = Nill
           printf("%s", Info(P));
      }
      printf(")");

@@ -1,10 +1,10 @@
 /* ADT Pohon Biner */
 /* Implementasi dengan menggunakan pointer */
-/* Penamaan type wahana, type addrNode, dan beberapa fungsi disesuikan
+/* Penamaan type Wahana, type addrNode, dan beberapa fungsi disesuikan
    karena melibatkan modul list rekursif. */
 
-#ifndef _BINTREE_WAHANA_H_
-#define _BINTREE_WAHANA_H_
+#ifndef _BINTREE_Wahana_H_
+#define _BINTREE_Wahana_H_
 
 #define Nil NULL
 /* Modul lain yang digunakan : */
@@ -13,17 +13,8 @@
 #include "jam.h"
 #include "pemain.h"
 
-/* ADT UPGRADE WAHANA */
-typedef struct tUpgrade_Wahana
-{
-   char Nama_Upgrade[32];
-   int Cost_Upgrade;
-   // Material yang dibutuhkan
-   Material Bahan_Upgrade[2];
 
-} Upgrade_Wahana;
-
-/* ADT WAHANA */
+/* ADT Wahana */
 typedef struct tElmt_Wahana
 {
    int ID;
@@ -32,23 +23,25 @@ typedef struct tElmt_Wahana
    // Koordinat Lokasi;
    char Deskripsi[256];
    int Kapasitas;
-   // history upgrade wahana
+   // history upgrade Wahana
    JAM Durasi;
    // Ukuran Wahana (Bonus)
-   Upgrade_Wahana Left_Upgrade;
-   Upgrade_Wahana Right_Upgrade;
+   // Buat Upgrade Wahana
+   int Upgrade_Cost;
+   Material Upgrade_Material[2];
+   // Status Wahana
    boolean statusWahana;
 } Elmt_Wahana;
 
 /* #define Nil NULL */ /* konstanta Nil sesuai pada modul listrek */
 /* Makro Wahana */
-typedef Elmt_Wahana wahana;
+typedef Elmt_Wahana Wahana;
 
 /* *** Definisi Type Pohon Biner *** */
 typedef struct tNode *addrNode;
 typedef struct tNode
 {
-   wahana info;
+   Wahana info;
    addrNode left;
    addrNode right;
 } Node;
@@ -66,32 +59,31 @@ typedef addrNode BinTree;
 
 #define ID_Wahana(W) W.ID
 #define Nama_Wahana(W) W.Nama
+/*
 #define Tipe_Wahana(W) W.Tipe
+*/
 #define Harga_Wahana(W) W.Harga
 // #define Lokasi_Wahana(W) W.Lokasi
 #define Deskripsi_Wahana(W) W.Deskripsi
 #define Kapasitas_Wahana(W) W.Kapasitas
 #define Durasi_Wahana(W) W.Durasi
-#define Left_Upgrade(W) W.Left_Upgrade
-#define Right_Upgrade(W) W.Right_Upgrade
+#define Upgrade_Cost(W) W.Upgrade_Cost
+#define Upgrade_Material(W,i) W.Upgrade_Material[i]
 
-#define Nama_Upgrade(U) U.Nama_Upgrade
-#define Cost_Upgrade(U) U.Cost_Upgrade
-#define Bahan_Upgrade(U) U.Bahan_Upgrade
 
-/* KONSTRUKTOR WAHANA */
+/* KONSTRUKTOR Wahana */
 
 /* *** Konstruktor *** */
-BinTree Tree(wahana Akar, BinTree L, BinTree R);
+BinTree Tree(Wahana Akar, BinTree L, BinTree R);
 /* Menghasilkan sebuah pohon biner dari A, L, dan R, jika alokasi berhasil */
 /* Menghasilkan pohon kosong (Nil) jika alokasi gagal */
-void MakeTree(wahana Akar, BinTree L, BinTree R, BinTree *P);
+void MakeTree(Wahana Akar, BinTree L, BinTree R, BinTree *P);
 /* I.S. Akar, L, R terdefinisi. P Sembarang */
 /* F.S. Membentuk pohon P dengan Akar(P)=Akar, Left(P)=L, dan Right(P)=R
 		jika alokasi berhasil. P = Nil jika alokasi gagal. */
 
 /* Manajemen Memory */
-addrNode AlokNode(wahana X);
+addrNode AlokNode(Wahana X);
 /* Mengirimkan addrNode hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka addrNode tidak Nil, dan misalnya menghasilkan P,
   maka Akar(P) = X, Left(P) = Nil, Right(P)=Nil */
@@ -113,55 +105,8 @@ boolean IsUnerRight(BinTree P);
 boolean IsBiner(BinTree P);
 /* Mengirimkan true jika pohon biner tidak kosong P adalah pohon biner: mempunyai subpohon kiri dan subpohon kanan*/
 
-// /* *** Traversal *** */
-// void PrintPreorder (BinTree P);
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara preorder: akar, pohon kiri, dan pohon kanan.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (A()()) adalah pohon dengan 1 elemen dengan akar A
-//    (A(B()())(C()())) adalah pohon dengan akar A dan subpohon kiri (B()()) dan subpohon kanan (C()()) */
-// void PrintInorder (BinTree P);
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara inorder: pohon kiri, akar, dan pohon kanan.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (()A()) adalah pohon dengan 1 elemen dengan akar A
-//    ((()B())A(()C())) adalah pohon dengan akar A dan subpohon kiri (()B()) dan subpohon kanan (()C()) */
-// void PrintPostorder (BinTree P);
-// /* I.S. P terdefinisi */
-// /* F.S. Semua simpul P sudah dicetak secara postorder: pohon kiri, pohon kanan, dan akar.
-//    Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-//    Pohon kosong ditandai dengan ().
-//    Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-// /* Contoh:
-//    (()()A) adalah pohon dengan 1 elemen dengan akar A
-//    ((()()B)(()()C)A) adalah pohon dengan akar A dan subpohon kiri (()()B) dan subpohon kanan (()()C) */
-// void PrintTree (BinTree P, int h);
-// /* I.S. P terdefinisi, h adalah jarak indentasi (spasi) */
-// /* F.S. Semua simpul P sudah ditulis dengan indentasi (spasi) */
-// /* Penulisan akar selalu pada baris baru (diakhiri newline) */
-// /* Contoh, jika h = 2:
-// 1) Pohon preorder: (A()()) akan ditulis sbb:
-// A
-// 2) Pohon preorder: (A(B()())(C()())) akan ditulis sbb:
-// A
-//   B
-//   C
-// 3) Pohon preorder: (A(B(D()())())(C()(E()()))) akan ditulis sbb:
-// A
-//   B
-//     D
-//   C
-//     E
-// */
-
 /* *** Searching *** */
-boolean SearchTree(BinTree P, wahana X);
+boolean SearchTree(BinTree P, Wahana X);
 /* Mengirimkan true jika ada node dari P yang bernilai X */
 
 /* *** Fungsi-Fungsi Lain *** */
@@ -176,7 +121,7 @@ boolean IsSkewLeft(BinTree P);
 boolean IsSkewRight(BinTree P);
 /* Mengirimkan true jika P adalah pohon condong kanan */
 /* Pohon kosong adalah pohon condong kanan */
-int Level(BinTree P, wahana X);
+int Level(BinTree P, Wahana X);
 /* Mengirimkan level dari node X yang merupakan salah satu simpul dari pohon biner P.
    Akar(P) level-nya adalah 1. Pohon P tidak kosong dan elemen-elemennya unik. */
 int Tinggi(BinTree P);
@@ -184,19 +129,19 @@ int Tinggi(BinTree P);
    Mengirim "height" yaitu tinggi dari pohon */
 
 /* *** Operasi lain *** */
-void AddDaunTerkiri(BinTree *P, wahana X);
+void AddDaunTerkiri(BinTree *P, Wahana X);
 /* I.S. P boleh kosong */
 /* F.S. P bertambah simpulnya, dengan X sebagai simpul daun terkiri */
-void AddDaun(BinTree *P, wahana X, wahana Y, boolean Kiri);
+void AddDaun(BinTree *P, Wahana X, Wahana Y, boolean Kiri);
 /* I.S. P tidak kosong, X adalah salah satu daun Pohon Biner P */
 /* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau
         sebagai anak Kanan X (jika Kiri = false) */
 /*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
-void DelDaunTerkiri(BinTree *P, wahana *X);
+void DelDaunTerkiri(BinTree *P, Wahana *X);
 /* I.S. P tidak kosong */
 /* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
         disimpan pada daun terkiri yang dihapus */
-void DelDaun(BinTree *P, wahana X);
+void DelDaun(BinTree *P, Wahana X);
 /* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
 /* F.S. Semua daun bernilai X dihapus dari P. */
 // List MakeListDaun (BinTree P);

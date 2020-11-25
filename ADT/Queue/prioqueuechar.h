@@ -10,23 +10,23 @@
 #include "linkedlistQ.h"
 
 #define Nil -1
-/* Konstanta untuk mendefinisikan address tak terdefinisi */
+/* Konstanta untuk mendefinisikan index tak terdefinisi */
 
-/* Definisi elemen dan address */
+/* Definisi elemen dan index */
 
 typedef struct
 {
     int kesabaran; /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
     WahanaAntrean Wahana;   /* elemen Wahana */
 } infotypeQ;
-typedef int address; /* indeks tabel */
+typedef int index; /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueChar : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct
 {
     infotypeQ *T; /* tabel penyimpan elemen */
-    address HEAD; /* alamat penghapusan */
-    address TAIL; /* alamat penambahan */
+    index HEAD; /* alamat penghapusan */
+    index TAIL; /* alamat penambahan */
     int MaxEl;    /* Max elemen queue */
 } PrioQueue;
 /* Definisi PrioQueueChar kosong: HEAD=Nil; TAIL=Nil. */
@@ -35,7 +35,7 @@ typedef struct
 /* Jika e adalah infotype dan Q adalah PrioQueueChar, maka akses elemen : */
 #define Kesabaran(e) (e).kesabaran
 #define QWahana(e) (e).Wahana
-#define Info(e) (e).info
+#define InfoQ(e) (e).info
 #define Head(Q) (Q).HEAD
 #define Tail(Q) (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
@@ -88,6 +88,7 @@ void PrintPrioQueue(PrioQueue Q);
 <prio-n> <elemen-n>
 #
 */
+void kurangSabar(PrioQueue *Q);
 void printAntrean(PrioQueue Q);
 void makeQueue(PrioQueue *Q);
 
