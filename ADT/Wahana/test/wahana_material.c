@@ -25,6 +25,7 @@ Wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasita
     return W;
 }
 
+// ID,Nama,Harga,Deskripsi,Kapasitas,Durasi
 
 // Parameter input/output list of Wahana
 void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[])

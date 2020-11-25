@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include "point.h"
 #include "jam.h"
+/*
 #include "matriks.h"
+*/
 
 /*  Kamus Umum */
 #define IdxMax 4
@@ -39,7 +41,8 @@ typedef struct
 #define Harga_Material(P) (P).Harga
 #define Kuantitas_Material(P) (P).Kuantitas
 
+/*
 void makePemain(Pemain *P, int uang, char* nama, Koordinat posisiPemain, JAM jamPemain);
 void setKoordinatPemain(Pemain *P, char input, MATRIKS M);
-
+*/
 #endif
