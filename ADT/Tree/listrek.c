@@ -1,4 +1,4 @@
-/* File: listrek.h */
+/* File: listrek.c */
 /* 
 - NIM       : 13519020
 - Nama      : Muhammad Azhar Faturahman
