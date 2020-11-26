@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "bintree_Wahana.h"
+#include "listrek_wahana.h"
 // #include "../Mesin-Kata&Mesin-Karakter/mesinkar_file.h"
 
 /* ADT Wahana */
@@ -143,23 +144,46 @@ void Print_Tree_Wahana(BinTree T)
 /* Mengembalikan alamat Wahana ditemukan, NIL jika gagal ditemukan */
 addrNode Search_Wahana(BinTree T, int ID) {
     /* KAMUS LOKAL */
-    addrNode P;
     
     /* ALGORITMA */
-    if (IsTreeEmpty(P)) {
+    if (IsTreeEmpty(T) || !SearchTree(Left(T),ID)) {
         return Nil;
     } else {
-        
-        P = T;
-        while (ID_Wahana(Akar(P))!=ID)
+        while (ID_Wahana(Akar(T))!=ID)
         {
             if (SearchTree(Left(T),ID)) {
-                P = Left(P);
+                T = Left(T);
             } else {
-                P = Right(P);
+                T = Right(T);
             } 
         }
-        return P;  
+        return T;  
+    }
+}
+
+addrNode Search_DatabaseWahana(BinTree T1, BinTree T2, BinTree T3, int ID) {
+    /* KAMUS LOKAL */
+    
+    /* ALGORITMA */
+    if (SearchTree(T1,ID)) {
+        Search_Wahana(T1, ID);
+    } else if (SearchTree(T2,ID)) {
+        Search_Wahana(T2, ID);
+    } else if (SearchTree(T3,ID)) {
+        Search_Wahana(T3, ID);
+    } else {
+        return Nil;
+    }
+}
+
+Wahana Wahana_Pindah_Node(addrNode W, boolean kiri) {
+    /* KAMUS LOKAL */
+    
+    /* ALGORITMA */
+    if (kiri) {
+        return CopyWahana(Akar(Left(W)));
+    } else {
+        return CopyWahana(Akar(Right(W)));
     }
 }
 
@@ -229,18 +253,47 @@ void Read_File_Material(Material* List_M,char* nama_file)
 }
 
 
-void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, char* namaFileMaterial) {
+void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database_Material[]) {
     Wahana Database_W[30];
-    Material Database_M[10];
-
-    Read_File_Material(Database_M, namaFileMaterial);
-    Read_File_Wahana(Database_W, namaFileWahana,Database_M);
-    Make_Tree_Wahana(Bintree_Wahana,Database_W,Database_M);
+    // Material Database_M[10];
+    //Read_File_Material(Database_M, namaFileMaterial);
+    Read_File_Wahana(Database_W, namaFileWahana,Database_Material);
+    Make_Tree_Wahana(Bintree_Wahana,Database_W,Database_Material);
 }
 
 void init_material(Material* Database_Material,char* namaFileMaterial) {
     Read_File_Material(Database_Material, namaFileMaterial);
 }
+
+Wahana CopyWahana(Wahana W) {
+    Wahana New_Wahana;
+    int temp_durasi;
+
+    ID_Wahana(New_Wahana) = ID_Wahana(W);
+    strcpy(Nama_Wahana(New_Wahana),Nama_Wahana(W));
+    Harga_Wahana(New_Wahana) = Harga_Wahana(W);
+    strcpy(Deskripsi_Wahana(New_Wahana),Deskripsi_Wahana(W));
+    Kapasitas_Wahana(New_Wahana) = Kapasitas_Wahana(W);
+    temp_durasi = JAMToMenit(Durasi_Wahana(W));
+    Durasi_Wahana(New_Wahana) = MenitToJAM(temp_durasi);;
+    Upgrade_Cost(New_Wahana) = Upgrade_Cost(W);
+    
+    Upgrade_Material(New_Wahana,0) = CopyMaterial(Upgrade_Material(W,0));
+    Upgrade_Material(New_Wahana,1) = CopyMaterial(Upgrade_Material(W,1));
+
+    return New_Wahana;
+}
+
+Material CopyMaterial(Material M) {
+    Material New_Material;
+    ID_Material(New_Material) = ID_Material(M);
+    strcpy(Nama_Material(New_Material),Nama_Material(M));
+    Harga_Material(New_Material) = Harga_Material(M);
+    Kuantitas_Material(New_Material) =  Kuantitas_Material(M);
+
+    return New_Material;
+}
+
 
 void main() {
     BinTree Bintree_Wahana1;

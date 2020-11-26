@@ -68,12 +68,22 @@ typedef addrNode BinTree;
 
 
 /* ADT WAHANA */
-/* Gunakan ini buat bikin wahana */
-void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, char* namaFileMaterial);
 /* Gunakan ini buat database material */
 void init_material(Material* Database_Material,char* namaFileMaterial);
-
+/* Inisialisasi database dengan Database_Material[10] */
+/* Gunakan ini buat bikin wahana */
+void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database_Material[]);
+/* Karena passing by reference, harus pake ini */
+Wahana CopyWahana(Wahana W);
+Material CopyMaterial(Material M);
+/* Searching */
+addrNode Search_DatabaseWahana(BinTree T1, BinTree T2, BinTree T3, int ID);
 addrNode Search_Wahana(BinTree T, int ID);
+
+/* Buat Upgrade */
+/* Cek dulu apakah wahana bisa diupgrade */
+Wahana Wahana_Pindah_Node(addrNode W, boolean kiri);
+
 void Read_File_Material(Material* List_M,char* nama_file);
 void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[]);
 void Print_Tree_Wahana(BinTree T);
