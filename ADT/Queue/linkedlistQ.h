@@ -7,10 +7,11 @@
 #define listlinierQ_H
 
 #include "boolean.h"
+#include "../ADT/Wahana/bintree_wahana.h"
 
 #define Nill NULL
 
-typedef char *infotype;
+typedef int infotype;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist
 {

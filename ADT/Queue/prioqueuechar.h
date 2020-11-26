@@ -8,8 +8,10 @@
 
 #include "boolean.h"
 #include "linkedlistQ.h"
+#include "../ADT/Map/map.h"
+#include "../ADT/Wahana/bintree_wahana.h"
 
-#define Nil -1
+#define NilQ -1
 /* Konstanta untuk mendefinisikan index tak terdefinisi */
 
 /* Definisi elemen dan index */
@@ -89,7 +91,7 @@ void PrintPrioQueue(PrioQueue Q);
 #
 */
 void kurangSabar(PrioQueue *Q);
-void printAntrean(PrioQueue Q);
-void makeQueue(PrioQueue *Q);
+void printAntrean(PrioQueue Q, BinTree T);
+void makeQueue(PrioQueue *Q, Map WahanaMap);
 
 #endif

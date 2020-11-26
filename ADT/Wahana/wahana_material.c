@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "bintree_Wahana.h"
 #include "listrek_wahana.h"
-// #include "../Mesin-Kata&Mesin-Karakter/mesinkar_file.h"
+#include "../Mesin-Kata&Mesin-Karakter/mesinkata.h"
 
 /* ADT Wahana */
 
@@ -161,16 +161,17 @@ addrNode Search_Wahana(BinTree T, int ID) {
     }
 }
 
-addrNode Search_DatabaseWahana(BinTree T1, BinTree T2, BinTree T3, int ID) {
+
+addrNode Search_DatabaseWahana(BinTree Database_Wahana[], int ID) {
     /* KAMUS LOKAL */
     
     /* ALGORITMA */
-    if (SearchTree(T1,ID)) {
-        Search_Wahana(T1, ID);
-    } else if (SearchTree(T2,ID)) {
-        Search_Wahana(T2, ID);
-    } else if (SearchTree(T3,ID)) {
-        Search_Wahana(T3, ID);
+    if (SearchTree(Database_Wahana[0],ID)) {
+        Search_Wahana(Database_Wahana[0], ID);
+    } else if (SearchTree(Database_Wahana[1],ID)) {
+        Search_Wahana(Database_Wahana[1], ID);
+    } else if (SearchTree(Database_Wahana[2],ID)) {
+        Search_Wahana(Database_Wahana[2], ID);
     } else {
         return Nil;
     }

@@ -25,13 +25,14 @@ typedef struct
   int uang;
   JAM jamPemain;
   Koordinat posisiPemain;
-  Material ArrMaterial[IdxMax + 1];
+  Material ArrMaterial[5];
 } Pemain;
 
 #define nama(P) (P).nama
 #define uang(P) (P).uang
 #define posisiPemain(P) (P).posisiPemain
 #define jamPemain(P) (P).jamPemain
+#define materialPemain(P,i) (P).ArrMaterial[i]
 
 /* MAKRO ADT MATERIAL */
 #define ID_Material(P) (P).ID

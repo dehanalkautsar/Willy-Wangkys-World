@@ -17,7 +17,7 @@
 boolean isEmptyPQ(PrioQueue Q)
 /* Mengirim true jika Q kosong: lihat definisi di atas */
 {
-    return (Tail(Q) == Nil && Head(Q) == Nil);
+    return (Tail(Q) == NilQ && Head(Q) == NilQ);
 }
 
 boolean IsFullPQ(PrioQueue Q)
@@ -57,8 +57,8 @@ void MakeEmpty(PrioQueue *Q, int Max)
     {
         MaxEl(*Q) = 0;
     }
-    Head(*Q) = Nil;
-    Tail(*Q) = Nil;
+    Head(*Q) = NilQ;
+    Tail(*Q) = NilQ;
 }
 
 /* *** Destruktor *** */
@@ -67,8 +67,8 @@ void DeAlokasi(PrioQueue *Q)
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 {
-    Head(*Q) = Nil;
-    Tail(*Q) = Nil;
+    Head(*Q) = NilQ;
+    Tail(*Q) = NilQ;
     MaxEl(*Q) = 0;
     free((*Q).T);
 }
@@ -143,14 +143,14 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
 void Dequeue(PrioQueue *Q, infotypeQ *X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
+/* F.S. X = NilQai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
 {
     *X = InfoHead(*Q);
     if (NBElmt(*Q) == 1)
     { //Kondisi bersisa 1 elemen
-        Head(*Q) = Nil;
-        Tail(*Q) = Nil;
+        Head(*Q) = NilQ;
+        Tail(*Q) = NilQ;
     }
     else
     { //Kondisi sisa elemen masih banyak
@@ -187,7 +187,7 @@ void kurangSabar(PrioQueue *Q){
     
 
 
-    // if (P != Nil)
+    // if (P != NilQ)
     // {
     //     infotypeQ R = (*Q).T[P]; //kesabaran sama list wahana
     //     int kesabaran = R.kesabaran;
@@ -198,7 +198,7 @@ void kurangSabar(PrioQueue *Q){
     // }
 }
 
-void printAntrean(PrioQueue Q)
+void printAntrean(PrioQueue Q, BinTree T)
 {
     index P;
     P = Head(Q);
@@ -208,7 +208,6 @@ void printAntrean(PrioQueue Q)
         infotypeQ R = Q.T[P]; //kesabaran sama list wahana
         int kesabaran = R.kesabaran;
         WahanaAntrean Wahana = R.Wahana;
-        index info = info;
 
         PrintInfo(Wahana);
         printf(", kesabaran: %d\n", kesabaran);
@@ -224,7 +223,7 @@ void printAntrean(PrioQueue Q)
 
     }
     
-    // if (P != Nil)
+    // if (P != NilQ)
     // {
     //     infotypeQ R = Q.T[P]; //kesabaran sama list wahana
     //     int kesabaran = R.kesabaran;
@@ -242,25 +241,30 @@ void printAntrean(PrioQueue Q)
     //         }
 
     //     } // Berhenti ketika p sudah di tail atau p kosong
-    //     if (p!=Nil) {
+    //     if (p!=NilQ) {
     //         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
     //     }
 }
 
-void makeQueue(PrioQueue *Q)
+
+
+void makeQueue(PrioQueue *Q, Map WahanaMap)
 /* Prosedur ini buat bikin antriannya */
 {
-    char *wahana[] = {"Wangky's World", "Subway rush", "Fear Factor"};
+    //char *wahana[] = {"Wangky's World", "Subway rush", "Fear Factor"};
+    int Rand = totalWahana(WahanaMap);
+
+    
     MakeEmpty(Q, 5);
     infotypeQ X;
 
     for (int i = 0; i < 5; i++)
     {
-        int r = (rand() % 3);
+        int r = (rand() % Rand);
         CreateEmpty(&X.Wahana);
         for (int j = 0; j < r; j++)
         {
-            InsVLast(&X.Wahana, wahana[rand() % 3]);
+            InsVLast(&X.Wahana, infoIdWahana(WahanaMap, r));
         }
         //X.Wahana = random dari array wahana customer
         X.kesabaran = 5;
@@ -296,7 +300,7 @@ void makeQueue(PrioQueue *Q)
 //         }
 
 //     } // Berhenti ketika p sudah di tail atau p kosong
-//     if (p!=Nil) {
+//     if (p!=NilQ) {
 //         printf("%d %c\n",Elmt(Q,p).kesabaran, Elmt(Q,p).info);
 //     }
 

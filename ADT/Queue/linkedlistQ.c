@@ -327,7 +327,7 @@ void DelAfter (WahanaAntrean *L, address *Pdel, address Prec)
      Next(Prec) = NextP;
 }
 
-void PrintInfo (WahanaAntrean L)
+void PrintInfo (WahanaAntrean L, BinTree T)
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen berNillai 1, 20, 30 akan dicetak: [1,20,30] */
@@ -338,11 +338,15 @@ void PrintInfo (WahanaAntrean L)
      printf("(");
      if (!IsEmptyW(L)) {
           while (Next(P) != Nill) {
-               printf("%s, ", Info(P));
+               addrNode N = Search_DatabaseWahana(T,Info(P));
+               Wahana infowahana = Akar(N);
+               printf("%s, ", Nama_Wahana(infowahana));
                P = Next(P);
           }
           //Next(P) = Nill
-          printf("%s", Info(P));
+          addrNode N = Search_DatabaseWahana(T,Info(P));
+          Wahana infowahana = Akar(N);
+          printf("%s", Nama_Wahana(infowahana));
      }
      printf(")");
 }

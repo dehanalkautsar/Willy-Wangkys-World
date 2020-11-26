@@ -22,6 +22,7 @@ void geserKanan(Koordinat *P);
 void geserKiri(Koordinat *P);
 void geserAtas(Koordinat *P);
 void geserBawah(Koordinat *P);
+boolean isKoordinatSama(Koordinat P1, Koordinat P2);
 
 // Make Wahana
 //koordinatWahana *makeKoordinatWahana(wahana *wahana, int row, int kol);

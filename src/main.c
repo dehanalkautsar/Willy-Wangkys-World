@@ -18,9 +18,33 @@
 #include "../ADT/Wahana/bintree_wahana.h"
 #include "../ADT/Map/map.h"
 
+/* Global Variabel */
+BinTree Database_Wahana[3];
+Material Database_Material[5];
+Stack StackPreparationPhase;    //Insialisasi Empty Stack
+Map M1, M2, M3, M4; // Inisialisasi Map
+
 int main()
 {
-    // char* choice;
+    // Inisialisasi
+    CreateEmptyStack(&StackPreparationPhase);
+    BinTree Database_Wahana1;
+    BinTree Database_Wahana2;
+    BinTree Database_Wahana3;
+    init_material(Database_Material,"material.txt");
+    init_wahana(&Database_Wahana1,"wahana1.txt", Database_Material);
+    init_wahana(&Database_Wahana2,"wahana2.txt", Database_Material);
+    init_wahana(&Database_Wahana3,"wahana3.txt", Database_Material);
+    Database_Wahana[0] = Database_Wahana1;
+    Database_Wahana[1] = Database_Wahana2;
+    Database_Wahana[2] = Database_Wahana3;
+
+    /* Make Map */
+    makeMap(&M1, 15, 15, 1);    
+    makeMap(&M2, 15, 15, 2);    
+    makeMap(&M3, 15, 15, 3);    
+    makeMap(&M4, 15, 15, 4);    
+
     Kata New, Load, Exit;
 
     New.Length = 3;
@@ -142,6 +166,13 @@ void preparation_phase(int day)
     JAM SisaJam;
     int Need_Money;
     JAM Need_Time;
+    Material Need_Material[5];
+
+    for (int i = 0; i < 5; i++) {
+        Need_Material[i] = CopyMaterial(Database_Material[i]);
+        Kuantitas_Material(Need_Material[i]) = 0;
+    }
+    
 
     /* ALGORITMA */
     /* Inisialisasi */
@@ -280,112 +311,281 @@ void input_preparation_phase(boolean *status)
     }
 }
 
-void build(Pemain P, Elmt_Wahana W, int *Need_Money, JAM *Need_Jam)
+void build(Pemain P, int *Need_Money, JAM *Need_Jam)
 {
     JAM WaktuBuild = MakeJAM(1, 0);
     JAM TempJam = MakeJAM(0, 0);
     long TempMenit = 0;
+    int UangBuild = 10000;
+    Koordinat KoordinatBuild;
+    makeKoordinat(&KoordinatBuild,0,0);
+
+    IsiStack StackWahanaBuild;
     // 1st Step menampilakan wahana dasar yang mungkin dibuat (hasil file load eksternal)
-    // pending menunggu file eksternal
+    printf("Berikut adalah wahana standar yang tersedia:\n");
+    printf("\n");
+    printf("1. %s\n",Database_Wahana[0]->info.Nama);
+    printf("2. %s\n",Database_Wahana[1]->info.Nama);
+    printf("3. %s\n",Database_Wahana[2]->info.Nama);
 
     //2nd step
     //pilih wahana
-
+    printf("Masukan pilihan wahana yang ingin anda build:\n");
+    int InputPilihanWahana;
+    scanf("%d",&InputPilihanWahana);
+    
     //3rd step cek resource player dengan requirement wahana
-    if ((Need_Money <= P.uang) && (JLT(WaktuBuild, P.jamPemain)))
-    {                                                               //JLT sudah diubah jump least than equal
-        *Need_Money = *Need_Money + W.Harga;                        // Tambah need_money
-        TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
-        *Need_Jam = MenitToJAM(TempMenit);
-    }
-    else
-    {
-        if (Need_Money > P.uang)
-        {
-            printf("Uang player tidak cukup");
+    if (InputPilihanWahana = 1){
+        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+            *Need_Money = *Need_Money + UangBuild;                        // Tambah need_money
+            TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+            *Need_Jam = MenitToJAM(TempMenit);
+
+            printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            printf("X: ");
+            scanf("%d\n",KoordinatBuild.X);
+            
+            printf("Y: ");
+            scanf("%d\n",KoordinatBuild.Y);
+
+            while (!checkIsAvailablePoint(M1,KoordinatBuild.X,KoordinatBuild.Y)){
+                printf("Sudah terdapat objek lain di lokasi tersebut, masukan koordinat lain\n");
+                printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            
+                printf("X: ");
+                scanf("%d\n",KoordinatBuild.X);
+                
+                printf("Y: ");
+                scanf("%d\n",KoordinatBuild.Y);
+            }
+            
+
+            // Masukan ke Stack
+            AddElementIsiStack(&StackWahanaBuild,"build",KoordinatBuild,Database_Wahana[0]->info.Nama,-1,0);
+            Push(&StackPreparationPhase,StackWahanaBuild);
         }
-        else if (JGT(WaktuBuild, P.jamPemain))
-        {
-            printf("Waktu tersisa tidak cukup");
+        else{
+            if (Need_Money > P.uang){
+                printf("Uang player tidak cukup");
+            }
+            else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
+                printf("Waktu tersisa tidak cukup");
+            }
         }
     }
+    else if(InputPilihanWahana = 2){
+        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+            *Need_Money = *Need_Money + UangBuild;                       // Tambah need_money
+            TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+            *Need_Jam = MenitToJAM(TempMenit);
+
+            printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            printf("X: ");
+            scanf("%d\n",KoordinatBuild.X);
+            
+            printf("Y: ");
+            scanf("%d\n",KoordinatBuild.Y);
+
+            while (!checkIsAvailablePoint(M,KoordinatBuild.X,KoordinatBuild.Y)){
+                printf("Sudah terdapat objek lain di lokasi tersebut, masukan koordinat lain\n");
+                printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            
+                printf("X: ");
+                scanf("%d\n",KoordinatBuild.X);
+                
+                printf("Y: ");
+                scanf("%d\n",KoordinatBuild.Y);
+            }
+            
+            // Masukan ke Stack
+            AddElementIsiStack(&StackWahanaBuild,"build",KoordinatBuild,Database_Wahana[1]->info.Nama,-1,0);
+            Push(&StackPreparationPhase,StackWahanaBuild);
+        }
+        else{
+            if (Need_Money > P.uang){
+                printf("Uang player tidak cukup");
+            }
+            else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
+                printf("Waktu tersisa tidak cukup");
+            }
+        }
+    }
+    else if(InputPilihanWahana = 3){
+        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+            *Need_Money = *Need_Money + UangBuild;                        // Tambah need_money
+            TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+            *Need_Jam = MenitToJAM(TempMenit);
+
+            printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            printf("X: ");
+            scanf("%d\n",KoordinatBuild.X);
+            
+            printf("Y: ");
+            scanf("%d\n",KoordinatBuild.Y);
+
+            while (!checkIsAvailablePoint(M,KoordinatBuild.X,KoordinatBuild.Y)){
+                printf("Sudah terdapat objek lain di lokasi tersebut, masukan koordinat lain\n");
+                printf("Masukan Koordinat Wahana yang ingin anda bangun\n");
+            
+                printf("X: ");
+                scanf("%d\n",KoordinatBuild.X);
+                
+                printf("Y: ");
+                scanf("%d\n",KoordinatBuild.Y);
+            }
+
+            // Masukan ke Stack
+            AddElementIsiStack(&StackWahanaBuild,"build",KoordinatBuild,Database_Wahana[2]->info.Nama,-1,0);
+            Push(&StackPreparationPhase,StackWahanaBuild);
+        }
+        else{
+            if (Need_Money > P.uang){
+                printf("Uang player tidak cukup");
+            }
+            else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
+                printf("Waktu tersisa tidak cukup");
+            }
+        }
+    }
+
     //4th step masukan perintah eksekusi ke dalam stack
 }
 
-void upgrade(Pemain P, Map M, int *Need_Money, JAM *Need_Jam)
+void upgrade(Pemain P, Map M, int *Need_Money, JAM *Need_Jam, Material Need_Material[5])
 {
     /* KAMUS LOKAL */
-    JAM WaktuBuild = MakeJAM(1, 30);
-    Wahana W;
-    Upgrade_Wahana U1, U2;
+    JAM WaktuUpgrade = MakeJAM(1, 30);
+    addrNode Node_Wahana;
+    WahanaMap Wahana_Terdekat;
+    Wahana Curr_Wahana,Left_Wahana,Right_Wahana;
+    int ID_Wahana;
+    Koordinat Koordinat_Wahana;
+    Material M1, M2, PM;
+
     Kata K1, K2;
     int choice;
-    boolean valid;
+    boolean valid, v1,v2;
+
+    int temp;
 
     /* ALGORITMA */
     /* 1. Cek Wahana disekitar kita */
-    // TBA
+    Wahana_Terdekat = wahanaTerdekat(M, posisiPemain(P));
 
-    /* 2. Tampilkan daftar upgrade */
-    // Udah ada wahana di sekitar kita
-    U1 = Left_Upgrade(W);
-    U2 = Right_Upgrade(W);
-    printf("- %s\n", Nama_Upgrade(U1));
-    printf("- %s\n", Nama_Upgrade(U2));
-
-    K1 = StringToKata(Nama_Upgrade(U1));
-    K2 = StringToKata(Nama_Upgrade(U2));
-
-    /* 3. Input User */
-    choice = 0;
-    valid = false;
-    STARTKATA();
-    while (!EndKata)
+    if (Wahana_Terdekat.IdWahana != -1)
     {
-        if (IsKataSama(K1, CKata))
-        {
-            choice = 1;
-        }
-        else if (IsKataSama(K2, CKata))
-        {
-            choice = 2;
-        }
-        else
-        {
-            printf("Input tidak valid\n");
-        }
+        /* 2. Tampilkan daftar upgrade */
+        ID_Wahana = Wahana_Terdekat.IdWahana;
+        Koordinat_Wahana = Wahana_Terdekat.KoordinatWahana;
 
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya
-    }
+        Node_Wahana = Search_DatabaseWahana(Database_Wahana,ID_Wahana);
+        Curr_Wahana = Akar(Node_Wahana);
 
-    if (choice == 1)
-    {
-        /* 4. Check apakah uang dan resource memenuhi */
-        if (true)
-        {
-        }
-        else
-        {
-            printf("Error: Resource atau Uang tidak memenuhi");
-        }
-    }
-    else if (choice == 2)
-    {
-        /* 4. Check apakah uang dan resource memenuhi */
-        if (true)
-        {
-        }
-        else
-        {
-            printf("Error: Resource atau Uang tidak memenuhi");
-        }
-    }
+        if (Left(Node_Wahana) != Nil && Right(Node_Wahana) != Nil) {
+            Left_Wahana = Akar(Left(Node_Wahana));
+            Right_Wahana = Akar(Right(Node_Wahana));
 
-    /* 5. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
-    if ((choice == 1 || choice == 2) && valid)
-    {
+            printf("- %s\n", Nama_Wahana(Left_Wahana));
+            printf("- %s\n", Nama_Wahana(Right_Wahana));
+
+            K1 = StringToKata(Nama_Wahana(Left_Wahana));
+            K2 = StringToKata(Nama_Wahana(Right_Wahana));
+
+            /* 3. Input User */
+            choice = 0;
+            
+            STARTKATA();
+            while (!EndKata)
+            {
+                if (IsKataSama(K1, CKata)) {
+                    choice = 1;
+                }
+                else if (IsKataSama(K2, CKata)) {
+                    choice = 2;
+                } else {
+                    printf("Error : Input tidak valid\n");
+                }
+
+                IgnoreBlank();
+                ADVKATA(); //Cek apakah EndKata
+            }
+
+            valid = false;
+            if (choice == 1 || choice == 2)
+            {
+                if (uang(P) >= Upgrade_Cost(Curr_Wahana) && (JLT(WaktuUpgrade, jamPemain(P))) )
+                {
+                    
+                    M1 = Upgrade_Material(Curr_Wahana,0);
+                    M2 = Upgrade_Material(Curr_Wahana,1);
+
+                    v1 = false;
+                    v2 = false;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (ID_Material(M1) == ID_Material(materialPemain(P,i))) {
+                            if (Kuantitas_Material(M1) <= Kuantitas_Material(materialPemain(P,i))) {
+                                v1 = true;
+                            }
+                        } else if (ID_Material(M2) == ID_Material(materialPemain(P,i))) {
+                            if (Kuantitas_Material(M2) <= Kuantitas_Material(materialPemain(P,i))) {
+                                v2 = true;
+                            }
+                        }
+                    }
+                    
+                    if (v1 && v2) {
+                        *Need_Money = *Need_Money + Upgrade_Cost(Curr_Wahana);                        // Tambah need_money
+                        temp = JAMToMenit(WaktuUpgrade) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
+                        *Need_Jam = MenitToJAM(temp);
+                        
+                        for (int i = 0; i < 5; i++) {
+                            if (ID_Material(M1) == ID_Material(Need_Material[i])) {
+                                Kuantitas_Material(Need_Material[i]) += Kuantitas_Material(M1);
+                            } else if (ID_Material(M2) == ID_Material(Need_Material[i])) {
+                                Kuantitas_Material(Need_Material[i]) += Kuantitas_Material(M2);
+                            }
+                        }
+                        valid = true;
+                    }
+                    
+                }
+            }
+            
+
+            /* 5. Kalau berhasil push ke stack aksi, kalau gagal tampilkan error */
+            if ((choice == 1 || choice == 2) && valid)
+            {
+                IsiStack Stack_Upgrade;
+                
+                if (choice==1) {
+                    AddElementIsiStack(&Stack_Upgrade,"upgrade",Koordinat_Wahana,Nama_Wahana(Curr_Wahana),ID_Wahana(Left_Wahana),0);
+                } else {
+                    AddElementIsiStack(&Stack_Upgrade,"upgrade",Koordinat_Wahana,Nama_Wahana(Curr_Wahana),ID_Wahana(Right_Wahana),0);
+                }
+
+                Push(&StackPreparationPhase,Stack_Upgrade);
+
+            } else if (!valid) {
+                printf("Error: Resource/Uang/Waktu tidak memenuhi");
+            }
+        } else {
+            printf("Error: Wahana tidak dapat diupgrade! ");
+        }
+    } else {
+        printf("Error: Tidak ada wahana didekat kamu! ");
+    } 
+}
+void buy(){
+    
+}
+
+
+void Main(Stack* StackPreparationPhase) {
+    while (!IsStackEmpty(*StackPreparationPhase)) {
+        
     }
+        
 }
 
 /* END OF RESERVED */
@@ -408,9 +608,9 @@ void main_phase(int *day, boolean isGoing)
 
     status = true;
 
-    makeQueue(&antrean);
+    makeQueue(&antrean, Wahana);
 
-    /* Looping preparation phase */
+    /* Looping main phase */
     while (status)
     {
         printf("Main phase day %d\n", *day);
@@ -453,7 +653,7 @@ void main_phase(int *day, boolean isGoing)
         }
 
         // Panggil Priority Queue buat tampilan antrian
-        printAntrean(antrean);
+        printAntrean(antrean,Tree);
         // Panggil wahana apa yang rusak.
 
         input_main_phase(&status, day, isGoing); //panggil input dan jalankan
@@ -466,6 +666,7 @@ void main_phase(int *day, boolean isGoing)
 
 // Not finished, tambah parameter yang kurang
 void input_main_phase(boolean *status, int day, boolean isGoing)
+// tambah parameter database tree dong
 {
     /* KAMUS */
     Kata W, A, S, D, Serve, Repair, Detail, Office, Prepare, Quit;
@@ -535,7 +736,11 @@ void input_main_phase(boolean *status, int day, boolean isGoing)
         }
         else if (IsKataSama(Serve, CKata))
         {
+            ADVKATA();
+            char* namaWahana = KataToString(CKata);
+
             // Lakukan serve
+            // ini harusnya cek nama wahana juga
         }
         else if (IsKataSama(Repair, CKata))
         {
@@ -567,19 +772,30 @@ void input_main_phase(boolean *status, int day, boolean isGoing)
     }
 }
 
-void serve(Elmt_Wahana W, Pemain *P, PrioQueue *Q, char *wahana)
+int searchIdWahana(BinTree T, char* namaWahana, Map M){
+    int i = 0;
+    boolean status = false;
+    while(i<=IdxMaxWahana && !status){
+        addrNode N = Search_DatabaseWahana(T,infoIdWahana(M,i));
+        
+    }
+}
+
+void serve(Elmt_Wahana W, Pemain *P, PrioQueue *Q, char *wahana, JAM *Need_Jam, Map Wahana)
 { // parameternya harusnya wahana, sama player
     // check wahana error atau engga
     int kepala = Head(*Q);
     infotypeQ X;
     int P = Head(*Q);
 
-    if (W.statusWahana)
+    
+
+    if (W.statusWahana) //cekWahananya rusak ato engga sm penuh atau engga
     {
         //proses serve
         uang(*P) += Harga_Wahana(W);
         // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
-        if (Search((*Q).T[kepala].Wahana,wahana)!=Nil)
+        if (Search((*Q).T[kepala].Wahana, wahana) != Nil)
         {
             //kalo ternyata ada wahana ybs di head, maka diapus dr list
             DelP(&(*Q).T[kepala].Wahana, wahana);
@@ -666,15 +882,5 @@ void office(boolean *stillInOffice)
             else if (IsKataSama(Exit, CKata))
             {
                 stillInOffice = false;
-            }
-            else
-            {
-                printf("Input tidak valid\n");
-            }
-
-            IgnoreBlank();
-            ADVKATA();
-        }
     }
 }
-/* END OF RESERVED OF MAIN PHASE FUNCTION/PROCEDURE */

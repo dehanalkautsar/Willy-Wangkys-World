@@ -1,1 +1,3 @@
 ID,Nama,Harga,Deskripsi,Kapasitas,Durasi,CostUpgrade
+
+Nama wahana tidak boleh ada blank character

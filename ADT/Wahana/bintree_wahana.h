@@ -19,7 +19,7 @@ typedef struct tElmt_Wahana
 {
    int ID;
    char Nama[32];
-   int Harga;
+   int Harga;  // Harga tiket masuk bukan harga build
    // Koordinat Lokasi;
    char Deskripsi[256];
    int Kapasitas;
@@ -77,7 +77,10 @@ void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database
 Wahana CopyWahana(Wahana W);
 Material CopyMaterial(Material M);
 /* Searching */
-addrNode Search_DatabaseWahana(BinTree T1, BinTree T2, BinTree T3, int ID);
+/* Ini buat semua database pohon */
+addrNode Search_DatabaseWahana(BinTree Database_Wahana[], int ID);
+
+/* Ini buat 1 pohon */
 addrNode Search_Wahana(BinTree T, int ID);
 
 /* Buat Upgrade */
