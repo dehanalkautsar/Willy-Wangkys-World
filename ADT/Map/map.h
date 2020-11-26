@@ -36,6 +36,7 @@ void printMap(Map M);
 void updateMap(Map *M, int x, int y, char input);
 WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition);
 int totalWahana(Map M);
-boolean checkIsAvailablePoint(Map M, int x, int y)
+boolean checkIsAvailablePoint(Map M, int x, int y);
+int searchElmtListWahana(Map M, int idWahana);
 
 #endif

@@ -3,9 +3,13 @@
 
 #include <stdlib.h>
 #include "boolean.h"
+#include "../ADT/Map/map.h"
+
+#define NilG NULL
 
 #define numVertex(V) V->numVertex
 #define firstEdge(V) V->firstEdge
+#define MapWahana(V) V->Wahana
 #define nextVertex(V) V->nextVertex
 #define source(E) E->source
 #define dest(E) E->dest
@@ -15,11 +19,12 @@
 #define firstDest(G) G.firstDest
 
 
-typedef struct elmtVertex *adrVertex;
-typedef struct elmtEdge *adrEdge;
+typedef elmtVertex *adrVertex;
+typedef elmtEdge *adrEdge;
 
 typedef struct {
     int numVertex;
+    Map Wahana;
     adrEdge firstEdge;
     adrVertex nextVertex;
 }elmtVertex;
@@ -36,11 +41,15 @@ typedef struct {
     adrVertex firstDest;
 }graph;
 
-adrVertex createVertex(int nomor);
-graph createGraph();
+adrVertex createVertex(int nomor, Map Wahana);
+graph createGraph(Map M1, Map M2, Map M3, Map M4);
 adrEdge createEdge(int asal, int tujuan);
 adrVertex sourceVertex(int x, graph G);
 adrVertex destinationVertex(int x, graph G);
-void addedge(graph G, int destionaon, int source);
+void addedge(graph G, int asal, int tujuan);
+
+void PrintSourceDest(adrVertex P);
+
+// > < ^ v
 
 #endif // GRAPH_H_INCLUDED

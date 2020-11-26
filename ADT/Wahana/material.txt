@@ -2,4 +2,4 @@
 2,Kayu,200
 3,Besi,300
 4,Tembaga,400
-5,Emas,500
+5,Emas,500,

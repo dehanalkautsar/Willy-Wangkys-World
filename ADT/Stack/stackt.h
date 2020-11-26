@@ -18,8 +18,10 @@
 #define stackt_h
 
 #include <stdio.h>
+#include <string.h>
 #include "boolean.h"
 #include "../Point/point.h"
+#include "../Player/pemain.h"
 
 
 #define Nil -1
@@ -35,6 +37,11 @@ typedef struct {
   char* namaWahanaOrMaterial; //untuk build, upgrade, dan buy
   int idUpgrade; //untuk upgrade
   int jumlahMaterial; //untuk buy
+  Material Need_Material[5];
+  int Need_Money;
+  int Need_Menit;
+  int ID_Map;
+  
 } IsiStack;
 
 #define infoCommand(iS) (iS).command
@@ -42,6 +49,9 @@ typedef struct {
 #define infoNamaWahanaOrMaterial(iS) (iS).namaWahanaOrMaterial
 #define infoIDUpgrade(iS) (iS).idUpgrade
 #define infoJumlahMaterial(iS) (iS).jumlahMaterial
+#define infoNeedMaterial(iS,i) (iS).Need_Material[i]
+#define infoNeedMoney(iS) (iS).Need_Money
+#define infoNeedMenit(iS) (iS).Need_Menit
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
@@ -67,7 +77,7 @@ void CreateEmptyStack (Stack *S);
 /* jadi indeksnya antara 0.. MaxEl */
 /* Ciri stack kosong : TOP bernilai Nil */
 
-void AddElementIsiStack( IsiStack *isi, char* command, Koordinat koordinat, char* namaWahana, int IDUpgradeWahana, int jumlah);
+void AddElementIsiStack( IsiStack *isi, char* command, Koordinat koordinat, char* namaWahana, int IDUpgradeWahanaOrIDMaterial, int jumlahMaterial, Material need_material[], int need_money, int need_menit, int ID_Map);
 /* I.S = 'isi' terdefinisi
    F.S = 'isi' telah dimasukkan elemen elemen didalam parameter*/
 void InversStack(Stack *S);

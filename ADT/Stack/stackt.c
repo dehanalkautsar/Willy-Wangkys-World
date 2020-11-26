@@ -11,6 +11,7 @@
 #include "stackt.h"
 #include "../Point/point.h"
 
+
 void CreateEmptyStack (Stack *S)
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
@@ -21,18 +22,23 @@ void CreateEmptyStack (Stack *S)
 }
 
 
-void AddElementIsiStack( IsiStack *isi, char* command, Koordinat koordinat, char* namaWahanaOrMaterial, int IDUpgradeWahana, int jumlah)
+void AddElementIsiStack(IsiStack *isi, char* command, Koordinat koordinat, char* namaWahana, int IDUpgradeWahanaOrIDMaterial, int jumlahMaterial, Material need_material[], int need_money, int need_menit, int ID_Map)
 /* I.S = 'isi' terdefinisi
    F.S = 'isi' telah dimasukkan elemen elemen didalam parameter*/
 {
-    infoCommand(*isi) = command;
+    strcpy(infoCommand(*isi) , command);
     infoKoordinatWahana(*isi) = koordinat;
-    infoNamaWahanaOrMaterial(*isi) = namaWahanaOrMaterial;
-    infoIDUpgrade(*isi) = IDUpgradeWahana;
-    infoJumlahMaterial(*isi) = jumlah;
+    strcpy(infoNamaWahanaOrMaterial(*isi),namaWahana);
+    infoIDUpgrade(*isi) = IDUpgradeWahanaOrIDMaterial; // Dipake juga buat ID material
+    infoJumlahMaterial(*isi) = jumlahMaterial;
+    for (int i = 0; i < 5; i++) {
+        infoNeedMaterial(*isi,i) = CopyMaterial(need_material[i]);
+    }
+    infoNeedMoney(*isi) = need_money;
+    infoNeedMenit(*isi) = need_menit;
+    isi->ID_Map = ID_Map; 
 }
-
-void InversStack(Stack *S){
+void InversStack(Stack *S) {
     Stack TempS;
     TempS = *S;
 

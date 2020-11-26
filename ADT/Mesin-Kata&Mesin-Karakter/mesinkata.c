@@ -120,7 +120,7 @@ char *KataToString(Kata Kata)
     {
         buff[i] = Kata.TabKata[i];
     }
-    buff[i + 1] = "\0";
+    buff[i + 1] = "\0"; // End of string
 
     return buff;
 }

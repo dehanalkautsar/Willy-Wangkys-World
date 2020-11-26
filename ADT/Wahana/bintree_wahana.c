@@ -281,3 +281,5 @@ void DelDaun(BinTree *P, Wahana X)
 			DelDaun(&Left(*P), X), DelDaun(&Right(*P), X);
 	}
 }
+
+

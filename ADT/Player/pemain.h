@@ -21,11 +21,12 @@ typedef struct Material
 
 typedef struct
 {
-  char *nama;
+  char nama[32];
   int uang;
   JAM jamPemain;
   Koordinat posisiPemain;
   Material ArrMaterial[5];
+  int Current_Map;
 } Pemain;
 
 #define nama(P) (P).nama
@@ -33,6 +34,7 @@ typedef struct
 #define posisiPemain(P) (P).posisiPemain
 #define jamPemain(P) (P).jamPemain
 #define materialPemain(P,i) (P).ArrMaterial[i]
+#define currentMap(P) (P).Current_Map
 
 /* MAKRO ADT MATERIAL */
 #define ID_Material(P) (P).ID

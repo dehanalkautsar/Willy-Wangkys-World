@@ -10,6 +10,8 @@
 /* Modul lain yang digunakan : */
 #include "boolean.h"
 // #include "point.h"
+
+#include "listrek_wahana.h"
 #include "jam.h"
 #include "pemain.h"
 
@@ -64,6 +66,7 @@ typedef addrNode BinTree;
 #define Kapasitas_Wahana(W) W.Kapasitas
 #define Durasi_Wahana(W) W.Durasi
 #define Upgrade_Cost(W) W.Upgrade_Cost
+#define Status_Wahana(W) W.statusWahana
 #define Upgrade_Material(W,i) W.Upgrade_Material[i]
 
 
@@ -86,6 +89,8 @@ addrNode Search_Wahana(BinTree T, int ID);
 /* Buat Upgrade */
 /* Cek dulu apakah wahana bisa diupgrade */
 Wahana Wahana_Pindah_Node(addrNode W, boolean kiri);
+
+List_Wahana RiwayatUpgrade(int ID_Wahana, BinTree Database_W[]);
 
 void Read_File_Material(Material* List_M,char* nama_file);
 void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[]);

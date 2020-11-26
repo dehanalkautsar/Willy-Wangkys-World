@@ -87,16 +87,16 @@ void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Materia
         
         if (j<1) {
             level = 1;
-            Upgrade_Material[0] = Database_Material[0];
-            Upgrade_Material[1] = Database_Material[1];
+            Upgrade_Material[0] = CopyMaterial(Database_Material[0]);
+            Upgrade_Material[1] = CopyMaterial(Database_Material[1]);
         } else if (j<3) {
             level = 2;
-            Upgrade_Material[0] = Database_Material[2];
-            Upgrade_Material[1] = Database_Material[3];
+            Upgrade_Material[0] = CopyMaterial(Database_Material[2]);
+            Upgrade_Material[1] = CopyMaterial(Database_Material[3]);
         } else {
             level = 3;
-            Upgrade_Material[0] = Database_Material[3];
-            Upgrade_Material[1] = Database_Material[4];
+            Upgrade_Material[0] = CopyMaterial(Database_Material[3]);
+            Upgrade_Material[1] = CopyMaterial(Database_Material[4]);
         }
         
 
@@ -295,6 +295,47 @@ Material CopyMaterial(Material M) {
     return New_Material;
 }
 
+List_Wahana MakeListRiwayat(int ID_Wahana, BinTree P) {
+    /* KAMUS LOKAL */
+    address_Wahana E;
+    List_Wahana L;
+    /* ALGORITMA */
+    if (ID_Wahana(Akar(P))==ID_Wahana) {           // Basis 0
+        return Alokasi(Akar(P));
+    } else {                        // Rekurens
+        L = Alokasi(Akar(P)); 
+        if (L != Nil) {
+            if (SearchTree(Left(P),ID_Wahana)) {
+                Next(L) = MakeListRiwayat(ID_Wahana,Left(P));
+            } else {
+                Next(L) = MakeListRiwayat(ID_Wahana,Right(P));
+            }
+        } else {
+            L = Nil;
+        }
+        return L;
+    }
+}
+
+List_Wahana RiwayatUpgrade(int ID_Wahana, BinTree Database_W[]) {
+    BinTree T;
+
+    if (SearchTree(Database_W[0],ID_Wahana)) {
+        T = Database_W[0]; 
+    } else if (SearchTree(Database_W[1],ID_Wahana)) {
+        T = Database_W[1]; 
+    } else if (SearchTree(Database_W[2],ID_Wahana)) {
+        T = Database_W[2]; 
+    } else {
+        T = Nil;
+    }
+
+    if (T!=Nil) {
+        return MakeListRiwayat(ID_Wahana, T);
+    } else {
+        return Nil;
+    }
+}
 
 void main() {
     BinTree Bintree_Wahana1;

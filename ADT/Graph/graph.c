@@ -1,42 +1,67 @@
 #include "graph.h"
 #include <stdlib.h>
 
-adrVertex createVertex(int nomor){
+
+adrVertex createVertex(int nomor, Map Wahana){
     elmtVertex* P;
     elmtVertex V;
     P = (elmtVertex*) malloc (sizeof(elmtVertex));
     *P = V;
     numVertex(P) = nomor;
+    MapWahana(P) = Wahana;
     firstEdge(P) = NULL;
     nextVertex(P) = NULL;
     return P;
 }
 
 
-graph createGraph(){
-    /**graph G;
-    adrVertex P;            BELUM, disesuaikan sesuai kebutuhan program
+graph createGraph(Map M1, Map M2, Map M3, Map M4){
+    graph G;
+    adrVertex P;
+    adrVertex Q;
+    Q = firstSource(G);
+    Q = nextVertex(Q);
 
-    //source
-    P = createVertex(1);
+    //Source
+    P = createVertex(1,M1);
     firstSource(G) = P;
-    P = createVertex(10);
+    P = createVertex(2,M2);
     nextVertex(firstSource(G)) = P;
-    P = createVertex(17);
+    P = createVertex(3,M3);
     nextVertex(nextVertex(firstSource(G))) = P;
-
-    //destination
-    P = createVertex(1);
+    P = createVertex(4,M4);
+    nextVertex(nextVertex(nextVertex(firstSource(G)))) = P;
+    
+    //Destination
+    P = createVertex(1,M1);
     firstDest(G) = P;
-    P = createVertex(10);
+    P = createVertex(2,M2);
     nextVertex(firstDest(G)) = P;
-    P = createVertex(17);
+    P = createVertex(3,M3);
     nextVertex(nextVertex(firstDest(G))) = P;
-    P = createVertex(21);
+    P = createVertex(4,M4);
     nextVertex(nextVertex(nextVertex(firstDest(G)))) = P;
 
-    return G;**/
+    //Create Edge
+
+    addedge(G, 1,2);
+    addedge(G, 2,1);
+
+    addedge(G, 2,3);
+    addedge(G, 3,2);
+
+    addedge(G, 3,4);
+    addedge(G, 4,3);
+
+    addedge(G, 1,4);
+    addedge(G, 4,1);
+    
+
+    return G;
+
 }
+
+
 
 adrEdge createEdge(int asal, int tujuan){
     elmtEdge* P;
@@ -103,3 +128,10 @@ void addedge(graph G, int asal, int tujuan){
         }
     }
 }
+
+void PrintSourceDest(adrVertex P){
+
+
+}
+
+

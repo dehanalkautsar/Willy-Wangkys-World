@@ -151,3 +151,22 @@ void updateMap(Map *M, int x, int y, char input)
 boolean checkIsAvailablePoint(Map M, int x, int y) {
   return Elmt(mapMatriks(M), x, y) == '-';
 }
+
+int searchElmtListWahana(Map M, int idWahana){
+    int i = 0;
+    boolean status = false;
+
+    while (i<=IdxMaxWahana && !status){
+        if (infoIdWahana(M,i) == idWahana){
+            status = true;
+        }else{
+            i++;
+        }
+    }
+
+    if (status){
+        return i;
+    }else{
+        return -1;
+    }
+}
