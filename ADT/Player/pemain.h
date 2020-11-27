@@ -19,7 +19,7 @@ typedef struct Material
   int Kuantitas;
 } Material;
 
-typedef struct
+typedef struct Pemain
 {
   char nama[32];
   int uang;
@@ -37,12 +37,12 @@ typedef struct
 #define currentMap(P) (P).Current_Map
 
 /* MAKRO ADT MATERIAL */
-#define ID_Material(P) (P).ID
-#define Nama_Material(P) (P).NamaMaterial
-#define Harga_Material(P) (P).Harga
-#define Kuantitas_Material(P) (P).Kuantitas
+#define ID_Material(M) (M).ID
+#define Nama_Material(M) (M).NamaMaterial
+#define Harga_Material(M) (M).Harga
+#define Kuantitas_Material(M) (M).Kuantitas
 
-void makePemain(Pemain *P, int uang, char *nama, Koordinat posisiPemain, JAM jamPemain);
+void makePemain(Pemain *P, int uang, char *nama,  Material Database_Material[]);
 void setKoordinatPemain(Pemain *P, char input, Map M);
 
 #endif

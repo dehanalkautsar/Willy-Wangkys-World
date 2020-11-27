@@ -91,7 +91,8 @@ void PrintPrioQueue(PrioQueue Q);
 #
 */
 void kurangSabar(PrioQueue *Q);
-void printAntrean(PrioQueue Q, BinTree T);
+void printAntrean(PrioQueue Q);
 void makeQueue(PrioQueue *Q, Map WahanaMap);
+void tendangAntrean(PrioQueue *Q);
 
 #endif

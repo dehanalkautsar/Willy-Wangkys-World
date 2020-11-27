@@ -40,7 +40,7 @@ void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Materia
     int Upgrade_Biaya;
     Material Upgrade_Material[2];
     int level;
-
+ 
     /* PEMANGGILAN FILE */
     FILE *fp;
     char buff[256];

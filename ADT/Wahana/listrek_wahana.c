@@ -189,8 +189,13 @@ void PrintList (List_Wahana L)
     /* KAMUS LOKAL */
     /* ALGORITMA */
     if (!IsEmpty(L)) {
-        printf("%d\n",ID_Wahana(FirstElmt(L)));
+        if (Tail(L) != Nil) {
+            printf("%s ->",Nama_Wahana(FirstElmt(L)));
+        } else {
+            printf("%s\n",Nama_Wahana(FirstElmt(L)));
+        }
         PrintList(Next(L));
+        
     }
 }
 

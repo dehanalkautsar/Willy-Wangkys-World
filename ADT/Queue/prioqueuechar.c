@@ -184,6 +184,32 @@ void kurangSabar(PrioQueue *Q){
         }
 
     }
+}
+
+void tendangAntrean(PrioQueue *Q){
+
+    index P;
+    P = Head(*Q);
+
+    while (P != Tail(*Q) && ((*Q).T[P].kesabaran == 0))
+    {
+        infotypeQ X;
+        Dequeue(Q, &X);
+    }
+
+    // 5 5 5 5 5 5
+    // 4 4 4 4 4 4  
+
+    if (P == (MaxEl(*Q) - 1))
+        {
+            P = 0;
+        }
+        else
+        {
+            P++;
+        }
+
+}
     
 
 
@@ -196,9 +222,8 @@ void kurangSabar(PrioQueue *Q){
     //     PrintInfo(Wahana);
     //     printf(", kesabaran: %d\n", kesabaran);
     // }
-}
 
-void printAntrean(PrioQueue Q, BinTree T)
+void printAntrean(PrioQueue Q)
 {
     index P;
     P = Head(Q);

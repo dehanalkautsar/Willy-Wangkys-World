@@ -6,49 +6,36 @@
 #include "../Matriks/matriks.h"
 #include "../Point/point.h"
 
-void makeMap(Map *M, int row, int column, int mapIndex)
+void makeMap(Map *M, char* nama_file, int mapIndex)
 {
-    NBrsEff(mapMatriks(*M)) = row;
-    NKolEff(mapMatriks(*M)) = column;
+    // Find row and column
+    FILE *fp;
+    char buff[256];
+    int row, column, i, j;
 
-    for (int i = 0; i < row; i++)
+    fp = fopen(nama_file, "r");
+    row = 0;
+    column = 0;
+
+    while (fgets(buff, sizeof(buff), fp))
     {
-        for (int j = 0; j < column; j++)
+        while (row == 0 && (buff[column] != '\0' && buff[column] != '\n'))
         {
-            if (i == 0 || i == (row - 1) || j == 0 || j == (column - 1))
-            {
-                Elmt(mapMatriks(*M), i, j) = '*';
-            }
-            else
-            {
-                Elmt(mapMatriks(*M), i, j) = '-';
-            }
+            column++;
         }
+        row++;
     }
 
-    int randomPosition1 = rand() % (row - 2) + 1;
-    int randomPosition2 = rand() % (column - 2) + 1;
-
-    switch (mapIndex)
-    {
-    case 1:
-        updateMap(M, randomPosition1, column - 1, '>');
-        updateMap(M, row - 1, randomPosition2, 'v');
-        break;
-    case 2:
-        updateMap(M, randomPosition1, 0, '<');
-        updateMap(M, row - 1, randomPosition2, 'v');
-        break;
-    case 3:
-        updateMap(M, randomPosition1, 0, '<');
-        updateMap(M, 0, randomPosition2, '^');
-        break;
-    case 4:
-        updateMap(M, randomPosition1, column - 1, '>');
-        updateMap(M, 0, randomPosition2, '^');
-        break;
-    default:
-        break;
+    // input buff to matrix
+    i = 0;
+    j = 0;
+    while(fgets(buff, sizeof(buff), fp)){
+      while(buff[column] != '\0' && buff[column] != '\n'){
+        Elmt(mapMatriks(*M), i, j) = buff[column];
+        j++;
+      }
+      i++;
+      j = 0;
     }
 
     // Inisialisasi list
@@ -56,9 +43,13 @@ void makeMap(Map *M, int row, int column, int mapIndex)
     {
         Koordinat P;
         makeKoordinat(&P, 0, 0);
-        infoKoordinatWahana(*M, i) = P;
+        infoKoordinatWahanaMap(*M, i) = P;
         infoIdWahana(*M, i) = -1;
         infoOccupancy(*M,i) = 0;
+        infoStatusWahana(*M,i) = true;
+        infoTotalOccupancy(*M,i) = 0;
+        infoTotalPenghasilan(*M,i) = 0;
+        infoPenghasilan(*M,i) = 0;
     }
 }
 
@@ -100,31 +91,31 @@ WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition)
 
     while (i < totalWahana(M) && !found)
     {
-        if (absis(infoKoordinatWahana(M, i)) == x && ordinat(infoKoordinatWahana(M, i)) == (y + 1))
+        if (absis(infoKoordinatWahanaMap(M, i)) == x && ordinat(infoKoordinatWahanaMap(M, i)) == (y + 1))
         {
             W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahana(M, i);
+            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
             W.Occupancy = infoOccupancy(M, i);
             found = true;
         }
-        else if (absis(infoKoordinatWahana(M, i)) == (x + 1) && ordinat(infoKoordinatWahana(M, i)) == y)
+        else if (absis(infoKoordinatWahanaMap(M, i)) == (x + 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
         {
             W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahana(M, i);
+            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
             W.Occupancy = infoOccupancy(M, i);
             found = true;
         }
-        else if (absis(infoKoordinatWahana(M, i)) == x && ordinat(infoKoordinatWahana(M, i)) == (y - 1))
+        else if (absis(infoKoordinatWahanaMap(M, i)) == x && ordinat(infoKoordinatWahanaMap(M, i)) == (y - 1))
         {
             W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahana(M, i);
+            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
             W.Occupancy = infoOccupancy(M, i);
             found = true;
         }
-        else if (absis(infoKoordinatWahana(M, i)) == (x - 1) && ordinat(infoKoordinatWahana(M, i)) == y)
+        else if (absis(infoKoordinatWahanaMap(M, i)) == (x - 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
         {
             W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahana(M, i);
+            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
             W.Occupancy = infoOccupancy(M, i);
             found = true;
         }
@@ -149,7 +140,7 @@ void updateMap(Map *M, int x, int y, char input)
 }
 
 boolean checkIsAvailablePoint(Map M, int x, int y) {
-  return Elmt(mapMatriks(M), x, y) == '-';
+    return Elmt(mapMatriks(M), x, y) == '-';
 }
 
 int searchElmtListWahana(Map M, int idWahana){
@@ -169,4 +160,14 @@ int searchElmtListWahana(Map M, int idWahana){
     }else{
         return -1;
     }
+}
+int searchKoordinatElmtListWahana(Map M, Koordinat Koordinat){  //mengembalikan indeks array listwahana dengan koordinat yang sesuai
+    int total = totalWahana(M);
+    int indeksTarget;
+    for (int i = 0; i < total; i++) {
+        if (infoKoordinatWahanaMap(M,i).X == Koordinat.X && infoKoordinatWahanaMap(M,i).Y == Koordinat.Y) {
+            indeksTarget = i;
+        }
+    }
+    return indeksTarget;
 }
