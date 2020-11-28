@@ -22,7 +22,7 @@ void setKoordinatPemain(Pemain *P, char input, Map M)
   switch (input)
   {
   case 'w':
-    if (strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) + 1), '-') == 0)
+    if (!strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) + 1), '-') == 0)
     {
       updateMap(&M, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)), '-');
       geserAtas(&posisiPemain(*P));
@@ -30,7 +30,7 @@ void setKoordinatPemain(Pemain *P, char input, Map M)
     }
     break;
   case 'a':
-    if (strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)) - 1, ordinat(posisiPemain(*P))), '-') == 0)
+    if (!strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)) - 1, ordinat(posisiPemain(*P))), '-') == 0)
     {
       updateMap(&M, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)), '-');
       geserKiri(&posisiPemain(*P));
@@ -38,7 +38,7 @@ void setKoordinatPemain(Pemain *P, char input, Map M)
     }
     break;
   case 's':
-    if (strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) - 1), '-') == 0)
+    if (!strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) - 1), '-') == 0)
     {
       updateMap(&M, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)), '-');
       geserBawah(&posisiPemain(*P));
@@ -46,7 +46,7 @@ void setKoordinatPemain(Pemain *P, char input, Map M)
     }
     break;
   case 'd':
-    if (strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)) + 1, ordinat(posisiPemain(*P))), '-') == 0)
+    if (!strcmp(Elmt(mapMatriks(M), absis(posisiPemain(*P)) + 1, ordinat(posisiPemain(*P))), '-') == 0)
     {
       updateMap(&M, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)), '-');
       geserKanan(&posisiPemain(*P));

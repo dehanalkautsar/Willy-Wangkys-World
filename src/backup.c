@@ -160,3 +160,59 @@
     // Quit.TabKata[1] = 'u';
     // Quit.TabKata[2] = 'i';
     // Quit.TabKata[3] = 't';
+
+
+// W.Length = 1;
+// W.TabKata[0] = 'w';
+// A.Length = 1;
+// A.TabKata[0] = 'a';
+// S.Length = 1;
+// S.TabKata[0] = 's';
+// D.Length = 1;
+// D.TabKata[0] = 'd';
+
+// Serve.Length = 5;
+// Serve.TabKata[0] = 's';
+// Serve.TabKata[1] = 'e';
+// Serve.TabKata[2] = 'r';
+// Serve.TabKata[3] = 'v';
+// Serve.TabKata[4] = 'e';
+
+// Repair.Length = 6;
+// Repair.TabKata[0] = 'r';
+// Repair.TabKata[1] = 'e';
+// Repair.TabKata[2] = 'p';
+// Repair.TabKata[3] = 'a';
+// Repair.TabKata[4] = 'i';
+// Repair.TabKata[5] = 'r';
+
+// Detail.Length = 6;
+// Detail.TabKata[0] = 'd';
+// Detail.TabKata[1] = 'e';
+// Detail.TabKata[2] = 't';
+// Detail.TabKata[3] = 'a';
+// Detail.TabKata[4] = 'i';
+// Detail.TabKata[5] = 'l';
+
+// Office.Length = 6;
+// Office.TabKata[0] = 'o';
+// Office.TabKata[1] = 'f';
+// Office.TabKata[2] = 'f';
+// Office.TabKata[3] = 'i';
+// Office.TabKata[4] = 'c';
+// Office.TabKata[5] = 'e';
+
+// Prepare.Length = 7;
+// Prepare.TabKata[0] = 'p';
+// Prepare.TabKata[1] = 'r';
+// Prepare.TabKata[2] = 'e';
+// Prepare.TabKata[3] = 'p';
+// Prepare.TabKata[4] = 'a';
+// Prepare.TabKata[5] = 'r';
+// Prepare.TabKata[6] = 'e';
+
+// Quit.Length = 4;
+// Quit.TabKata[0] = 'm';
+// Quit.TabKata[1] = 'a';
+// Quit.TabKata[2] = 'i';
+// Quit.TabKata[3] = 'n';
