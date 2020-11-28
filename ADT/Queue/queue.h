@@ -7,13 +7,13 @@
 
 #include "boolean.h"
 
-#define Nil -1
+//#define Nil -1
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
 typedef char* infotype;
 typedef struct{
-        char* Wahana;
+        char* WahanaString;
         int Kesabaran; 
 } infotypeQ;
 typedef int address;   /* indeks tabel */

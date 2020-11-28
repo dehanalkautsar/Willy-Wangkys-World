@@ -8,8 +8,8 @@
 
 #include "boolean.h"
 #include "linkedlistQ.h"
-#include "../ADT/Map/map.h"
-#include "../ADT/Wahana/bintree_wahana.h"
+#include "../Map/map.h"
+#include "../Wahana/bintree_wahana.h"
 
 #define NilQ -1
 /* Konstanta untuk mendefinisikan index tak terdefinisi */
@@ -19,7 +19,7 @@
 typedef struct
 {
     int kesabaran; /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
-    WahanaAntrean Wahana;   /* elemen Wahana */
+    WahanaAntrean WahanaString;   /* elemen Wahana */
 } infotypeQ;
 typedef int index; /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueChar : */
@@ -43,7 +43,7 @@ typedef struct
 #define InfoHead(Q) (Q).T[(Q).HEAD]
 #define InfoTail(Q) (Q).T[(Q).TAIL]
 #define MaxEl(Q) (Q).MaxEl
-#define Elmt(Q, i) (Q).T[(i)]
+#define ElmtQ(Q, i) (Q).T[(i)]
 
 /* ********* Prototype ********* */
 boolean IsEmptyPQ(PrioQueue Q);

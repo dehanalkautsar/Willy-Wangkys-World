@@ -91,7 +91,7 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
         Tail(*Q)++;
         // Isi info tail
         InfoTail(*Q).kesabaran = X.kesabaran;
-        InfoTail(*Q).Wahana = X.Wahana;
+        InfoTail(*Q).WahanaString = X.WahanaString;
     }
     else
     {                 // Kasus Tidak Kosong
@@ -109,10 +109,10 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
 
         b = Tail(*Q); // b berada di tail Q yang sudah ditambah
 
-        while (a != Head(*Q) && Elmt(*Q, a).kesabaran > X.kesabaran)
+        while (a != Head(*Q) && ElmtQ(*Q, a).kesabaran > X.kesabaran)
         {
             // Tukar urutan
-            Elmt(*Q, b) = Elmt(*Q, a);
+            ElmtQ(*Q, b) = ElmtQ(*Q, a);
             // b sekarang maju ke a
             b = a;
             // a sekarang maju kedepan
@@ -126,16 +126,16 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
             }
         } // Kondisi keluar loop antara a berada di head atau sudah menemukan posisi
 
-        if (Elmt(*Q, a).kesabaran <= X.kesabaran)
+        if (ElmtQ(*Q, a).kesabaran <= X.kesabaran)
         {
-            Elmt(*Q, b) = X;
+            ElmtQ(*Q, b) = X;
         }
         else
-        { // Elmt(*Q,a).prio > X.prio
+        { // ElmtQ(*Q,a).prio > X.prio
             // Tukar posisi
-            Elmt(*Q, b) = Elmt(*Q, a);
+            ElmtQ(*Q, b) = ElmtQ(*Q, a);
             // Isi elemen
-            Elmt(*Q, a) = X;
+            ElmtQ(*Q, a) = X;
         }
     }
 }
@@ -232,7 +232,7 @@ void printAntrean(PrioQueue Q)
     {
         infotypeQ R = Q.T[P]; //kesabaran sama list wahana
         int kesabaran = R.kesabaran;
-        WahanaAntrean Wahana = R.Wahana;
+        WahanaAntrean Wahana = R.WahanaString;
 
         PrintInfo(Wahana);
         printf(", kesabaran: %d\n", kesabaran);
@@ -286,10 +286,10 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
     for (int i = 0; i < 5; i++)
     {
         int r = (rand() % Rand);
-        CreateEmpty(&X.Wahana);
+        CreateEmpty(&X.WahanaString);
         for (int j = 0; j < r; j++)
         {
-            InsVLast(&X.Wahana, infoIdWahana(WahanaMap, r));
+            InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, r));
         }
         //X.Wahana = random dari array wahana customer
         X.kesabaran = 5;

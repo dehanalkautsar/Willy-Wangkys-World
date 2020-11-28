@@ -9,14 +9,14 @@
 #include "../ADT/Mesin/mesinkar.h"
 #include "../ADT/Mesin/mesinkata.h"
 #include "../ADT/Point/point.h"
-#include "../ADT/Queue/queue.h"
+//#include "../ADT/Queue/queue.h"
 #include "../ADT/Queue/prioqueuechar.h"
 #include "../ADT/Queue/linkedlistQ.h"
 #include "../ADT/Stack/stackt.h"
 #include "../ADT/Player/pemain.h"
 // #include "../ADT/Tree/bintree.h"
 #include "../ADT/Wahana/bintree_wahana.h"
-#include "../ADT/Wahana/listrek_wahana.h"
+//#include "../ADT/Wahana/listrek_wahana.h"
 #include "../ADT/Map/map.h"
 
 /* Global Variabel */
@@ -25,9 +25,10 @@ Material Database_Material[5];
 Stack StackPreparationPhase;    //Insialisasi Empty Stack
 Map M1, M2, M3, M4; // Inisialisasi Map
 
+void preparation_phase(int *day, Pemain *P);
+void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Need_Menit, JAM *Need_Time, Material Need_Material[]);
 
-
-int main()
+/**int main()
 {
     // Inisialisasi
     CreateEmptyStack(&StackPreparationPhase);
@@ -43,7 +44,7 @@ int main()
     Database_Wahana[2] = Database_Wahana3;
 
     
-    /* Make Map */
+   
     makeMap(&M1, "map1.txt", 1);
     makeMap(&M2, "map2.txt", 2);
     makeMap(&M3, "map3.txt", 3);
@@ -58,7 +59,7 @@ int main()
 
     printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
 
-    /* ALGORITMA */
+    
     STARTKATA();
     while (!EndKata)
     {
@@ -86,53 +87,53 @@ int main()
     }
 
     return 0;
-}
+}**/
 
 /* STATUS PERMAINAN */
-void game_on(int *day, Pemain *P)
-{ // Masih perlu tambah parameter (Player)
-    /* KAMUS */
-    boolean isGoing;
-    int idMap;
-    Map Map_Current;
-    /* ALGORITMA */
-    isGoing = true;
-    while (isGoing)
-    {
+// void game_on(int *day, Pemain *P)
+// { // Masih perlu tambah parameter (Player)
+//     /* KAMUS */
+//     boolean isGoing;
+//     int idMap;
+//     Map Map_Current;
+//     /* ALGORITMA */
+//     isGoing = true;
+//     while (isGoing)
+//     {
         
-        preparation_phase(day,P);
-        idMap = currentMap(*P);
-        Map_Current = idMapToMap(idMap);
-        main_phase(day,isGoing,P,Map_Current);
-    }
-    // Terminasi program
-}
+//         preparation_phase(day,P);
+//         idMap = currentMap(*P);
+//         Map_Current = idMapToMap(idMap);
+//         main_phase(day,isGoing,P,Map_Current);
+//     }
+//     // Terminasi program
+// }
 
-/* NEW GAME */
-void new_game()
-{
-    /* KAMUS */
-    char *nama;
-    int start_day;
-    int start_money;
+// /* NEW GAME */
+// void new_game()
+// {
+//     /* KAMUS */
+//     char *nama;
+//     int start_day;
+//     int start_money;
 
-    /* ALGORITMA */
-    printf("Memulai permainan baru..");
-    printf("Masukkan nama:");
-    scanf("%s", &nama);
+//     /* ALGORITMA */
+//     printf("Memulai permainan baru..");
+//     printf("Masukkan nama:");
+//     scanf("%s", &nama);
 
-    /* Inisialisasi Permainan */
-    start_day = 1;
-    start_money = 500;
+//     /* Inisialisasi Permainan */
+//     start_day = 1;
+//     start_money = 500;
 
-    // MakePlayer
-    // Inisialisasi Pemain
-    Pemain P;
-    makePemain(&P,  2000, "Yayan Kanebo", Database_Material);
+//     // MakePlayer
+//     // Inisialisasi Pemain
+//     Pemain P;
+//     makePemain(&P,  2000, "Yayan Kanebo", Database_Material);
 
-    /* Jalankan permainan */
-    game_on(&start_day,&P); //tambah parameter player dll
-}
+//     /* Jalankan permainan */
+//     game_on(&start_day,&P); //tambah parameter player dll
+// }
 
 /* LOAD GAME */
 /* TBA */
@@ -202,16 +203,16 @@ void preparation_phase(int *day, Pemain *P)
         {
             if (Minute(SisaJam) == 0)
             {
-                print("Time Remaining: %d hour(s)\n", Hour(SisaJam));
+                printf("Time Remaining: %d hour(s)\n", Hour(SisaJam));
             }
             else
             {
-                print("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
+                printf("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
             }
         }
         else
         {
-            print("Time Remaining: 0");
+            printf("Time Remaining: 0");
         }
 
         // Panggil status jumlah aksi, waktu dan uang yang dibutuhkan
@@ -222,19 +223,19 @@ void preparation_phase(int *day, Pemain *P)
         {
             if (Minute(Need_Time) == 0)
             {
-                print("Total waktu yang dibutuhkan: %d hour(s)\n", Hour(Need_Time));
+                printf("Total waktu yang dibutuhkan: %d hour(s)\n", Hour(Need_Time));
             }
             else
             {
-                print("Total waktu yang dibutuhkan: %d hour(s) %d minute(s)\n", Hour(Need_Time), Minute(Need_Time));
+                printf("Total waktu yang dibutuhkan: %d hour(s) %d minute(s)\n", Hour(Need_Time), Minute(Need_Time));
             }
         }
         else
         {
-            print("Total waktu yang dibutuhkan: 0");
+            printf("Total waktu yang dibutuhkan: 0");
         }
         // Menampilkan total uang yang dibutuhkan:
-        print("Total uang yang dibutuhkan: %d", Need_Money);
+        printf("Total uang yang dibutuhkan: %d", Need_Money);
 
         // Panggil input dan jalankan
         input_preparation_phase(&status,P,&Need_Money,&Need_Menit,&Need_Time,Need_Material);
@@ -1218,14 +1219,14 @@ void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentT
         //proses serve
         uang(*P) += Harga_Wahana(Akar(N));
         // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
-        if (Search((*Q).T[kepala].Wahana, idWahana) != Nil)
+        if (Search((*Q).T[kepala].WahanaString, idWahana) != Nil)
         {
             //kalo ternyata ada wahana ybs di head, maka diapus dr list
-            DelP(&(*Q).T[kepala].Wahana, idWahana);
+            DelP(&(*Q).T[kepala].WahanaString, idWahana);
             //mengurangi semua kesabaran
             kurangSabar(Q);
             //kalo list wahana udah kosong dequeue headnya
-            if (IsEmptyW((*Q).T[kepala].Wahana)){
+            if (IsEmptyW((*Q).T[kepala].WahanaString)){
                 Dequeue(&(*Q).T[kepala],&X);
             }else{
                 Dequeue(&(*Q).T[kepala],&X);
@@ -1562,4 +1563,112 @@ Map idMapToMap(int idMap) {
     } else {
         printf("ID Map tidak valid");
     }
+}
+
+/* STATUS PERMAINAN */
+void game_on(int *day, Pemain *P)
+{ // Masih perlu tambah parameter (Player)
+    /* KAMUS */
+    boolean isGoing;
+    int idMap;
+    Map Map_Current;
+    /* ALGORITMA */
+    isGoing = true;
+    while (isGoing)
+    {
+        
+        preparation_phase(day,P);
+        idMap = currentMap(*P);
+        Map_Current = idMapToMap(idMap);
+        main_phase(day,isGoing,P,Map_Current);
+    }
+    // Terminasi program
+}
+
+/* NEW GAME */
+void new_game()
+{
+    /* KAMUS */
+    char *nama;
+    int start_day;
+    int start_money;
+
+    /* ALGORITMA */
+    printf("Memulai permainan baru..");
+    printf("Masukkan nama:");
+    scanf("%s", &nama);
+
+    /* Inisialisasi Permainan */
+    start_day = 1;
+    start_money = 500;
+
+    // MakePlayer
+    // Inisialisasi Pemain
+    Pemain P;
+    makePemain(&P,  2000, "Yayan Kanebo", Database_Material);
+
+    /* Jalankan permainan */
+    game_on(&start_day,&P); //tambah parameter player dll
+}
+
+
+int main()
+{
+    // Inisialisasi
+    CreateEmptyStack(&StackPreparationPhase);
+    BinTree Database_Wahana1;
+    BinTree Database_Wahana2;
+    BinTree Database_Wahana3;
+    init_material(Database_Material,"material.txt");
+    init_wahana(&Database_Wahana1,"wahana1.txt", Database_Material);
+    init_wahana(&Database_Wahana2,"wahana2.txt", Database_Material);
+    init_wahana(&Database_Wahana3,"wahana3.txt", Database_Material);
+    Database_Wahana[0] = Database_Wahana1;
+    Database_Wahana[1] = Database_Wahana2;
+    Database_Wahana[2] = Database_Wahana3;
+
+    
+    /* Make Map */
+    makeMap(&M1, "map1.txt", 1);
+    makeMap(&M2, "map2.txt", 2);
+    makeMap(&M3, "map3.txt", 3);
+    makeMap(&M4, "map4.txt", 4);   
+
+    Kata New, Load, Exit;
+
+    New = StringToKata("new");
+    Load = StringToKata("load");
+    Exit = StringToKata("exit");
+    
+
+    printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
+
+    /* ALGORITMA */
+    STARTKATA();
+    while (!EndKata)
+    {
+        if (IsKataSama(New, CKata))
+        {
+            EndKata = true;
+            new_game();
+        }
+        else if (IsKataSama(Load, CKata))
+        {
+            // Load Game
+        }
+        else if (IsKataSama(Exit, CKata))
+        {
+            EndKata = true;
+            printf("// Thanks for playing!!! //");
+        }
+        else
+        {
+            printf("Input tidak valid\n");
+        }
+
+        IgnoreBlank();
+        ADVKATA(); //Cek kata selanjutnya
+    }
+
+    return 0;
 }

@@ -24,12 +24,12 @@
 #include "../Player/pemain.h"
 
 
-#define Nil -1
-#define MaxEl 10
+#define NilS -1
+#define MaxElS 10
 /* Nil adalah stack dengan elemen kosong . */
 
 typedef int infotype;
-typedef int address;   /* indeks tabel */
+typedef int addressS;   /* indeks tabel */
 
 typedef struct {
   char* command;
@@ -56,8 +56,8 @@ typedef struct {
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
 typedef struct {
-  IsiStack T[MaxEl]; /* tabel penyimpan elemen */
-  address TOP;  /* alamat TOP: elemen puncak */
+  IsiStack T[MaxElS]; /* tabel penyimpan elemen */
+  addressS TOP;  /* alamat TOP: elemen puncak */
 } Stack;
 /* Definisi stack S kosong : S.TOP = Nil */
 /* Elemen yang dipakai menyimpan nilai Stack T[0]..T[MaxEl-1] */

@@ -7,15 +7,15 @@
 #define listlinierQ_H
 
 #include "boolean.h"
-#include "../ADT/Wahana/bintree_wahana.h"
+#include "../Wahana/bintree_wahana.h"
 
 #define Nill NULL
 
-typedef int infotype;
+typedef int infotypeLQ;
 typedef struct tElmtlist *address;
 typedef struct tElmtlist
 {
-	infotype info;
+	infotypeLQ info;
 	address next;
 } ElmtList;
 typedef struct WahanaAntrean
@@ -42,7 +42,7 @@ void CreateEmpty(WahanaAntrean *L);
 /* F.S. Terbentuk list kosong */
 
 /****************** Manajemen Memori ******************/
-address Alokasi(infotype X);
+address Alokasi(infotypeLQ X);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */
@@ -53,14 +53,14 @@ void Dealokasi(address *P);
 /* Melakukan dealokasi/pengembalian address P */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search(WahanaAntrean L, infotype X);
+address SearchLQ(WahanaAntrean L, infotypeLQ X);
 /* Mencari apakah ada elemen list dengan info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 boolean FSearch(WahanaAntrean L, address P);
 /* Mencari apakah ada elemen list yang beralamat P */
 /* Mengirimkan true jika ada, false jika tidak ada */
-address SearchPrec(WahanaAntrean L, infotype X);
+address SearchPrec(WahanaAntrean L, infotypeLQ X);
 /* Mengirimkan address elemen sebelum elemen yang nilainya=X */
 /* Mencari apakah ada elemen list dengan Info(P)=X */
 /* Jika ada, mengirimkan address Prec, dengan Next(Prec)=P dan Info(P)=X. */
@@ -71,22 +71,22 @@ address SearchPrec(WahanaAntrean L, infotype X);
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst(WahanaAntrean *L, infotype X);
+void InsVFirst(WahanaAntrean *L, infotypeLQ X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast(WahanaAntrean *L, infotype X);
+void InsVLast(WahanaAntrean *L, infotypeLQ X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst(WahanaAntrean *L, infotype *X);
+void DelVFirst(WahanaAntrean *L, infotypeLQ *X);
 /* I.S. List L tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast(WahanaAntrean *L, infotype *X);
+void DelVLast(WahanaAntrean *L, infotypeLQ *X);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */
@@ -110,7 +110,7 @@ void DelFirst(WahanaAntrean *L, address *P);
 /* F.S. P adalah alamat elemen pertama list sebelum penghapusan */
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
-void DelP(WahanaAntrean *L, infotype X);
+void DelP(WahanaAntrean *L, infotypeLQ X);
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan info(P)=X  */
 /* Maka P dihapus dari list dan di-dealokasi */

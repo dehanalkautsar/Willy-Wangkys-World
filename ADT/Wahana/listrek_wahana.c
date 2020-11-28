@@ -12,10 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "boolean.h"
-#include "listrek_wahana.h"
+#include "bintree_wahana.h"
 
 /* *** Manajemen Memori *** */
-address_Wahana Alokasi_Listrek (Wahana X)
+List_Wahana Alokasi_Listrek (Wahana X)
 /* Mengirimkan address_Wahana hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address_Wahana tidak Nil, dan misalnya menghasilkan P, 
   maka Info(P) = X, Next(P) = Nil */
@@ -33,7 +33,7 @@ address_Wahana Alokasi_Listrek (Wahana X)
     return P;
 }
 
-void Dealokasi_Listrek (address_Wahana P)
+void Dealokasi_Listrek (List_Wahana P)
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address_Wahana P */
