@@ -17,13 +17,14 @@
 // #include "../ADT/Tree/bintree.h"
 #include "../ADT/Wahana/bintree_wahana.h"
 //#include "../ADT/Wahana/listrek_wahana.h"
-#include "../ADT/Map/map.h"
+//#include "../ADT/Map/map.h"
 
 /* Global Variabel */
 BinTree Database_Wahana[3];
 Material Database_Material[5];
 Stack StackPreparationPhase;    //Insialisasi Empty Stack
 Map M1, M2, M3, M4; // Inisialisasi Map
+Pemain P1;
 
 /* PROTOTIPE */
 void preparation_phase(int *day, Pemain *P);
@@ -83,7 +84,7 @@ void preparation_phase(int *day, Pemain *P)
     {
         printf("Preparation phase day %d\n", *day);
         // Panggil fungsi gambar peta
-
+        printMap(M1,*P);
         // Panggil legend peta
         printf("Legend:\n");
         printf("A = Antrian\n");
@@ -170,63 +171,98 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
     EndKata = false;
     // printf("Yoyoyoyyy\n");
     /* ALGORITMA */
-    STARTKATA();
-    while (!EndKata)
-    {
+    ReadInput();
+    // while (!EndKata)
+    // {
+    //     EndKata = true;
+        // ReadInput();
         printf("Yoyoyoyyy\n");
         if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
         {
             // Update peta  (Done)
             // parameter kurang : *Map, *Pemain
+            // EndKata = true;
             int idMap = currentMap(*P);
             if (idMap == 1) {
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M1);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M1);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M1);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M1);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 2){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M2);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M2);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M2);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M2);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 3){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M3);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M3);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M3);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M3);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 4){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M4);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M4);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M4);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M4);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
         }
         else if (IsKataSama(Build, CKata))
         {
-            EndKata = true;
+            // EndKata = true;
             // Lakukan build (Done)
             int idMap = currentMap(*P);
             if (idMap == 1) {
@@ -244,7 +280,7 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
         }
         else if (IsKataSama(Upgrade, CKata))
         {
-            EndKata = true;
+            // EndKata = true;
             // Lakukan upgrade (Done)
             int idMap = currentMap(*P);
             if (idMap == 1) {
@@ -263,13 +299,13 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
         }
         else if (IsKataSama(Buy, CKata))
         {
-            EndKata = true;
+            // EndKata = true;
             // Lakukan buy
             buy(Need_Money, Need_Menit); 
         }
         else if (IsKataSama(Undo, CKata))
         {
-            EndKata = true;
+            // EndKata = true;
             // Lakukan undo
             undo(&StackPreparationPhase,Need_Money,Need_Menit,Need_Material);
         }
@@ -295,9 +331,9 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
             printf("Input tidak valid\n");
         }
 
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya
-    }
+    //     IgnoreBlank();
+    //     ADVKATA(); //Cek kata selanjutnya
+    // }
 }
 
 
@@ -306,7 +342,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
     JAM WaktuBuild = MakeJAM(1, 0);
     JAM TempJam = MakeJAM(0, 0);
     long TempMenit = 0;
-    int UangBuild = 10000;
+    int UangBuild = 100;
     Koordinat KoordinatBuild;
     makeKoordinat(&KoordinatBuild,0,0);
 
@@ -329,32 +365,37 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
     //2nd step
     //pilih wahana
     printf("Masukan pilihan wahana yang ingin anda build:\n");
-    int InputPilihanWahana;
-    scanf("%d",&InputPilihanWahana);
+    // int InputPilihanWahana;
+    // scanf("%d",&InputPilihanWahana);
+    ReadInput();
+
+    int InputPilihanWahana = KataToInt(CKata);
     
     //3rd step cek resource player dengan requirement wahana
     if (InputPilihanWahana = 1){
+        
         if (((*Need_Money+UangBuild) <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
             *Need_Money = *Need_Money + UangBuild;                        // Tambah need_money
             TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
             *Need_Jam = MenitToJAM(TempMenit);
             *Need_Menit = JAMToMenit(*Need_Jam);
+            
 
-            
-            
             KoordinatBuild.X = P.posisiPemain.X;
             KoordinatBuild.Y = P.posisiPemain.Y;
 
             // Masukan ke Stack
             AddElementIsiStack(&StackWahanaBuild,"build",KoordinatBuild,Database_Wahana[0]->info.Nama,Database_Wahana[0]->info.ID,0,Need_Material_Build,*Need_Money,*Need_Menit,currentMap(P));
             Push(&StackPreparationPhase,StackWahanaBuild);
+
+            
         }
         else{
-            if (*Need_Money > P.uang){
-                printf("Uang player tidak cukup");
+            if (*Need_Money+UangBuild > P.uang){
+                printf("Uang player tidak cukup\n");
             }
             else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
-                printf("Waktu tersisa tidak cukup");
+                printf("Waktu tersisa tidak cukup\n");
             }
         }
     }
@@ -452,23 +493,23 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
             /* 3. Input User */
             choice = 0;
             
-            STARTKATA();
-            while (!EndKata)
-            {
+            ReadInput();
+            // while (!EndKata)
+            // {
                 if (IsKataSama(K1, CKata)) {
                     choice = 1;
-                    EndKata = true;
+                    // EndKata = true;
                 }
                 else if (IsKataSama(K2, CKata)) {
                     choice = 2;
-                    EndKata = true;
+                    // EndKata = true;
                 } else {
                     printf("Error : Input tidak valid\n");
                 }
 
-                IgnoreBlank();
-                ADVKATA(); //Cek apakah EndKata
-            }
+            //     IgnoreBlank();
+            //     ADVKATA(); //Cek apakah EndKata
+            // }
 
             valid = false;
             if (choice == 1 || choice == 2)
@@ -578,12 +619,15 @@ void buy(int* Need_Money, int* Need_Menit){
     }
 
     choice = -1;
-    STARTKATA();
-    while (!EndKata && choice == -1)
-    {
+    ReadInput();
+    // STARTKATA();
+    // while (!EndKata && choice == -1)
+    // {
         KataToString(CKata, string);
         jumlahMaterial = atoi(string);
-        ADVKATA();
+        printf("Akan dibeli sebanyak %d :",jumlahMaterial);
+        // ADVKATA();
+        ReadInput();
         // Bagian cari material
         if (IsKataSama(CKata,B0)) {
             EndKata = true;
@@ -604,9 +648,9 @@ void buy(int* Need_Money, int* Need_Menit){
             printf("Nama material salah!\n");
         }
         
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya       
-    }
+    //     IgnoreBlank();
+    //     ADVKATA(); //Cek kata selanjutnya       
+    // }
     
     if (choice != -1) {
         int total = jumlahMaterial*Harga_Material(Database_Material[choice]);
@@ -624,7 +668,7 @@ void buy(int* Need_Money, int* Need_Menit){
         AddElementIsiStack(&isi,"buy",DumKoor," ",choice+1,jumlahMaterial,Dummy,total,0,0);
         Push(&StackPreparationPhase,isi);
 
-        printf("// Memasukkan perintah membeli %s sebanyak %d pada stack //",string,jumlahMaterial);
+        printf("// Memasukkan perintah membeli %s sebanyak %d pada stack //\n",string,jumlahMaterial);
         *Need_Menit = *Need_Menit + 10; //ini durasi buy
     }
 
@@ -635,15 +679,15 @@ void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Ne
     IsiStack isi;
     Pop(StackPreparation,&isi);
     if (!strcmp(infoCommand(isi),"build")) {
-        printf("// Menghapus perintah membangun wahana %s dari stack. //", infoNamaWahanaOrMaterial(isi));
+        printf("// Menghapus perintah membangun wahana %s dari stack. //\n", infoNamaWahanaOrMaterial(isi));
     }
     else if (!strcmp(infoCommand(isi),"upgrade")) {
         addrNode node_wahana = Search_DatabaseWahana(Database_Wahana, infoIDUpgrade(isi));
         Wahana c_wahana = Akar(node_wahana);
-        printf("// Menghapus perintah mengupgrade wahana %s menjadi wahana %s dari stack. //", infoNamaWahanaOrMaterial(isi), Nama_Wahana(c_wahana) );
+        printf("// Menghapus perintah mengupgrade wahana %s menjadi wahana %s dari stack. //\n", infoNamaWahanaOrMaterial(isi), Nama_Wahana(c_wahana) );
     }
     else if (!strcmp(infoCommand(isi),"buy")) {
-        printf("// Menghapus perintah membeli %s sebanyak %d dari stack. //", infoNamaWahanaOrMaterial(isi), infoJumlahMaterial(isi));
+        printf("// Menghapus perintah membeli %s sebanyak %d dari stack. //\n", infoNamaWahanaOrMaterial(isi), infoJumlahMaterial(isi));
     }
     /* PROSES PENGHAPUSAN KOMPONEN EKSEKUSI TERAKHIR*/
     *Need_Money = *Need_Money - infoNeedMoney(isi);
@@ -671,7 +715,7 @@ void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit
         valid = true;
         for (int i = 0; i < 5 && valid; i++) {
             if (ID_Material(Need_Material[i]) == ID_Material((*P).ArrMaterial[i])) {
-                if (Kuantitas_Material(Need_Material[i]) >= Kuantitas_Material((*P).ArrMaterial[i])) {
+                if (Kuantitas_Material(Need_Material[i]) > Kuantitas_Material((*P).ArrMaterial[i])) {
                     valid = false;
                     printf("Error : Material %s tidak cukup!\n",Nama_Material(Need_Material[i])); 
                 }
@@ -691,17 +735,23 @@ void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit
                 int i;
                 WahanaMap Wahana_Baru;
                 if (isi.ID_Map == 1) {
-                    i = totalWahana(M1);
-                    Wahana_Baru.IdWahana = infoIDUpgrade(isi);
-                    Wahana_Baru.KoordinatWahana.X = infoKoordinatWahana(isi).X;
-                    Wahana_Baru.KoordinatWahana.Y = infoKoordinatWahana(isi).Y;
-                    Wahana_Baru.Occupancy = 0;
-                    Wahana_Baru.statusWahana = true;
-                    Wahana_Baru.penghasilan = 0;
-                    Wahana_Baru.totalPenghasilan  = 0;
-                    Wahana_Baru.totalOccupancy = 0;
+                    boolean statusPosisiBuild = checkIsAvailablePoint(M1,infoKoordinatWahana(isi).X,infoKoordinatWahana(isi).Y);
+                    if (statusPosisiBuild){
+                        i = totalWahana(M1);
+                        Wahana_Baru.IdWahana = infoIDUpgrade(isi);
+                        Wahana_Baru.KoordinatWahana.X = infoKoordinatWahana(isi).X;
+                        Wahana_Baru.KoordinatWahana.Y = infoKoordinatWahana(isi).Y;
+                        Wahana_Baru.Occupancy = 0;
+                        Wahana_Baru.statusWahana = true;
+                        Wahana_Baru.penghasilan = 0;
+                        Wahana_Baru.totalPenghasilan  = 0;
+                        Wahana_Baru.totalOccupancy = 0;
 
-                    listWahana(M1, i+1) = Wahana_Baru;
+                        listWahana(M1, i+1) = Wahana_Baru;
+                    }
+                    else{
+                        printf("Build gagal lokasi sudah penuh");
+                    }
 
                 } else if (isi.ID_Map == 2) {
                     i = totalWahana(M2);
@@ -925,55 +975,88 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
     Quit = StringToKata("main");
 
     /* ALGORITMA */
-    STARTKATA();
-    while (!EndKata)
-    {
+    ReadInput();
+    // STARTKATA();
+    // while (!EndKata)
+    // {
         if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
         {
             // Update peta
             int idMap = currentMap(*P);
             if (idMap == 1) {
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M1);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M1);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M1);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M1);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 2){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M2);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M2);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M2);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M2);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 3){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M3);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M3);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M3);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M3);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
             else if (idMap == 4){
                 if (IsKataSama(W,CKata)){
-                    setKoordinatPemain(P,'w',M4);
+                    if (absis(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'w');
+                    }
                 }else if (IsKataSama(A,CKata)){
-                    setKoordinatPemain(P,'a',M4);           
+                    if (ordinat(posisiPemain(*P)) - 1 != 0) {
+                        setKoordinatPemain(P,'a');           
+                    }
                 }else if (IsKataSama(S,CKata)){
-                    setKoordinatPemain(P,'s',M4);        
+                    if(absis(posisiPemain(*P)) != NBrsEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'s');
+                    }
                 }else if (IsKataSama(D,CKata)){
-                    setKoordinatPemain(P,'d',M4);    
+                    if(ordinat(posisiPemain(*P)) != NKolEff(mapMatriks(M1)) - 2) {
+                        setKoordinatPemain(P,'d');    
+                    }
                 }
             }
         }
@@ -1090,9 +1173,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
             printf("Input tidak valid\n");
         }
 
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya
-    }
+    //     IgnoreBlank();
+    //     ADVKATA(); //Cek kata selanjutnya
+    // }
 }
 
 int searchIdWahana(char* namaWahana, Map M){
@@ -1365,10 +1448,11 @@ void office(boolean *stillInOffice)
     if (*stillInOffice)
     {
         printf("Masukkan perintah (Details / Report / Exit) :\n");
-        STARTKATA();
+        // STARTKATA();
+        ReadInput();
         int choice = 0;
-        while (!EndKata)
-        {
+        // while (!EndKata)
+        // {
             if (IsKataSama(Details, CKata))
             {
                 choice = 1;
@@ -1383,11 +1467,11 @@ void office(boolean *stillInOffice)
             }
             else if (IsKataSama(Exit, CKata))
             {
-                EndKata = true;
+                // EndKata = true;
                 *stillInOffice = false;
             }
-            ADVKATA();
-        }
+            // ADVKATA();
+        // }
 
         if (choice==1){
             // Lakukan details.
@@ -1404,8 +1488,8 @@ void office(boolean *stillInOffice)
             printf(" 4. Map 4\n");
             printf("Pilih Peta (1/2/3/4) : \n");
             STARTKATA();
-            while (!EndKata)
-            {
+            // while (!EndKata)
+            // {
                 if (IsKataSama(Map1,CKata)) {
                     detailOffice(M1);
                 } else if (IsKataSama(Map2,CKata)){
@@ -1415,8 +1499,8 @@ void office(boolean *stillInOffice)
                 } else if (IsKataSama(Map4,CKata)){
                     detailOffice(M4);
                 }
-                ADVKATA();
-            }
+            //     ADVKATA();
+            // }
             
         }
         else if (choice == 2) {
@@ -1433,9 +1517,9 @@ void office(boolean *stillInOffice)
             printf(" 3. Map 3\n");
             printf(" 4. Map 4\n");
             printf("Pilih Peta (1/2/3/4) : \n");
-            STARTKATA();
-            while (!EndKata)
-            {
+            // STARTKATA();
+            // while (!EndKata)
+            // {
                 if (IsKataSama(Map1,CKata)) {
                     reportOffice(M1);
                 } else if (IsKataSama(Map2,CKata)){
@@ -1445,8 +1529,8 @@ void office(boolean *stillInOffice)
                 } else if (IsKataSama(Map4,CKata)){
                     reportOffice(M4);
                 }
-                ADVKATA();
-            }
+                // ADVKATA();
+            // }
         }
 
     }
@@ -1512,9 +1596,11 @@ void new_game()
     int start_money;
 
     /* ALGORITMA */
-    printf("Memulai permainan baru..");
-    printf("Masukkan nama:");
-    scanf("%s", &nama);
+    printf("Memulai permainan baru..\n");
+    // printf("Masukkan nama: ");
+    // ReadInput();
+    // scanf("%s", &nama);
+
 
     /* Inisialisasi Permainan */
     start_day = 1;
@@ -1524,7 +1610,6 @@ void new_game()
     // Inisialisasi Pemain
     Pemain P;
     makePemain(&P,  2000, "Yayan Kanebo", Database_Material);
-
     /* Jalankan permainan */
     game_on(&start_day,&P); //tambah parameter player dll
 }
@@ -1550,7 +1635,8 @@ int main()
     makeMap(&M1, "map1.txt", 1);
     makeMap(&M2, "map2.txt", 2);
     makeMap(&M3, "map3.txt", 3);
-    makeMap(&M4, "map4.txt", 4);   
+    makeMap(&M4, "map4.txt", 4);
+
 
     Kata New, Load, Exit;
 
@@ -1562,12 +1648,11 @@ int main()
     printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
 
     /* ALGORITMA */
-    STARTKATA();
-    while (!EndKata)
-    {
+    ReadInput();
+    // while (!EndKata)
+    // {
         if (IsKataSama(New, CKata))
         {
-            EndKata = true;
             new_game();
             printf("keluar new game\n");
         }
@@ -1577,7 +1662,7 @@ int main()
         }
         else if (IsKataSama(Exit, CKata))
         {
-            EndKata = true;
+            // EndKata = true;
             printf("// Thanks for playing!!! //");
         }
         else
@@ -1585,9 +1670,9 @@ int main()
             printf("Input tidak valid\n");
         }
 
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya
-    }
+    //     IgnoreBlank();
+    //     ADVKATA(); //Cek kata selanjutnya
+    // }
 
     return 0;
 }

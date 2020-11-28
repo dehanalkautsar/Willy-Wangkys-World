@@ -2,6 +2,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include "map.h"
+// #include "../Player/pemain.h"
+
 
 
 void makeMap(Map *M, char* nama_file, int mapIndex)
@@ -12,29 +14,38 @@ void makeMap(Map *M, char* nama_file, int mapIndex)
     int row, column, i, j;
 
     fp = fopen(nama_file, "r");
-    row = 0;
-    column = 0;
 
-    while (fgets(buff, sizeof(buff), fp))
-    {
-        while (row == 0 && (buff[column] != '\0' && buff[column] != '\n'))
-        {
-            column++;
-        }
-        row++;
-    }
+
+    // while (fgets(buff, sizeof(buff), fp))
+    // {
+    //     while (row == 0 && (buff[column] != '\0' && buff[column] != '\n'))
+    //     {
+    //         column++;
+    //     }
+    //     row++;
+    // }
 
     // input buff to matrix
     i = 0;
     j = 0;
+    row = 0;
+    column = 0;
     while(fgets(buff, sizeof(buff), fp)){
-      while(buff[column] != '\0' && buff[column] != '\n'){
-        Elmt(mapMatriks(*M), i, j) = buff[column];
-        j++;
-      }
-      i++;
-      j = 0;
+        while(buff[j] != '\0' && buff[j] != '\n'){
+            if(i == 0) {
+                column++;
+            }
+            Elmt(mapMatriks(*M), i, j) = buff[j];
+            j++;
+        }
+        i++;
+        j = 0;
     }
+    row = i;
+
+    NBrsEff(mapMatriks(*M)) = row;
+    NKolEff(mapMatriks(*M)) = column;
+    
 
     // Inisialisasi list
     for (int i = 0; i <= IdxMaxWahana; i++)
@@ -51,13 +62,23 @@ void makeMap(Map *M, char* nama_file, int mapIndex)
     }
 }
 
-void printMap(Map M)
+void printMap(Map M, Pemain P)
 {
     for (int i = GetFirstIdxBrs(mapMatriks(M)); i <= GetLastIdxBrs(mapMatriks(M)); i++)
     {
         for (int j = GetFirstIdxKol(mapMatriks(M)); j <= GetLastIdxKol(mapMatriks(M)); j++)
         {
-            printf("%c", Elmt(mapMatriks(M), i, j));
+            Koordinat current;
+            makeKoordinat(&current, i, j);
+            
+            if(isKoordinatSama(current, posisiPemain(P))){
+                printf("P");
+            }else if(searchKoordinatElmtListWahana(M, current) != -1) {
+                printf("W");
+            }else{
+                printf("%c", Elmt(mapMatriks(M),i,j));
+            }
+            
         }
         printf("\n");
     }
@@ -161,11 +182,13 @@ int searchElmtListWahana(Map M, int idWahana){
 }
 int searchKoordinatElmtListWahana(Map M, Koordinat Koordinat){  //mengembalikan indeks array listwahana dengan koordinat yang sesuai
     int total = totalWahana(M);
-    int indeksTarget;
+    int indeksTarget = -1;
+
     for (int i = 0; i < total; i++) {
         if (infoKoordinatWahanaMap(M,i).X == Koordinat.X && infoKoordinatWahanaMap(M,i).Y == Koordinat.Y) {
             indeksTarget = i;
         }
     }
+
     return indeksTarget;
 }

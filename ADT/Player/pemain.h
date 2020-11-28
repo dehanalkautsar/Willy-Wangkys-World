@@ -6,7 +6,7 @@
 #include "../Point/point.h"
 #include "../Jam/jam.h"
 #include "../Map/wahana_map.h"
-#include "../Map/map.h"
+// #include "../Map/map.h"
 // #include "../Wahana/bintree_wahana.h"
 
 
@@ -47,6 +47,6 @@ typedef struct Pemain
 // #define Kuantitas_Material(M) (M).Kuantitas
 
 void makePemain(Pemain *P, int uang, char *nama,  Material Database_Material[]);
-void setKoordinatPemain(Pemain *P, char input, Map M);
+void setKoordinatPemain(Pemain *P, char input);
 
 #endif

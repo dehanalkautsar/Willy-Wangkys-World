@@ -9,6 +9,7 @@
 
 #define NMax 50
 #define BLANK ' '
+#define EOI '\n'
 
 typedef struct
 {
@@ -46,10 +47,14 @@ void SalinKata();
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
+void ReadInput();
+
 boolean IsKataSama(Kata K1, Kata K2);
 
 int PanjangString(char *string);
 Kata StringToKata(char *string);
 void KataToString(Kata Kata, char buff[256]);
+
+int KataToInt(Kata Current_Kata);
 
 #endif

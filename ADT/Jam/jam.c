@@ -86,6 +86,7 @@ JAM MenitToJAM (long N)
     N = N % 1440;
     
     Hour(JOutput) = N/60;
+    Minute(JOutput) = N%60;
     return JOutput;
     
 }
@@ -163,9 +164,13 @@ JAM Durasi (JAM JAw, JAM JAkh)
 /* Jika JAw > JAkh, maka JAkh adalah 1 hari setelah JAw */
 {
     long selisih = JAMToMenit(JAkh) - JAMToMenit(JAw);
+    // 540-1260 = -720
+
     if (selisih < 0){
         selisih += 1440;
     }
+
+    //hasil menitToJam(720) = 12 jam 0 0    
     JAM hasil = MenitToJAM(selisih);
     
     return hasil;

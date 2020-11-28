@@ -6,32 +6,17 @@
 #include "../Matriks/matriks.h"
 // #include "../Wahana/bintree_wahana.h"
 #include "../Point/point.h"
+#include "../Player/pemain.h"
 
 #define IdxMaxWahana 49
 #define IdxMinWahana 0
 #define IdNil -1
 
-// typedef struct tWahanaMap
-// {
-//   //report
-//   int IdWahana;
-//   Koordinat KoordinatWahana;
-//   int Occupancy;
-//   boolean statusWahana;
-//   // details office
-//   int penghasilan;  // daily
-//   int totalPenghasilan; // all time
-//   int totalOccupancy; //all time
-
-// } WahanaMap;
-
 typedef struct tMap
 {
   MATRIKS mapMatriks;
-  WahanaMap listWahana[IdxMaxWahana + 1]; //[<id, koordinat>, <id, koordinat>, ...]
+  WahanaMap listWahana[IdxMaxWahana + 1]; 
 } Map;
-
-
 
 #define mapMatriks(M) (M).mapMatriks
 #define listWahana(M, i) (M).listWahana[i]
@@ -44,7 +29,7 @@ typedef struct tMap
 #define infoTotalPenghasilan(M, i) (M).listWahana[i].totalPenghasilan
 
 void makeMap(Map *M, char* nama_file, int mapIndex);
-void printMap(Map M);
+void printMap(Map M, Pemain P);
 void updateMap(Map *M, int x, int y, char input);
 WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition);
 int totalWahana(Map M);

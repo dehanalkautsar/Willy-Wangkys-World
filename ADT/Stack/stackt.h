@@ -33,9 +33,9 @@ typedef int infotype;
 typedef int addressS;   /* indeks tabel */
 
 typedef struct {
-  char* command;
+  char command[256];
   Koordinat koordinatWahana; //untuk build dan upgrade
-  char* namaWahanaOrMaterial; //untuk build, upgrade, dan buy
+  char namaWahanaOrMaterial[256]; //untuk build, upgrade, dan buy
   int idUpgrade; //untuk upgrade
   int jumlahMaterial; //untuk buy
   Material Need_Material[5];

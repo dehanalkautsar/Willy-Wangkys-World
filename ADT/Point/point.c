@@ -10,20 +10,24 @@ void makeKoordinat(Koordinat *P, int x, int y)
 }
 
 void geserKanan(Koordinat *P)
+// d
 {
-  absis(*P) += 1;
+  ordinat(*P) += 1;
 }
 void geserKiri(Koordinat *P)
-{
-  absis(*P) -= 1;
-}
-void geserAtas(Koordinat *P)
+// a
 {
   ordinat(*P) -= 1;
 }
-void geserBawah(Koordinat *P)
+void geserAtas(Koordinat *P)
+// w
 {
-  ordinat(*P) += 1;
+  absis(*P) -= 1;
+}
+void geserBawah(Koordinat *P)
+// s
+{
+  absis(*P) += 1;
 }
 boolean isKoordinatSama(Koordinat P1, Koordinat P2){
   return (absis(P1) == absis(P2)) && (ordinat(P1) == ordinat(P2));

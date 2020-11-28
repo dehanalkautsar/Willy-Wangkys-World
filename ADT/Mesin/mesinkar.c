@@ -22,3 +22,8 @@ void ADV()
         fclose(pitaChar);
     }
 }
+
+void ADV_Input()
+{
+    retval = scanf("%c", &CC);
+}

@@ -19,6 +19,7 @@ void STARTKATA()
     if (CC == MARK)
     {
         EndKata = true;
+        EOP = true;
     }
     else
     {
@@ -51,6 +52,26 @@ void SalinKata()
     }
     CKata.Length = i;
 }
+
+void ReadInput()
+{
+    /* KAMUS */
+    int i;
+    /* ALGORITMA */
+	i = 0;
+    // ADV_Input();
+    // CKata.TabKata[i] = CC;
+    // i++;
+
+	do {
+		ADV_Input();
+		CKata.TabKata[i] = CC;
+		i++;
+	} while ((CC != EOI) && (i <= NMax));
+	CKata.Length = i-1;
+
+}
+
 
 boolean IsKataSama(Kata K1, Kata K2)
 {
@@ -119,4 +140,18 @@ void KataToString(Kata Kata, char buff[256])
         buff[i] = Kata.TabKata[i];
     }
     buff[i + 1] = '\0'; // End of string
+}
+
+int KataToInt(Kata Current_Kata){
+    int num = 0;
+    int panjang = Current_Kata.Length;
+
+    for (int i = 0; i < panjang; i++)
+    {
+        num *= 10;
+        num += Current_Kata.TabKata[i] - '0';
+    }
+    
+
+	return num;
 }

@@ -7,6 +7,7 @@
 #include "boolean.h"
 
 #define MARK '.'
+
 /* State Mesin */
 extern char CC;
 extern boolean EOP;
@@ -25,5 +26,7 @@ void ADV();
    F.S. : CC adalah karakter berikutnya dari CC yang lama, 
           CC mungkin = MARK
           Jika  CC = MARK maka EOP akan menyala (true) */
+
+void ADV_Input();
 
 #endif
