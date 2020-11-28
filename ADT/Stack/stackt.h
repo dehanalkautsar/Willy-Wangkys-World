@@ -22,6 +22,7 @@
 #include "boolean.h"
 #include "../Point/point.h"
 #include "../Player/pemain.h"
+#include "../Wahana/bintree_wahana.h"
 
 
 #define NilS -1

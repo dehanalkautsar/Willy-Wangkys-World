@@ -327,7 +327,7 @@ void DelAfter (WahanaAntrean *L, address *Pdel, address Prec)
      Next(Prec) = NextP;
 }
 
-void PrintInfo (WahanaAntrean L, BinTree T)
+void PrintInfoLQ (WahanaAntrean L, BinTree T[])
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, iai list dicetak ke kanan: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen berNillai 1, 20, 30 akan dicetak: [1,20,30] */

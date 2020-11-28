@@ -223,7 +223,7 @@ void tendangAntrean(PrioQueue *Q){
     //     printf(", kesabaran: %d\n", kesabaran);
     // }
 
-void printAntrean(PrioQueue Q)
+void printAntrean(PrioQueue Q, BinTree T[])
 {
     index P;
     P = Head(Q);
@@ -234,7 +234,7 @@ void printAntrean(PrioQueue Q)
         int kesabaran = R.kesabaran;
         WahanaAntrean Wahana = R.WahanaString;
 
-        PrintInfo(Wahana);
+        PrintInfoLQ(Wahana,T);
         printf(", kesabaran: %d\n", kesabaran);
 
         if (P == (MaxEl(Q) - 1))

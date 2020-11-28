@@ -3,17 +3,28 @@
 /* Penamaan type Wahana, type addrNode, dan beberapa fungsi disesuikan
    karena melibatkan modul list rekursif. */
 
-#ifndef _BINTREE_Wahana_H_
-#define _BINTREE_Wahana_H_
+#ifndef _BINTREE_WAHANA_H_
+#define _BINTREE_WAHANA_H_
 
 
 
 #define Nil NULL
+
 /* Modul lain yang digunakan : */
-#include "boolean.h"
-// #include "listrek_wahana.h"
-#include "../Jam/jam.h"
+#include "../Player/material.h"
 #include "../Player/pemain.h"
+#include "boolean.h"
+#include "../Jam/jam.h"
+
+
+// typedef struct Material
+// {
+//   int ID;
+//   char NamaMaterial[32];
+//   int Harga;
+//   int Kuantitas;
+// } Material;
+
 
 /* ADT Wahana */
 typedef struct tElmt_Wahana
@@ -112,7 +123,10 @@ addrNode Search_DatabaseWahana(BinTree Database_Wahana[], int ID);
 /* Ini buat 1 pohon */
 addrNode Search_Wahana(BinTree T, int ID);
 
-/* Buat Upgrade */
+/* Copy Material dan Wahana */
+Material CopyMaterial(Material M);
+Wahana CopyWahana(Wahana W);
+
 /* Cek dulu apakah wahana bisa diupgrade */
 Wahana Wahana_Pindah_Node(addrNode W, boolean kiri);
 

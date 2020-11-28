@@ -2,9 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "map.h"
-#include "boolean.h"
-#include "../Matriks/matriks.h"
-#include "../Point/point.h"
+
 
 void makeMap(Map *M, char* nama_file, int mapIndex)
 {

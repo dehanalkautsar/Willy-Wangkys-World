@@ -10,7 +10,9 @@
 
 #include "stackt.h"
 #include "../Point/point.h"
+#include "../Wahana/bintree_wahana.h"
 
+Material CopyMaterial(Material M);
 
 void CreateEmptyStack (Stack *S)
 /* I.S. sembarang; */
@@ -71,7 +73,7 @@ void Push (Stack * S, IsiStack X)
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 {
-    if (IsEmpty(*S)){
+    if (IsStackEmpty(*S)){
         Top(*S) = 0;
     }
     else{

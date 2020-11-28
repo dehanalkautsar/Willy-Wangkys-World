@@ -35,7 +35,7 @@ void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Ne
 void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit, Material Need_Material[5]);
 void Ignore_Stack(Stack* StackPreparation, int* Need_Money, int* Need_Menit, Material Need_Material[5]);
 void main_phase(int *day, boolean isGoing, Pemain *P,Map currentMap);
-void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime);
+void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime);
 int searchIdWahana(char* namaWahana, Map M);
 void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentTime);
 void repair(Pemain *P, Map *currentMap, JAM *currentTime);
@@ -46,6 +46,7 @@ void office(boolean *stillInOffice);
 void enter_office(int day, boolean isGoing, Pemain P);
 void game_on(int *day, Pemain *P);
 void new_game();
+Map idMapToMap(int idMap);
 
 /* GENERAL PROCEDURE FOR PREPARATION AND MAIN */
 
@@ -325,7 +326,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
     
     //3rd step cek resource player dengan requirement wahana
     if (InputPilihanWahana = 1){
-        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+        if (((*Need_Money+UangBuild) <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
             *Need_Money = *Need_Money + UangBuild;                        // Tambah need_money
             TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
             *Need_Jam = MenitToJAM(TempMenit);
@@ -341,7 +342,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
             Push(&StackPreparationPhase,StackWahanaBuild);
         }
         else{
-            if (Need_Money > P.uang){
+            if (*Need_Money > P.uang){
                 printf("Uang player tidak cukup");
             }
             else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
@@ -350,7 +351,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
         }
     }
     else if(InputPilihanWahana = 2){
-        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+        if ((*Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
             *Need_Money = *Need_Money + UangBuild;                       // Tambah need_money
             TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
             *Need_Jam = MenitToJAM(TempMenit);
@@ -364,7 +365,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
             Push(&StackPreparationPhase,StackWahanaBuild);
         }
         else{
-            if (Need_Money > P.uang){
+            if (*Need_Money > P.uang){
                 printf("Uang player tidak cukup");
             }
             else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
@@ -373,7 +374,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
         }
     }
     else if(InputPilihanWahana = 3){
-        if ((Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
+        if ((*Need_Money+UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain))){                  //JLT sudah diubah jump least than equal
             *Need_Money = *Need_Money + UangBuild;                        // Tambah need_money
             TempMenit = JAMToMenit(WaktuBuild) + JAMToMenit(*Need_Jam); //Konvert jam lalu ditambah ke need_jam
             *Need_Jam = MenitToJAM(TempMenit);
@@ -387,7 +388,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Cu
             Push(&StackPreparationPhase,StackWahanaBuild);
         }
         else{
-            if (Need_Money > P.uang){
+            if (*Need_Money > P.uang){
                 printf("Uang player tidak cukup");
             }
             else if (JGT(WaktuBuild, P.jamPemain)){ //Jump greater than
@@ -552,7 +553,7 @@ void buy(int* Need_Money, int* Need_Menit){
     Kata B0, B1, B2, B3, B4;
     int jumlahMaterial;
     int choice;
-    char* string;
+    char string[256];
     IsiStack isi;
 
     B0 = StringToKata(Nama_Material(Database_Material[0]));
@@ -572,7 +573,7 @@ void buy(int* Need_Money, int* Need_Menit){
     STARTKATA();
     while (!EndKata && choice == -1)
     {
-        string = KataToString(CKata);
+        KataToString(CKata, string);
         jumlahMaterial = atoi(string);
         ADVKATA();
         // Bagian cari material
@@ -612,7 +613,7 @@ void buy(int* Need_Money, int* Need_Menit){
         }
         makeKoordinat(&DumKoor,0,0);
 
-        AddElementIsiStack(&isi,'buy',DumKoor," ",choice+1,jumlahMaterial,Dummy,total,0,0);
+        AddElementIsiStack(&isi,"buy",DumKoor," ",choice+1,jumlahMaterial,Dummy,total,0,0);
         Push(&StackPreparationPhase,isi);
 
         printf("// Memasukkan perintah membeli %s sebanyak %d pada stack //",string,jumlahMaterial);
@@ -625,15 +626,15 @@ void buy(int* Need_Money, int* Need_Menit){
 void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Need_Material[5]) {
     IsiStack isi;
     Pop(StackPreparation,&isi);
-    if (!strcmp(infoCommand(isi),'build')) {
+    if (!strcmp(infoCommand(isi),"build")) {
         printf("// Menghapus perintah membangun wahana %s dari stack. //", infoNamaWahanaOrMaterial(isi));
     }
-    else if (!strcmp(infoCommand(isi),'upgrade')) {
+    else if (!strcmp(infoCommand(isi),"upgrade")) {
         addrNode node_wahana = Search_DatabaseWahana(Database_Wahana, infoIDUpgrade(isi));
         Wahana c_wahana = Akar(node_wahana);
         printf("// Menghapus perintah mengupgrade wahana %s menjadi wahana %s dari stack. //", infoNamaWahanaOrMaterial(isi), Nama_Wahana(c_wahana) );
     }
-    else if (!strcmp(infoCommand(isi),'buy')) {
+    else if (!strcmp(infoCommand(isi),"buy")) {
         printf("// Menghapus perintah membeli %s sebanyak %d dari stack. //", infoNamaWahanaOrMaterial(isi), infoJumlahMaterial(isi));
     }
     /* PROSES PENGHAPUSAN KOMPONEN EKSEKUSI TERAKHIR*/
@@ -676,7 +677,7 @@ void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit
         while (!IsStackEmpty(*StackPreparation)) {
             Pop(StackPreparation,&isi);
             //melakukan aksi tergantung dengan command yang ada di dalam IsiStack
-            if (!strcmp(infoCommand(isi),'build')) {
+            if (!strcmp(infoCommand(isi),"build")) {
                 //lakukan build
                 // AddElementIsiStack(&StackWahanaBuild,"build",KoordinatBuild,Database_Wahana[2]->info.Nama,-1,0,Need_Material_Build,*Need_Money,*Need_Menit,currentMap(P));   
                 int i;
@@ -735,7 +736,7 @@ void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit
                 }
     
             }
-            else if (!strcmp(infoCommand(isi),'upgrade')) {
+            else if (!strcmp(infoCommand(isi),"upgrade")) {
                 //lakukan upgrade
                 int total;
                 if (isi.ID_Map == 1) {
@@ -772,7 +773,7 @@ void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit
                 }
             }
             
-            else if (!strcmp(infoCommand(isi),'buy')) {
+            else if (!strcmp(infoCommand(isi),"buy")) {
                 //lakukan buy
                 boolean materialsesuai = false;
                 for (int i=0; i<5 && !materialsesuai ; i++) {
@@ -869,25 +870,25 @@ void main_phase(int *day, boolean isGoing, Pemain *P,Map currentMap)
         {
             if (Minute(SisaJam) == 0)
             {
-                print("Time Remaining: %d hour(s)\n", Hour(SisaJam));
+                printf("Time Remaining: %d hour(s)\n", Hour(SisaJam));
             }
             else
             {
-                print("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
+                printf("Time Remaining: %d hour(s) %d minute(s)\n", Hour(SisaJam), Minute(SisaJam));
             }
         }
         else
         {
-            print("Time Remaining: 0\n");
+            printf("Time Remaining: 0\n");
         }
 
         // Panggil Priority Queue buat tampilan antrian
-        printAntrean(antrean);
+        printAntrean(antrean,Database_Wahana);
         // Panggil wahana apa yang rusak.
 
 
         // input_main_phase(&status, day, isGoing)
-        input_main_phase(&status, day, isGoing, &antrean, &P, &CurrentJam); //panggil input dan jalankan
+        input_main_phase(&status, day, isGoing, &antrean, P, &CurrentJam); //panggil input dan jalankan
         
         *day++;
     }
@@ -896,14 +897,14 @@ void main_phase(int *day, boolean isGoing, Pemain *P,Map currentMap)
 /* RESERVED FOR FUNCTION IN MAIN PHASE */
 
 // Not finished, tambah parameter yang kurang
-void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime)
+void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime)
 //void serve(BinTree *W, Pemain *P, PrioQueue *Q, Map *Wahana, int idWahana, JAM *currentTime
 
 // tambah parameter database tree dong
 {
     /* KAMUS */
     Kata W, A, S, D, Serve, Repair, Detail, Office, Prepare, Quit;
-
+    
     W = StringToKata("w");
     A = StringToKata("a");
     S = StringToKata("s");
@@ -971,25 +972,28 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
         else if (IsKataSama(Serve, CKata))
         {
             ADVKATA();
-            char* namaWahana = KataToString(CKata);
+            char namaWahana[256];
+            KataToString(CKata,namaWahana);
             int idMap = currentMap(*P);
+            
+            int idWahana;
             if (idMap==1){
-                int idWahana = searchIdWahana(namaWahana,M1);
+                idWahana = searchIdWahana(namaWahana,M1);
                 // Lakukan serve
                 serve(P,Q,&M1,idWahana,currentTime);
                 // ini harusnya cek nama wahana juga
             }else if (idMap==2){
-                int idWahana = searchIdWahana(namaWahana,M2);
+                idWahana = searchIdWahana(namaWahana,M2);
                 // Lakukan serve
                 serve(P,Q,&M2,idWahana,currentTime);
                 // ini harusnya cek nama wahana juga
             }else if (idMap==3){
-                int idWahana = searchIdWahana(namaWahana,M3);
+                idWahana = searchIdWahana(namaWahana,M3);
                 // Lakukan serve
                 serve(P,Q,&M3,idWahana,currentTime);
                 // ini harusnya cek nama wahana juga
             }else if (idMap==4){
-                int idWahana = searchIdWahana(namaWahana,M4);
+                idWahana = searchIdWahana(namaWahana,M4);
                 // Lakukan serve
                 serve(P,Q,&M4,idWahana,currentTime);
                 // ini harusnya cek nama wahana juga
@@ -1027,12 +1031,13 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
         }
         else if (IsKataSama(Office, CKata))
         {
-            enter_office(day, isGoing,*P);
+            enter_office(*day, isGoing,*P);
         }
         else if (IsKataSama(Prepare, CKata))
         {
+            int idx;
             // Lakukan prepare
-            int idx = totalWahana(M1);
+            idx = totalWahana(M1);
             for (int i = 0; i < idx; i++){
                 infoPenghasilan(M1,i) = 0;
             }
@@ -1040,7 +1045,7 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
                 infoOccupancy(M1,i) = 0;
             }
 
-            int idx = totalWahana(M2);
+            idx = totalWahana(M2);
             for (int i = 0; i < idx; i++){
                 infoPenghasilan(M2,i) = 0;
             }
@@ -1048,7 +1053,7 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
                 infoOccupancy(M2,i) = 0;
             }
 
-            int idx = totalWahana(M3);
+            idx = totalWahana(M3);
             for (int i = 0; i < idx; i++){
                 infoPenghasilan(M3,i) = 0;
             }
@@ -1056,7 +1061,7 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
                 infoOccupancy(M3,i) = 0;
             }
 
-            int idx = totalWahana(M4);
+            idx = totalWahana(M4);
             for (int i = 0; i < idx; i++){
                 infoPenghasilan(M4,i) = 0;
             }
@@ -1064,6 +1069,7 @@ void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, P
                 infoOccupancy(M4,i) = 0;
             }
 
+            *day += 1;
             preparation_phase(day,P);
             
         }
@@ -1098,7 +1104,6 @@ void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentT
     // check wahana error atau engga
     int kepala = Head(*Q);
     infotypeQ X;
-    int P = Head(*Q);
 
     // Search_DatabaseWahana(BinTree Database_Wahana[], int ID);
     addrNode N = Search_DatabaseWahana(Database_Wahana,idWahana);
@@ -1124,7 +1129,7 @@ void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentT
         //proses serve
         uang(*P) += Harga_Wahana(Akar(N));
         // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
-        if (Search((*Q).T[kepala].WahanaString, idWahana) != Nil)
+        if (SearchLQ((*Q).T[kepala].WahanaString, idWahana) != Nil)
         {
             //kalo ternyata ada wahana ybs di head, maka diapus dr list
             DelP(&(*Q).T[kepala].WahanaString, idWahana);
@@ -1132,10 +1137,10 @@ void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentT
             kurangSabar(Q);
             //kalo list wahana udah kosong dequeue headnya
             if (IsEmptyW((*Q).T[kepala].WahanaString)){
-                Dequeue(&(*Q).T[kepala],&X);
+                Dequeue(Q,&X);
             }else{
-                Dequeue(&(*Q).T[kepala],&X);
-                Enqueue(&(*Q),X);
+                Dequeue(Q, &X);
+                Enqueue(Q,X);
             }
             //random kerusakan wahana
             int constRandom;

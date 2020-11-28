@@ -1,7 +1,8 @@
-#ifndef map_h
-#define map_h
+#ifndef _MAP_h
+#define _MAP_h
 
 #include <stdio.h>
+#include "wahana_map.h"
 #include "../Matriks/matriks.h"
 #include "../Wahana/bintree_wahana.h"
 #include "../Point/point.h"
@@ -10,21 +11,21 @@
 #define IdxMinWahana 0
 #define IdNil -1
 
-typedef struct WahanaMap
-{
-  //report
-  int IdWahana;
-  Koordinat KoordinatWahana;
-  int Occupancy;
-  boolean statusWahana;
-  // details office
-  int penghasilan;  // daily
-  int totalPenghasilan; // all time
-  int totalOccupancy; //all time
+// typedef struct tWahanaMap
+// {
+//   //report
+//   int IdWahana;
+//   Koordinat KoordinatWahana;
+//   int Occupancy;
+//   boolean statusWahana;
+//   // details office
+//   int penghasilan;  // daily
+//   int totalPenghasilan; // all time
+//   int totalOccupancy; //all time
 
-} WahanaMap;
+// } WahanaMap;
 
-typedef struct Map
+typedef struct tMap
 {
   MATRIKS mapMatriks;
   WahanaMap listWahana[IdxMaxWahana + 1]; //[<id, koordinat>, <id, koordinat>, ...]

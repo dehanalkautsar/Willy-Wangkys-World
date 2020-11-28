@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "bintree_wahana.h"
 #include "listrek_wahana.h"
-#include "../ADT/Mesin/mesinkata.h"
+#include "../Mesin/mesinkata.h"
 
 /* ADT Wahana */
 
@@ -301,9 +301,9 @@ List_Wahana MakeListRiwayat(int ID_Wahana, BinTree P) {
     List_Wahana L;
     /* ALGORITMA */
     if (ID_Wahana(Akar(P))==ID_Wahana) {           // Basis 0
-        return Alokasi(Akar(P));
+        return Alokasi_Listrek(Akar(P));
     } else {                        // Rekurens
-        L = Alokasi(Akar(P)); 
+        L = Alokasi_Listrek(Akar(P)); 
         if (L != Nil) {
             if (SearchTree(Left(P),ID_Wahana)) {
                 Next(L) = MakeListRiwayat(ID_Wahana,Left(P));
@@ -337,31 +337,31 @@ List_Wahana RiwayatUpgrade(int ID_Wahana, BinTree Database_W[]) {
     }
 }
 
-void main() {
-    BinTree Bintree_Wahana1;
-    addrNode P;
-    Material A;
+// void main() {
+//     BinTree Bintree_Wahana1;
+//     addrNode P;
+//     Material A;
 
-    init_wahana(&Bintree_Wahana1,"wahana1.txt","material.txt");
-    /*
-    Wahana Database_W[30];
-    Material Database_M[10];
+//     init_wahana(&Bintree_Wahana1,"wahana1.txt","material.txt");
+//     /*
+//     Wahana Database_W[30];
+//     Material Database_M[10];
     
-    BinTree T_Wahana;
+//     BinTree T_Wahana;
     
     
-    Read_File_Material(Database_M, "material.txt");
-    Read_File_Wahana(Database_W, "wahana1.txt",Database_M);
-    Make_Tree_Wahana(&T_Wahana,Database_W,Database_M);
-    */
+//     Read_File_Material(Database_M, "material.txt");
+//     Read_File_Wahana(Database_W, "wahana1.txt",Database_M);
+//     Make_Tree_Wahana(&T_Wahana,Database_W,Database_M);
+//     */
     
-    Print_Tree_Wahana(Bintree_Wahana1);
-    P = Search_Wahana(Bintree_Wahana1,122);
+//     Print_Tree_Wahana(Bintree_Wahana1);
+//     P = Search_Wahana(Bintree_Wahana1,122);
     
-    printf("\n%s\n",Nama_Wahana(Akar(P)));
-    printf("%d\n",Upgrade_Cost(Akar(P)));
-    A = Upgrade_Material(Akar(P),0);
-    printf("%d\n",Kuantitas_Material(A));
+//     printf("\n%s\n",Nama_Wahana(Akar(P)));
+//     printf("%d\n",Upgrade_Cost(Akar(P)));
+//     A = Upgrade_Material(Akar(P),0);
+//     printf("%d\n",Kuantitas_Material(A));
     
-    /* gcc bintree_wahana.c jam.c point.c wahana_material.c -o test */
-}
+//     /* gcc bintree_wahana.c jam.c point.c wahana_material.c -o test */
+// }

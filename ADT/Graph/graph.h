@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include "boolean.h"
-#include "../ADT/Map/map.h"
+#include "../Map/map.h"
 
 #define NilG NULL
 

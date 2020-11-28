@@ -50,6 +50,6 @@ boolean IsKataSama(Kata K1, Kata K2);
 
 int PanjangString(char *string);
 Kata StringToKata(char *string);
-char *KataToString(Kata Kata);
+void KataToString(Kata Kata, char buff[256]);
 
 #endif

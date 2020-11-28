@@ -16,7 +16,6 @@ void IgnoreBlank()
 void STARTKATA()
 {
     START();
-    k();
     if (CC == MARK)
     {
         EndKata = true;
@@ -107,10 +106,9 @@ Kata StringToKata(char *string)
     return Pass;
 }
 
-char *KataToString(Kata Kata)
+void KataToString(Kata Kata, char buff[256])
 {
     /* KAMUS LOKAL */
-    char buff[256];
     int n;
     int i;
 
@@ -120,7 +118,5 @@ char *KataToString(Kata Kata)
     {
         buff[i] = Kata.TabKata[i];
     }
-    buff[i + 1] = "\0"; // End of string
-
-    return buff;
+    buff[i + 1] = '\0'; // End of string
 }
