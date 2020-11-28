@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "wahana_map.h"
 #include "../Matriks/matriks.h"
-#include "../Wahana/bintree_wahana.h"
+// #include "../Wahana/bintree_wahana.h"
 #include "../Point/point.h"
 
 #define IdxMaxWahana 49

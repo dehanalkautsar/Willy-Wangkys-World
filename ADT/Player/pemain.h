@@ -7,7 +7,7 @@
 #include "../Jam/jam.h"
 #include "../Map/wahana_map.h"
 #include "../Map/map.h"
-#include "../Wahana/bintree_wahana.h"
+// #include "../Wahana/bintree_wahana.h"
 
 
 /*  Kamus Umum */

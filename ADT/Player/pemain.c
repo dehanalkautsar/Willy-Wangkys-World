@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "pemain.h"
+#include "../Wahana/bintree_wahana.h"
 
 
 //(Pemain *P, int uang, char *nama, Koordinat posisiPemain, JAM jamPemain);

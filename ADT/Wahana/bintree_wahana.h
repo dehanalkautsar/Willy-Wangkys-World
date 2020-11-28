@@ -12,7 +12,7 @@
 
 /* Modul lain yang digunakan : */
 #include "../Player/material.h"
-#include "../Player/pemain.h"
+// #include "../Player/pemain.h"
 #include "boolean.h"
 #include "../Jam/jam.h"
 

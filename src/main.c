@@ -81,7 +81,7 @@ void preparation_phase(int *day, Pemain *P)
     /* Looping preparation phase */
     while (status)
     {
-        printf("Preparation phase day %d\n", day);
+        printf("Preparation phase day %d\n", *day);
         // Panggil fungsi gambar peta
 
         // Panggil legend peta
@@ -118,7 +118,7 @@ void preparation_phase(int *day, Pemain *P)
         }
         else
         {
-            printf("Time Remaining: 0");
+            printf("Time Remaining: 0\n");
         }
 
         // Panggil status jumlah aksi, waktu dan uang yang dibutuhkan
@@ -138,11 +138,11 @@ void preparation_phase(int *day, Pemain *P)
         }
         else
         {
-            printf("Total waktu yang dibutuhkan: 0");
+            printf("Total waktu yang dibutuhkan: 0\n");
         }
         // Menampilkan total uang yang dibutuhkan:
-        printf("Total uang yang dibutuhkan: %d", Need_Money);
-
+        printf("Total uang yang dibutuhkan: %d\n", Need_Money);
+        printf("\n");
         // Panggil input dan jalankan
         input_preparation_phase(&status,P,&Need_Money,&Need_Menit,&Need_Time,Need_Material);
     }
@@ -164,12 +164,16 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
     Undo = StringToKata("undo");
     Execute = StringToKata("execute");
     Main = StringToKata("main");
+    Quit = StringToKata("quit");
 
 
+    EndKata = false;
+    // printf("Yoyoyoyyy\n");
     /* ALGORITMA */
     STARTKATA();
     while (!EndKata)
     {
+        printf("Yoyoyoyyy\n");
         if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
         {
             // Update peta  (Done)
@@ -281,8 +285,12 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
             // Lakukan main (Done)
             Ignore_Stack(&StackPreparationPhase,Need_Money,Need_Menit,Need_Material);
         }
-        else
+        else if (IsKataSama(Quit,CKata))
         {
+            EndKata = true;
+            *status = false;
+        }
+        else{
             EndKata = true;
             printf("Input tidak valid\n");
         }
@@ -1486,11 +1494,11 @@ void game_on(int *day, Pemain *P)
     isGoing = true;
     while (isGoing)
     {
-        
         preparation_phase(day,P);
         idMap = currentMap(*P);
         Map_Current = idMapToMap(idMap);
         main_phase(day,isGoing,P,Map_Current);
+        
     }
     // Terminasi program
 }
@@ -1561,6 +1569,7 @@ int main()
         {
             EndKata = true;
             new_game();
+            printf("keluar new game\n");
         }
         else if (IsKataSama(Load, CKata))
         {
