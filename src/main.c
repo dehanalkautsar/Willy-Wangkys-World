@@ -1168,7 +1168,7 @@ void detailOffice(Map currentMap){
     idx = searchKoordinatElmtListWahana(currentMap, xy);
 
     // Belum yakin gan
-    /**int idWahana = infoIdWahana(currentMap,idx);
+    int idWahana = infoIdWahana(currentMap,idx);
     addrNode Node_Wahana = Search_DatabaseWahana(Database_Wahana,idWahana);
 
     printf("// Melihat detail wahana //\n");
@@ -1187,12 +1187,9 @@ void detailOffice(Map currentMap){
     }
     else{
         printf("// Status : Rusak \n");     //print status wahana berfungsi atau tidak
-    }**/
+    }
 
-    //KONTOLLLLLLL
     
-    
-
 }
 
 
