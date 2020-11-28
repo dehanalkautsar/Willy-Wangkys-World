@@ -3,11 +3,11 @@
 #include <string.h>
 #include "../ADT/Jam/boolean.h"
 #include "../ADT/Jam/jam.h"
-#include "../ADT/ListImplementasiArray/listimplementasiarray.h"
-#include "../ADT/ListImplementasiListBerkait/listlinier.h"
+// #include "../ADT/ListImplementasiArray/listimplementasiarray.h"
+// #include "../ADT/ListImplementasiListBerkait/listlinier.h"
 #include "../ADT/Matriks/matriks.h"
-#include "../ADT/Mesin-Kata&Mesin-Karakter/mesinkar.h"
-#include "../ADT/Mesin-Kata&Mesin-Karakter/mesinkata.h"
+#include "../ADT/Mesin/mesinkar.h"
+#include "../ADT/Mesin/mesinkata.h"
 #include "../ADT/Point/point.h"
 #include "../ADT/Queue/queue.h"
 #include "../ADT/Queue/prioqueuechar.h"
@@ -16,6 +16,7 @@
 #include "../ADT/Player/pemain.h"
 // #include "../ADT/Tree/bintree.h"
 #include "../ADT/Wahana/bintree_wahana.h"
+#include "../ADT/Wahana/listrek_wahana.h"
 #include "../ADT/Map/map.h"
 
 /* Global Variabel */
@@ -93,7 +94,7 @@ void game_on(int *day, Pemain *P)
     /* KAMUS */
     boolean isGoing;
     int idMap;
-    Map currentMap;
+    Map Map_Current;
     /* ALGORITMA */
     isGoing = true;
     while (isGoing)
@@ -101,8 +102,8 @@ void game_on(int *day, Pemain *P)
         
         preparation_phase(day,P);
         idMap = currentMap(*P);
-        currentMap = idMapToMap(idMap);
-        main_phase(day,isGoing,P,currentMap);
+        Map_Current = idMapToMap(idMap);
+        main_phase(day,isGoing,P,Map_Current);
     }
     // Terminasi program
 }
@@ -385,7 +386,7 @@ void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Ne
 }
 
 
-void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map currentMap)
+void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Current)
 {
     JAM WaktuBuild = MakeJAM(1, 0);
     JAM TempJam = MakeJAM(0, 0);

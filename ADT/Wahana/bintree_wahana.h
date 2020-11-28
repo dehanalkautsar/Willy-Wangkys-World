@@ -9,11 +9,9 @@
 #define Nil NULL
 /* Modul lain yang digunakan : */
 #include "boolean.h"
-// #include "point.h"
-
 #include "listrek_wahana.h"
-#include "jam.h"
-#include "pemain.h"
+#include "../Jam/jam.h"
+#include "../Player/pemain.h"
 
 
 /* ADT Wahana */

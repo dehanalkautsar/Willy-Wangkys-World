@@ -15,7 +15,7 @@
 #include "listrek_wahana.h"
 
 /* *** Manajemen Memori *** */
-address_Wahana Alokasi (Wahana X)
+address_Wahana Alokasi_Listrek (Wahana X)
 /* Mengirimkan address_Wahana hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address_Wahana tidak Nil, dan misalnya menghasilkan P, 
   maka Info(P) = X, Next(P) = Nil */
@@ -33,7 +33,7 @@ address_Wahana Alokasi (Wahana X)
     return P;
 }
 
-void Dealokasi (address_Wahana P)
+void Dealokasi_Listrek (address_Wahana P)
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address_Wahana P */
@@ -45,7 +45,7 @@ void Dealokasi (address_Wahana P)
 
 /* *** Primitif-primitif yang harus direalisasikan *** */
 /* Pemeriksaan Kondisi List_Wahana */
-int IsEmpty(List_Wahana L)
+int IsEmpty_Listrek(List_Wahana L)
 /* Mengirimkan 1 jika L kosong dan 0 jika L tidak kosong */
 {
     /* KAMUS LOKAL */
@@ -53,12 +53,12 @@ int IsEmpty(List_Wahana L)
     return (L == Nil);
 }
 
-int IsOneElmt(List_Wahana L)
+int IsOneElmt_Listrek(List_Wahana L)
 /* Mengirimkan 1 jika L berisi 1 elemen dan 0 jika > 1 elemen atau kosong */
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L)) {
+    if (IsEmpty_Listrek(L)) {
         return 0;
     } else {
         return (Next(L)==Nil);
@@ -66,7 +66,7 @@ int IsOneElmt(List_Wahana L)
 }
 
 /* *** Selektor *** */
-Wahana FirstElmt (List_Wahana L)
+Wahana FirstElmt_Listrek (List_Wahana L)
 /* Mengirimkan elemen pertama sebuah list L yang tidak kosong */
 {
     /* KAMUS LOKAL */
@@ -90,7 +90,7 @@ e dialokasi terlebih dahulu. Jika alokasi gagal, mengirimkan L. */
     /* KAMUS LOKAL */
     address_Wahana P;
     /* ALGORITMA */
-    P = Alokasi(e);
+    P = Alokasi_Listrek(e);
     if (P != Nil) {
         Next(P) = L;
         return P;
@@ -108,10 +108,10 @@ List_Wahana KonsB(List_Wahana L, Wahana e)
     /* KAMUS LOKAL */
     address_Wahana P;
     /* ALGORITMA */
-    P = Alokasi(e);
+    P = Alokasi_Listrek(e);
     if (P!=Nil) {
-        if (IsEmpty(L)) {
-            return Alokasi(e);
+        if (IsEmpty_Listrek(L)) {
+            return Alokasi_Listrek(e);
         } else {
             Next(L) = KonsB(Tail(L),e);
             return L;
@@ -129,10 +129,10 @@ List_Wahana Copy (List_Wahana L)
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L)) {
+    if (IsEmpty_Listrek(L)) {
         return Nil;
     } else {
-        return Konso(FirstElmt(L),Copy(Tail(L)));
+        return Konso(FirstElmt_Listrek(L),Copy(Tail(L)));
     }
     
 }
@@ -145,11 +145,11 @@ void MCopy (List_Wahana Lin, List_Wahana *Lout)
     /* KAMUS LOKAL */
     List_Wahana LTemp;
     /* ALGORITMA */
-    if (IsEmpty(Lin)) { // Basis
+    if (IsEmpty_Listrek(Lin)) { // Basis
         *Lout = Nil;
     } else {            // rekurens
         MCopy(Tail(Lin),&LTemp);
-        *Lout = Konso(FirstElmt(Lin),LTemp);
+        *Lout = Konso(FirstElmt_Listrek(Lin),LTemp);
     }
 }
 
@@ -159,10 +159,10 @@ List_Wahana Concat (List_Wahana L1, List_Wahana L2)
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L1)) {  // Basis
+    if (IsEmpty_Listrek(L1)) {  // Basis
         return Copy(L2);
     } else {            // Rekurens
-        return (Konso(FirstElmt(L1), Concat(Tail(L1), L2)));
+        return (Konso(FirstElmt_Listrek(L1), Concat(Tail(L1), L2)));
     }
 }
 
@@ -174,11 +174,11 @@ void MConcat (List_Wahana L1, List_Wahana L2, List_Wahana *LHsl)
     /* KAMUS LOKAL */
     List_Wahana LTemp;
     /* ALGORITMA */
-    if (IsEmpty(L1)) {  // Basis
+    if (IsEmpty_Listrek(L1)) {  // Basis
         *LHsl = Copy(L2);
     } else {            // Rekurens
         MConcat(Tail(L1),L2,&LTemp);
-        *LHsl = Konso(FirstElmt(L1),LTemp);
+        *LHsl = Konso(FirstElmt_Listrek(L1),LTemp);
     }
 }
 
@@ -188,11 +188,11 @@ void PrintList (List_Wahana L)
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (!IsEmpty(L)) {
+    if (!IsEmpty_Listrek(L)) {
         if (Tail(L) != Nil) {
-            printf("%s ->",Nama_Wahana(FirstElmt(L)));
+            printf("%s ->",Nama_Wahana(FirstElmt_Listrek(L)));
         } else {
-            printf("%s\n",Nama_Wahana(FirstElmt(L)));
+            printf("%s\n",Nama_Wahana(FirstElmt_Listrek(L)));
         }
         PrintList(Next(L));
         
@@ -204,7 +204,7 @@ int NbElmtList (List_Wahana L)
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L)) {   // Basis
+    if (IsEmpty_Listrek(L)) {   // Basis
         return 0;
     } else {            // Rekurens
         return 1 + NbElmtList(Tail(L));
@@ -216,10 +216,10 @@ boolean Search (List_Wahana L, Wahana X)
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L)) {
+    if (IsEmpty_Listrek(L)) {
         return false;
     } else {
-        if (ID_Wahana(FirstElmt(L)) == ID_Wahana(X)) {
+        if (ID_Wahana(FirstElmt_Listrek(L)) == ID_Wahana(X)) {
             return true;
         } else {
             return Search(Tail(L),X);
@@ -235,9 +235,9 @@ Semua elemen list baru harus dialokasi */
 {
     /* KAMUS LOKAL */
     /* ALGORITMA */
-    if (IsEmpty(L)) {   // Basis
+    if (IsEmpty_Listrek(L)) {   // Basis
         return Nil;
     } else {            // Rekurens
-        return KonsB(InverseList(Tail(L)),FirstElmt(L));
+        return KonsB(InverseList(Tail(L)),FirstElmt_Listrek(L));
     }
 }

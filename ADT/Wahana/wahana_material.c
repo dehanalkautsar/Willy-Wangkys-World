@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "bintree_Wahana.h"
+#include "bintree_wahana.h"
 #include "listrek_wahana.h"
-#include "../Mesin-Kata&Mesin-Karakter/mesinkata.h"
+#include "../ADT/Mesin/mesinkata.h"
 
 /* ADT Wahana */
 

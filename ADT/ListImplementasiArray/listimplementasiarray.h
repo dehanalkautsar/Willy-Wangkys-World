@@ -10,10 +10,10 @@
 
 /*  Kamus Umum */
 #define IdxMax 15
-/* Indeks maksimum array */
+/* Indeks maksimum arr-ay */
 #define IdxMin 0
 /* Indeks minimum array */
-#define IdxUndef -999 
+#define IdxUndef -999 :
 /* Indeks tak terdefinisi*/
 #define ValUndef -1
 /* Nilai elemen tak terdefinisi*/

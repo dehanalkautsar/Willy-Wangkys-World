@@ -2,17 +2,20 @@
 /* ADT list linier dengan representasi pointer */
 /* Implementasi list linier secara rekursif */
 
-#ifndef _LISTREK_H_
-#define _LISTREK_H_
+#ifndef _LISTREK_Wahana_H_
+#define _LISTREK_Wahana_H_
 
 #include "boolean.h"
 #include "bintree_wahana.h"
+#include "../Jam/jam.h"
+#include "../Player/pemain.h"
 
 #define Nil NULL
 
 /* Definisi Type */
+typedef struct tElmtlist_Wahana* address_Wahana;
+typedef address_Wahana List_Wahana;
 // typedef int Wahana;
-typedef struct tElmtlist_Wahana *address_Wahana;
 typedef struct tElmtlist_Wahana { 
 	Wahana info;
 	address_Wahana next;
@@ -20,7 +23,7 @@ typedef struct tElmtlist_Wahana {
 
 /* Definisi list : */
 /* List_Wahana kosong : L = Nil */
-typedef address_Wahana List_Wahana;
+
 
 /* Deklarasi  nama untuk variabel kerja */ 
 /*  	L : List_Wahana */
@@ -33,12 +36,12 @@ typedef address_Wahana List_Wahana;
 #define Next(P) (P)->next
 
 /* *** Manajemen Memori *** */
-address_Wahana Alokasi (Wahana X);
+List_Wahana Alokasi_Listrek (Wahana X);
 /* Mengirimkan address_Wahana hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address_Wahana tidak Nil, dan misalnya menghasilkan P, 
   maka Info(P) = X, Next(P) = Nil */
 /* Jika alokasi gagal, mengirimkan Nil */
-void Dealokasi (address_Wahana P);
+void Dealokasi_Lirstrek (List_Wahana P);
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address_Wahana P */
@@ -46,13 +49,13 @@ void Dealokasi (address_Wahana P);
 /* *** Primitif-primitif yang harus direalisasikan *** */
 
 /* Pemeriksaan Kondisi List_Wahana */
-int IsEmpty(List_Wahana L);
+int IsEmpty_Listrek(List_Wahana L);
 /* Mengirimkan 1 jika L kosong dan 0 jika L tidak kosong */
-int IsOneElmt(List_Wahana L);
+int IsOneElmt_Listrek(List_Wahana L);
 /* Mengirimkan 1 jika L berisi 1 elemen dan 0 jika > 1 elemen atau kosong */
 
 /* *** Selektor *** */
-Wahana FirstElmt (List_Wahana L);
+Wahana FirstElmt_Listrek (List_Wahana L);
 /* Mengirimkan elemen pertama sebuah list L yang tidak kosong */
 List_Wahana Tail(List_Wahana L);
 /* Mengirimkan list L tanpa elemen pertamanya, mungkin menjadi list kosong */

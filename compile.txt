@@ -1,0 +1,23 @@
+clang ./src/main.c ./ADT/Wahana/wahana_material.c ./ADT/Wahana/bintree_wahana.c ./ADT/Wahana/listrek_wahana.c ./ADT/Stack/stackt.c ./ADT/Queue/linkedlistQ.c ./ADT/Queue/prioqueuechar.c ./ADT/Point/point.c ./ADT/Player/pemain.c ./ADT/Mesin/mesinkar_file.c ./ADT/Mesin/mesinkar.c ./ADT/Mesin/mesinkata.c ./ADT/Matriks/matriks.c ./ADT/Map/map.c ./ADT/Jam/jam.c ./ADT/Graph/graph.c -o mainProgram
+
+Syntax
+
+Wahana  : ./ADT/Wahana/wahana_material.c ./ADT/Wahana/bintree_wahana.c ./ADT/Wahana/listrek_wahana.c
+Stack   : ./ADT/Stack/stackt.c
+Queue   : ./ADT/Queue/linkedlistQ.c ./ADT/Queue/prioqueuechar.c
+Point   : ./ADT/Point/point.c
+Player  : ./ADT/Player/pemain.c
+Mesin kata mesin karakter : ./ADT/Mesin/mesinkar_file.c ./ADT/Mesin/mesinkar.c ./ADT/Mesin/mesinkata.c
+Matriks : ./ADT/Matriks/matriks.c
+Map     : ./ADT/Map/map.c -
+Jam     : ./ADT/Jam/jam.c
+Graph   : ./ADT/Graph/graph.c
+
+List ImplementasiListBerkait :
+List ImplementasiArray :
+
+
+
+
+
+
