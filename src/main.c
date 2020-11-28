@@ -25,124 +25,29 @@ Material Database_Material[5];
 Stack StackPreparationPhase;    //Insialisasi Empty Stack
 Map M1, M2, M3, M4; // Inisialisasi Map
 
+/* PROTOTIPE */
 void preparation_phase(int *day, Pemain *P);
 void input_preparation_phase(boolean *status, Pemain *P,int *Need_Money, int *Need_Menit, JAM *Need_Time, Material Need_Material[]);
-
-/**int main()
-{
-    // Inisialisasi
-    CreateEmptyStack(&StackPreparationPhase);
-    BinTree Database_Wahana1;
-    BinTree Database_Wahana2;
-    BinTree Database_Wahana3;
-    init_material(Database_Material,"material.txt");
-    init_wahana(&Database_Wahana1,"wahana1.txt", Database_Material);
-    init_wahana(&Database_Wahana2,"wahana2.txt", Database_Material);
-    init_wahana(&Database_Wahana3,"wahana3.txt", Database_Material);
-    Database_Wahana[0] = Database_Wahana1;
-    Database_Wahana[1] = Database_Wahana2;
-    Database_Wahana[2] = Database_Wahana3;
-
-    
-   
-    makeMap(&M1, "map1.txt", 1);
-    makeMap(&M2, "map2.txt", 2);
-    makeMap(&M3, "map3.txt", 3);
-    makeMap(&M4, "map4.txt", 4);   
-
-    Kata New, Load, Exit;
-
-    New = StringToKata("new");
-    Load = StringToKata("load");
-    Exit = StringToKata("exit");
-    
-
-    printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
-
-    
-    STARTKATA();
-    while (!EndKata)
-    {
-        if (IsKataSama(New, CKata))
-        {
-            EndKata = true;
-            new_game();
-        }
-        else if (IsKataSama(Load, CKata))
-        {
-            // Load Game
-        }
-        else if (IsKataSama(Exit, CKata))
-        {
-            EndKata = true;
-            printf("// Thanks for playing!!! //");
-        }
-        else
-        {
-            printf("Input tidak valid\n");
-        }
-
-        IgnoreBlank();
-        ADVKATA(); //Cek kata selanjutnya
-    }
-
-    return 0;
-}**/
-
-/* STATUS PERMAINAN */
-// void game_on(int *day, Pemain *P)
-// { // Masih perlu tambah parameter (Player)
-//     /* KAMUS */
-//     boolean isGoing;
-//     int idMap;
-//     Map Map_Current;
-//     /* ALGORITMA */
-//     isGoing = true;
-//     while (isGoing)
-//     {
-        
-//         preparation_phase(day,P);
-//         idMap = currentMap(*P);
-//         Map_Current = idMapToMap(idMap);
-//         main_phase(day,isGoing,P,Map_Current);
-//     }
-//     // Terminasi program
-// }
-
-// /* NEW GAME */
-// void new_game()
-// {
-//     /* KAMUS */
-//     char *nama;
-//     int start_day;
-//     int start_money;
-
-//     /* ALGORITMA */
-//     printf("Memulai permainan baru..");
-//     printf("Masukkan nama:");
-//     scanf("%s", &nama);
-
-//     /* Inisialisasi Permainan */
-//     start_day = 1;
-//     start_money = 500;
-
-//     // MakePlayer
-//     // Inisialisasi Pemain
-//     Pemain P;
-//     makePemain(&P,  2000, "Yayan Kanebo", Database_Material);
-
-//     /* Jalankan permainan */
-//     game_on(&start_day,&P); //tambah parameter player dll
-// }
-
-/* LOAD GAME */
-/* TBA */
+void build(Pemain P, int *Need_Money, int *Need_Menit ,JAM *Need_Jam, Map Map_Current);
+void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Material[5]);
+void buy(int* Need_Money, int* Need_Menit);
+void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Need_Material[5]);
+void execute(Stack* StackPreparation,Pemain *P, int* Need_Money, int* Need_Menit, Material Need_Material[5]);
+void Ignore_Stack(Stack* StackPreparation, int* Need_Money, int* Need_Menit, Material Need_Material[5]);
+void main_phase(int *day, boolean isGoing, Pemain *P,Map currentMap);
+void input_main_phase(boolean *status, int day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime);
+int searchIdWahana(char* namaWahana, Map M);
+void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentTime);
+void repair(Pemain *P, Map *currentMap, JAM *currentTime);
+void detail(Map currentMap, Koordinat Pemain);
+void detailOffice(Map currentMap);
+void reportOffice(Map currentMap);
+void office(boolean *stillInOffice);
+void enter_office(int day, boolean isGoing, Pemain P);
+void game_on(int *day, Pemain *P);
+void new_game();
 
 /* GENERAL PROCEDURE FOR PREPARATION AND MAIN */
-
-// Bikin fungsi buat ambil wahana dari txt
-
-/* END OF RESERVE */
 
 /* RESERVED FOR PREPRATATON PHASE */
 void preparation_phase(int *day, Pemain *P)
