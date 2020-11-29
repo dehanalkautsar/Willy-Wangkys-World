@@ -5,19 +5,6 @@
 #include "boolean.h"
 #include "../Map/map.h"
 
-#define NilG NULL
-
-#define numVertex(V) V->numVertex
-#define firstEdge(V) V->firstEdge
-#define MapWahana(V) V->Wahana
-#define nextVertex(V) V->nextVertex
-#define source(E) E->source
-#define dest(E) E->dest
-#define sNextEdge(E) E->sNextEdge
-#define dNextEdge(E) E->dNextEdge
-#define firstSource(G) G.firstSource
-#define firstDest(G) G.firstDest
-
 typedef elmtVertex *adrVertex;
 typedef elmtEdge *adrEdge;
 
@@ -39,6 +26,18 @@ typedef struct {
     adrVertex firstSource;
     adrVertex firstDest;
 }graph;
+#define NilG NULL
+
+#define numVertex(V) V->numVertex
+#define firstEdge(V) V->firstEdge
+#define MapWahana(V) V->Wahana
+#define nextVertex(V) V->nextVertex
+#define source(E) E->source
+#define dest(E) E->dest
+#define sNextEdge(E) E->sNextEdge
+#define dNextEdge(E) E->dNextEdge
+#define firstSource(G) G.firstSource
+#define firstDest(G) G.firstDest
 
 adrVertex createVertex(int nomor, Map Wahana);
 graph createGraph(Map M1, Map M2, Map M3, Map M4);

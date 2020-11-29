@@ -37,7 +37,7 @@ typedef struct
 /* ********* AKSES (Selektor) ********* */
 /* Jika e adalah infotype dan Q adalah PrioQueueChar, maka akses elemen : */
 #define Kesabaran(e) (e).kesabaran
-#define QWahana(e) (e).Wahana
+#define QWahana(e) (e).WahanaString
 #define InfoQ(e) (e).info
 #define Head(Q) (Q).HEAD
 #define Tail(Q) (Q).TAIL

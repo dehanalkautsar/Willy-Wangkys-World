@@ -1,7 +1,7 @@
-311,Haunted Mansion,100,Ready for spooky adventure?,10,10,100
-321,Splash Mountain,200,Be careful! This mountain splashes water everywhere,10,10,200
-322,Matterhorn Bobsleds,300,Explore the dignity,10,10,200
-331,Jungle Cruise,400,Do not lost in the jungle,10,10,-1
+311,Haunted_Mansion,100,Ready for spooky adventure?,10,10,100
+321,Splash_Mountain,200,Be careful! This mountain splashes water everywhere,10,10,200
+322,Matterhorn_Bobsleds,300,Explore the dignity,10,10,200
+331,Jungle_Cruise,400,Do not lost in the jungle,10,10,-1
 332,Autopia,500,Live in another dimension!,10,10,-1
-333,King Arthur Carousel,600,Feel the fun under the king guidance!,10,10,-1
-334,Submarine Voyage,700,Dive underwater with Nemo the Fish!,10,10,-1
+333,King_Arthur_Carousel,600,Feel the fun under the king guidance!,10,10,-1
+334,Submarine_Voyage,700,Dive underwater with Nemo the Fish!,10,10,-1

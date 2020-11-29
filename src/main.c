@@ -65,8 +65,8 @@ void game_on(int *day, Pemain *P)
     {
         jamPemain(*P) = MakeJAM(21, 0);
         preparation_phase(day, P);
-        // MakeEmpty(&antrean, 20);
-        // makeQueue(&antrean, M1);
+        MakeEmpty(&antrean, 20);
+        makeQueue(&antrean, M1);
         // makeQueue(&antrean, M2);
         // makeQueue(&antrean, M3);
         // makeQueue(&antrean, M4);
@@ -1267,7 +1267,7 @@ void main_phase(int *day, boolean *isGoing, Pemain *P)
         }
         printf("================= ANTREAN =================\n");
         // Panggil Priority Queue buat tampilan antrian
-        printf("Assalamualaikum antrean\n");
+        //printf("Assalamualaikum antrean\n");
         //printAntrean(antrean, Database_Wahana);
         // Panggil wahana apa yang rusak.
         printf("===========================================\n\n");
@@ -1533,10 +1533,12 @@ void input_main_phase(boolean *status, int *day, boolean *isGoing, PrioQueue *Q,
     else if (IsKataSama(Serve, CKata))
     {
         // ADVKATA();
+        printf("Masukkan nama wahana:");
+        ReadInput();
+        
         char namaWahana[256];
         KataToString(CKata, namaWahana);
         int idMap = currentMap(*P);
-
         int idWahana;
         if (idMap == 1)
         {

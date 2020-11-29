@@ -148,7 +148,14 @@ void Dequeue(PrioQueue *Q, infotypeQ *X)
 /* F.S. X = NilQai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer;
         Q mungkin kosong */
 {
-    *X = InfoHead(*Q);
+    // infotypeQ temp;
+    // temp.kesabaran = InfoHead(*Q).kesabaran;
+    // *X = temp;
+    // temp.WahanaString = ;
+    (*X).kesabaran = InfoHead(*Q).kesabaran;
+    (*X).WahanaString = InfoHead(*Q).WahanaString;
+    // Kesabaran(*X) = InfoHead(*Q).Kesabaran;
+    // QWahana(*X) = InfoHead(*Q).WahanaAntrean;
     if (NBElmt(*Q) == 1)
     { //Kondisi bersisa 1 elemen
         Head(*Q) = NilQ;
@@ -225,30 +232,47 @@ void tendangAntrean(PrioQueue *Q)
 
 void printAntrean(PrioQueue Q, BinTree T[])
 {
-    int P;
-    P = Head(Q);
-    
-    printf("P : %d\n",P);
-    // dari kepala
-    while (P != Tail(Q))
+    // Seg Fault gatau kenapa
+
+
+    infotypeQ CurrElmt;
+
+    while (!isEmptyPQ(Q))
     {
-        printf("ini P %d\n", P);
-        infotypeQ R = Q.T[P]; //kesabaran sama list wahana
-        int kesabaran = R.kesabaran;
-        WahanaAntrean Wahana = R.WahanaString;
+        printf("cek print\n");
+        Dequeue(&Q,&CurrElmt);
+        int kesabaran = CurrElmt.kesabaran;
+        printf("cek print 2 \n");
+        WahanaAntrean LWahana = CurrElmt.WahanaString;
 
-        PrintInfoLQ(Wahana, T);
-        printf(", kesabaran: %d\n", kesabaran);
-
-        if (P == (MaxEl(Q) - 1))
-        {
-            P = 0;
-        }
-        else
-        {
-            P++;
-        }
+        PrintInfoLQ(LWahana,T);
+        printf(", kesabaran : %d\n", kesabaran);
     }
+
+    // int P;
+    // P = Head(Q);
+    
+    // printf("P : %d\n",P);
+    // // dari kepala
+    // while (P != Tail(Q))
+    // {
+    //     printf("ini P %d\n", P);
+    //     infotypeQ R = Q.T[P]; //kesabaran sama list wahana
+    //     int kesabaran = R.kesabaran;
+    //     WahanaAntrean Wahana = R.WahanaString;
+
+    //     PrintInfoLQ(Wahana, T);
+    //     printf(", kesabaran: %d\n", kesabaran);
+
+    //     if (P == (MaxEl(Q) - 1))
+    //     {
+    //         P = 0;
+    //     }
+    //     else
+    //     {
+    //         P++;
+    //     }
+    // }
 
     // if (P != NilQ)
     // {
@@ -287,7 +311,7 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
     if (isEmptyPQ(*Q)){
         for (int i = 0; i < 5; i++)
         {
-            printf("cek2\n");
+            //printf("cek2\n");
             int r = (rand() % (Rand));
             // ini bikin list wahana yang di antre
             CreateEmpty(&X.WahanaString);
@@ -295,7 +319,7 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
             {
                 // ini insert list wahana yang di random
                 int k = (rand() % (Rand-2)+2);
-                printf("%d\n", infoIdWahana(WahanaMap,k));
+                //printf("%d\n", infoIdWahana(WahanaMap,k));
                 if ((infoIdWahana(WahanaMap,k) != 1) && (infoIdWahana(WahanaMap,k) != 2) && (infoIdWahana(WahanaMap,k) != 5)){
                     InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, k));
                     // printf();
@@ -311,7 +335,7 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
             
         }
     }else{ 
-        printf("cek4\n");
+        //printf("cek4\n");
         int k = Tail(*Q);
         for (int i = k; i < Tail(*Q)+5; i++)
         {

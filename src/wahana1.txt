@@ -1,6 +1,6 @@
 111,Turangga-Rangga,100,Komedi Putar dengan Kuda,10,10,100
 121,Bianglala,200,Kincir Besar yang berputar,10,10,200
-122,Gajah Bledug,300,Komedi Putar Berbentuk Gajah,10,10,200
+122,Gajah_Bledug,300,Komedi Putar Berbentuk Gajah,10,10,200
 131,Kora-Kora,400,Permainan perahu yang diayun kencang,10,10,-1
 132,Hysteria,500,Permainan dilemparkan ke atas hanya dalam hitungan detik,10,10,-1
 133,Kicir-Kicir,600,Permainan berputar 360 derajat,10,10,-1

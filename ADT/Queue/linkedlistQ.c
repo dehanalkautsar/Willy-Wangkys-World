@@ -22,8 +22,8 @@ void CreateEmpty(WahanaAntrean *L)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
-     printf("create Empty\n");
-          First(*L) = Nill;
+     //printf("create Empty\n");
+     First(*L) = Nill;
 }
 
 /****************** Manajemen Memori ******************/
@@ -178,12 +178,12 @@ void InsVLast(WahanaAntrean *L, infotypeLQ X)
      {
           if (IsEmptyW(*L))
           {
-               printf("insVlast 1");
+               //printf("insVlast 1");
                First(*L) = P;
           }
           else
           {
-               printf("insVLast 2");
+               //printf("insVLast 2");
                while (Next(Node) != Nill)
                {
                     Node = Next(Node);
