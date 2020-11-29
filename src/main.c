@@ -1862,9 +1862,11 @@ void detailOffice(Map currentMap)
     int x, y;
     printf("Masukan Koordinat wahana yang ingin anda tampilkan: \n");
     printf("X: ");
-    scanf("%d\n", &x);
+    ReadInput();
+    x = KataToInt(CKata);
     printf("Y: ");
-    scanf("%d\n", &y);
+    ReadInput();
+    y = KataToInt(CKata);
 
     makeKoordinat(&xy, x, y);
     idx = searchKoordinatElmtListWahana(currentMap, xy);
@@ -1911,9 +1913,11 @@ void reportOffice(Map currentMap)
     int x, y;
     printf("Masukan Koordinat wahana yang ingin anda tampilkan: \n");
     printf("X: ");
-    scanf("%d\n", &x);
+    ReadInput();
+    x = KataToInt(CKata);
     printf("Y: ");
-    scanf("%d\n", &y);
+    ReadInput();
+    y = KataToInt(CKata);
 
     makeKoordinat(&xy, x, y);
     idx = searchKoordinatElmtListWahana(currentMap, xy);
@@ -1958,9 +1962,9 @@ void office(boolean *stillInOffice)
 { //parameter belom dimasukin, belum pernah ditest juga
     /* KAMUS */
     Kata Details, Report, Exit;
-    StringToKata(&Details, "Details");
-    StringToKata(&Report, "Report");
-    StringToKata(&Exit, "Exit");
+    StringToKata(&Details, "details");
+    StringToKata(&Report, "report");
+    StringToKata(&Exit, "exit");
 
     /* ALGORITMA */
     if (*stillInOffice)
@@ -1969,6 +1973,7 @@ void office(boolean *stillInOffice)
         // STARTKATA();
         ReadInput();
         int choice = 0;
+        
         // while (!EndKata)
         // {
         if (IsKataSama(Details, CKata))
@@ -1991,37 +1996,41 @@ void office(boolean *stillInOffice)
         // ADVKATA();
         // }
 
+        Kata C1, C2, C3, C4;
+        // int C1;
         if (choice == 1)
         {
             // Lakukan details.
-            Kata Map1, Map2, Map3, Map4;
-            StringToKata(&Map1,"1");
-            StringToKata(&Map2,"2");
-            StringToKata(&Map3,"3");
-            StringToKata(&Map4,"4");
+            StringToKata(&C1,"Map 1");
+            StringToKata(&C2,"Map 2");
+            StringToKata(&C3,"Map 3");
+            StringToKata(&C4,"Map 4");
 
-            printf("Map yang Tersedia :");
+            printf("Map yang Tersedia :\n");
             printf(" 1. Map 1\n");
             printf(" 2. Map 2\n");
             printf(" 3. Map 3\n");
             printf(" 4. Map 4\n");
             printf("Pilih Peta (1/2/3/4) : \n");
-            STARTKATA();
+            ReadInput();
+            printf("adter read input");
             // while (!EndKata)
+            
             // {
-            if (IsKataSama(Map1, CKata))
+            if (IsKataSama(C1, CKata))
             {
+                printf("gnu prolog");
                 detailOffice(M1);
             }
-            else if (IsKataSama(Map2, CKata))
+            else if (IsKataSama(C2, CKata))
             {
                 detailOffice(M2);
             }
-            else if (IsKataSama(Map3, CKata))
+            else if (IsKataSama(C3, CKata))
             {
                 detailOffice(M3);
             }
-            else if (IsKataSama(Map4, CKata))
+            else if (IsKataSama(C4, CKata))
             {
                 detailOffice(M4);
             }
@@ -2031,13 +2040,12 @@ void office(boolean *stillInOffice)
         else if (choice == 2)
         {
             //lakukan report, akses reporttttt
-            Kata Map1, Map2, Map3, Map4;
-            StringToKata(&Map1,"1");
-            StringToKata(&Map2,"2");
-            StringToKata(&Map3,"3");
-            StringToKata(&Map4,"4");
+            // StringToKata(&C1,"1");
+            // StringToKata(&C2,"2");
+            // StringToKata(&C3,"3");
+            // StringToKata(&C4,"4");
 
-            printf("Map yang Tersedia :");
+            printf("Map yang Tersedia :\n");
             printf(" 1. Map 1\n");
             printf(" 2. Map 2\n");
             printf(" 3. Map 3\n");
@@ -2046,19 +2054,19 @@ void office(boolean *stillInOffice)
             // STARTKATA();
             // while (!EndKata)
             // {
-            if (IsKataSama(Map1, CKata))
+            if (IsKataSama(C1, CKata))
             {
                 reportOffice(M1);
             }
-            else if (IsKataSama(Map2, CKata))
+            else if (IsKataSama(C2, CKata))
             {
                 reportOffice(M2);
             }
-            else if (IsKataSama(Map3, CKata))
+            else if (IsKataSama(C3, CKata))
             {
                 reportOffice(M3);
             }
-            else if (IsKataSama(Map4, CKata))
+            else if (IsKataSama(C4, CKata))
             {
                 reportOffice(M4);
             }

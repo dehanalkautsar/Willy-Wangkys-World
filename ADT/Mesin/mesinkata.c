@@ -69,6 +69,7 @@ void ReadInput()
     } while ((CC != EOI) && (i <= NMax));
     CKata.Length = i - 1;
 }
+/* Nani? */
 
 boolean IsKataSama(Kata K1, Kata K2)
 {

@@ -7,7 +7,7 @@
 #include "boolean.h"
 #include "mesinkar.h"
 
-#define NMax 50
+#define NMax 100
 #define BLANK ' '
 #define EOI '\n'
 
