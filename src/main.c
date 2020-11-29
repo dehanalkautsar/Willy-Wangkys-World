@@ -423,8 +423,8 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
         {
             upgrade(*P, M4, Need_Money, Need_Menit, Need_Material);
         }
-        temp = JAMToMenit(*Need_Time);
-        *Need_Time = MenitToJAM(temp + *Need_Menit);
+        // temp = JAMToMenit(*Need_Time);
+        *Need_Time = MenitToJAM(*Need_Menit);
     }
     else if (IsKataSama(Buy, CKata))
     {
@@ -432,14 +432,17 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
         // Lakukan buy
         buy(Need_Money, Need_Menit);
 
-        temp = JAMToMenit(*Need_Time);
-        *Need_Time = MenitToJAM(temp + *Need_Menit);
+        // temp = JAMToMenit(*Need_Time);
+        *Need_Time = MenitToJAM(*Need_Menit);
     }
     else if (IsKataSama(Undo, CKata))
     {
         // EndKata = true;
         // Lakukan undo
         undo(&StackPreparationPhase, Need_Money, Need_Menit, Need_Material);
+
+        // temp = JAMToMenit(*Need_Time);
+        *Need_Time = MenitToJAM(*Need_Menit);
     }
     else if (IsKataSama(Execute, CKata))
     {

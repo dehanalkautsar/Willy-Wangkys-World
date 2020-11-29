@@ -374,14 +374,13 @@ void PrintInfoLQ(WahanaAntrean L, BinTree T[])
           while (Next(P) != Nill)
           {
                addrNode N = Search_DatabaseWahana(T, Info(P));
-               Wahana infowahana = Akar(N);
-               printf("%s, ", Nama_Wahana(infowahana));
+
+               printf("%s, ", Nama_Wahana(Akar(N)));
                P = Next(P);
           }
           //Next(P) = Nill
           addrNode N = Search_DatabaseWahana(T, Info(P));
-          Wahana infowahana = Akar(N);
-          printf("%s", Nama_Wahana(infowahana));
+          printf("%s", Nama_Wahana(Akar(N)));
      }
      printf(")");
 }
