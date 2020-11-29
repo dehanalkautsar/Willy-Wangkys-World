@@ -36,7 +36,7 @@ void buy(int *Need_Money, int *Need_Menit);
 void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Need_Material[5]);
 void execute(Stack *StackPreparation, Pemain *P, int *Need_Money, int *Need_Menit, Material Need_Material[5]);
 void Ignore_Stack(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Need_Material[5]);
-void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap);
+void main_phase(int *day, boolean isGoing, Pemain *P);
 void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime);
 int searchIdWahana(char *namaWahana, Map M);
 void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentTime);
@@ -62,10 +62,12 @@ void game_on(int *day, Pemain *P)
     isGoing = true;
     while (isGoing)
     {
+        jamPemain(*P) = MakeJAM(21, 0);
         preparation_phase(day, P);
-        idMap = currentMap(*P);
-        Map_Current = idMapToMap(idMap);
-        main_phase(day, isGoing, P, Map_Current);
+        // idMap = currentMap(*P);
+        // Map_Current = idMapToMap(idMap);
+        jamPemain(*P) = MakeJAM(9, 0);
+        main_phase(day, isGoing, P);
     }
     // Terminasi program
 }
@@ -235,7 +237,9 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 's');
                     move = true;
-                }else if(isGate(M1, movedPosition)){
+                }
+                else if (isGate(M1, movedPosition))
+                {
                     pindahMap(M1, P, movedPosition);
                     move = true;
                 }
@@ -248,9 +252,11 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'd');
                     move = true;
-                }else if (isGate(M1,movedPosition)){
-                    pindahMap(M1,P,movedPosition);
-                    move = true;                    
+                }
+                else if (isGate(M1, movedPosition))
+                {
+                    pindahMap(M1, P, movedPosition);
+                    move = true;
                 }
             }
         }
@@ -274,8 +280,10 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'a');
                     move = true;
-                }else if (isGate(M2,movedPosition)){
-                    pindahMap(M2,P,movedPosition);
+                }
+                else if (isGate(M2, movedPosition))
+                {
+                    pindahMap(M2, P, movedPosition);
                     move = true;
                 }
             }
@@ -287,8 +295,10 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 's');
                     move = true;
-                }else if (isGate(M2,movedPosition)){
-                    pindahMap(M2,P,movedPosition);
+                }
+                else if (isGate(M2, movedPosition))
+                {
+                    pindahMap(M2, P, movedPosition);
                     move = true;
                 }
             }
@@ -313,7 +323,9 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'w');
                     move = true;
-                }else if(isGate(M3, movedPosition)){
+                }
+                else if (isGate(M3, movedPosition))
+                {
                     pindahMap(M3, P, movedPosition);
                     move = true;
                 }
@@ -326,7 +338,9 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'a');
                     move = true;
-                }else if(isGate(M3, movedPosition)){
+                }
+                else if (isGate(M3, movedPosition))
+                {
                     pindahMap(M3, P, movedPosition);
                     move = true;
                 }
@@ -362,8 +376,10 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'w');
                     move = true;
-                }else if (isGate(M4,movedPosition)){
-                    pindahMap(M4,P,movedPosition);
+                }
+                else if (isGate(M4, movedPosition))
+                {
+                    pindahMap(M4, P, movedPosition);
                     move = true;
                 }
             }
@@ -395,8 +411,10 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 {
                     setKoordinatPemain(P, 'd');
                     move = true;
-                }else if (isGate(M4,movedPosition)){
-                    pindahMap(M4,P,movedPosition);
+                }
+                else if (isGate(M4, movedPosition))
+                {
+                    pindahMap(M4, P, movedPosition);
                     move = true;
                 }
             }
@@ -431,6 +449,7 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
     else if (IsKataSama(Upgrade, CKata))
     {
         // EndKata = true;
+        printf("Cek");
         // Lakukan upgrade (Done)
         int idMap = currentMap(*P);
         if (idMap == 1)
@@ -1152,7 +1171,7 @@ void Ignore_Stack(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Mat
 
 /* RESERVE FROM MAIN PHASE */
 
-void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap)
+void main_phase(int *day, boolean isGoing, Pemain *P)
 { // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
@@ -1160,10 +1179,11 @@ void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap)
     JAM CloseJam;
     JAM SisaJam;
     PrioQueue antrean;
+    Map C_Map;
 
     /* ALGORITMA */
     /* Inisialisasi */
-    CurrentJam = MakeJAM(9, 0);
+    // CurrentJam = jamPemain(*P);
     CloseJam = MakeJAM(21, 0);
 
     status = true;
@@ -1175,7 +1195,8 @@ void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap)
     {
         printf("Main phase day %d\n", *day);
         // Panggil fungsi gambar peta
-        printMap(M1, *P);
+        C_Map = idMapToMap(currentMap(*P));
+        printMap(C_Map, *P);
         // Panggil legend peta
         printf("Legend:\n");
         printf("A = Antrian\n");
@@ -1189,6 +1210,7 @@ void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap)
 
         // Panggil current waktu dan limit waktu
         printf("Current Time: ");
+        CurrentJam = jamPemain(*P);
         TulisJAM(CurrentJam);
         printf("\n");
         printf("Opening Time: ");
@@ -1221,7 +1243,7 @@ void main_phase(int *day, boolean isGoing, Pemain *P, Map currentMap)
         // input_main_phase(&status, day, isGoing)
         input_main_phase(&status, day, isGoing, &antrean, P, &CurrentJam); //panggil input dan jalankan
     }
-    printMap(M1, *P);
+    // printMap(M1, *P);
     *day++;
 }
 
@@ -1290,7 +1312,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 's');
                     move = true;
-                }else if(isGate(M1, movedPosition)){
+                }
+                else if (isGate(M1, movedPosition))
+                {
                     pindahMap(M1, P, movedPosition);
                     move = true;
                 }
@@ -1303,9 +1327,11 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'd');
                     move = true;
-                }else if (isGate(M1,movedPosition)){
-                    pindahMap(M1,P,movedPosition);
-                    move = true;                    
+                }
+                else if (isGate(M1, movedPosition))
+                {
+                    pindahMap(M1, P, movedPosition);
+                    move = true;
                 }
             }
         }
@@ -1329,8 +1355,10 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'a');
                     move = true;
-                }else if (isGate(M2,movedPosition)){
-                    pindahMap(M2,P,movedPosition);
+                }
+                else if (isGate(M2, movedPosition))
+                {
+                    pindahMap(M2, P, movedPosition);
                     move = true;
                 }
             }
@@ -1342,8 +1370,10 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 's');
                     move = true;
-                }else if (isGate(M2,movedPosition)){
-                    pindahMap(M2,P,movedPosition);
+                }
+                else if (isGate(M2, movedPosition))
+                {
+                    pindahMap(M2, P, movedPosition);
                     move = true;
                 }
             }
@@ -1368,7 +1398,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'w');
                     move = true;
-                }else if(isGate(M3, movedPosition)){
+                }
+                else if (isGate(M3, movedPosition))
+                {
                     pindahMap(M3, P, movedPosition);
                     move = true;
                 }
@@ -1381,7 +1413,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'a');
                     move = true;
-                }else if(isGate(M3, movedPosition)){
+                }
+                else if (isGate(M3, movedPosition))
+                {
                     pindahMap(M3, P, movedPosition);
                     move = true;
                 }
@@ -1417,8 +1451,10 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'w');
                     move = true;
-                }else if (isGate(M4,movedPosition)){
-                    pindahMap(M4,P,movedPosition);
+                }
+                else if (isGate(M4, movedPosition))
+                {
+                    pindahMap(M4, P, movedPosition);
                     move = true;
                 }
             }
@@ -1450,8 +1486,10 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
                 {
                     setKoordinatPemain(P, 'd');
                     move = true;
-                }else if (isGate(M4,movedPosition)){
-                    pindahMap(M4,P,movedPosition);
+                }
+                else if (isGate(M4, movedPosition))
+                {
+                    pindahMap(M4, P, movedPosition);
                     move = true;
                 }
             }
@@ -1589,11 +1627,13 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         }
 
         *day += 1;
-        preparation_phase(day, P);
+        *status = false;
+        // preparation_phase(day, P);
     }
     else if (IsKataSama(Quit, CKata))
     {
-        // Lakukan quit
+        *status = false;
+        isGoing = false;
     }
     else
     {
@@ -1998,14 +2038,15 @@ void enter_office(int day, boolean isGoing, Pemain P)
     /* KAMUS */
     boolean stillInOffice;
     /* ALGORITMA */
-    if (isOfficeDekat(P)) {
+    if (isOfficeDekat(P))
+    {
         stillInOffice = true;
 
         while (stillInOffice)
         {
             office(&stillInOffice);
         }
-        main_phase(&day, isGoing, &P, idMapToMap(currentMap(P)));
+        main_phase(&day, isGoing, &P);
     }
 }
 // BATAS MAIN PHASE //
@@ -2127,3 +2168,4 @@ int main()
 
     return 0;
 }
+// void status
