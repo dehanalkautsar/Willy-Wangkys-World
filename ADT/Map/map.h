@@ -32,11 +32,16 @@ void makeMap(Map *M, char *nama_file, int mapIndex);
 void printMap(Map M, Pemain P);
 void updateMap(Map *M, int x, int y, char input);
 void initMap(Map *M);
+void initGateMap(Map *M, int IDMap);
+WahanaMap GetGate(Map M, Koordinat PlayerPosition);
+void pindahMap(Map M, Pemain *P, Koordinat PlayerPosition);
 
 WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition);
+boolean isOfficeDekat(Pemain P);
 boolean isAccessible(Map M, Koordinat PlayerPosition);
-int totalWahana(Map M);
+boolean isGate(Map M, Koordinat PlayerPosition);
 boolean checkIsAvailablePoint(Map M, int x, int y);
+int totalWahana(Map M);
 int searchElmtListWahana(Map M, int idWahana);
 int searchKoordinatElmtListWahana(Map M, Koordinat Koordinat); //mengembalikan indeks array listwahana dengan koordinat yang sesuai
 int searchKoordinat_IDListWahana(Map M, Koordinat Koordinat);
