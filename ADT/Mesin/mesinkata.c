@@ -1,6 +1,7 @@
 #include "boolean.h"
 #include "mesinkar.h"
 #include "mesinkata.h"
+#include <stdio.h>
 
 boolean EndKata;
 Kata CKata;
@@ -58,20 +59,16 @@ void ReadInput()
     /* KAMUS */
     int i;
     /* ALGORITMA */
-	i = 0;
-    // ADV_Input();
-    // CKata.TabKata[i] = CC;
-    // i++;
-
-	do {
-		ADV_Input();
-		CKata.TabKata[i] = CC;
-		i++;
-	} while ((CC != EOI) && (i <= NMax));
-	CKata.Length = i-1;
-
+    i = 0;
+    printf("$ ");
+    do
+    {
+        ADV_Input();
+        CKata.TabKata[i] = CC;
+        i++;
+    } while ((CC != EOI) && (i <= NMax));
+    CKata.Length = i - 1;
 }
-
 
 boolean IsKataSama(Kata K1, Kata K2)
 {
@@ -142,7 +139,8 @@ void KataToString(Kata Kata, char buff[256])
     buff[i + 1] = '\0'; // End of string
 }
 
-int KataToInt(Kata Current_Kata){
+int KataToInt(Kata Current_Kata)
+{
     int num = 0;
     int panjang = Current_Kata.Length;
 
@@ -151,7 +149,6 @@ int KataToInt(Kata Current_Kata){
         num *= 10;
         num += Current_Kata.TabKata[i] - '0';
     }
-    
 
-	return num;
+    return num;
 }

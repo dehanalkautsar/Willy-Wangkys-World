@@ -15,7 +15,7 @@
 typedef struct tMap
 {
   MATRIKS mapMatriks;
-  WahanaMap listWahana[IdxMaxWahana + 1]; 
+  WahanaMap listWahana[IdxMaxWahana + 1];
 } Map;
 
 #define mapMatriks(M) (M).mapMatriks
@@ -28,14 +28,17 @@ typedef struct tMap
 #define infoPenghasilan(M, i) (M).listWahana[i].penghasilan
 #define infoTotalPenghasilan(M, i) (M).listWahana[i].totalPenghasilan
 
-void makeMap(Map *M, char* nama_file, int mapIndex);
+void makeMap(Map *M, char *nama_file, int mapIndex);
 void printMap(Map M, Pemain P);
 void updateMap(Map *M, int x, int y, char input);
+void initMap(Map *M);
+
 WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition);
+boolean isAccessible(Map M, Koordinat PlayerPosition);
 int totalWahana(Map M);
 boolean checkIsAvailablePoint(Map M, int x, int y);
 int searchElmtListWahana(Map M, int idWahana);
-int searchKoordinatElmtListWahana(Map M, Koordinat Koordinat);  //mengembalikan indeks array listwahana dengan koordinat yang sesuai
-
+int searchKoordinatElmtListWahana(Map M, Koordinat Koordinat); //mengembalikan indeks array listwahana dengan koordinat yang sesuai
+int searchKoordinat_IDListWahana(Map M, Koordinat Koordinat);
 
 #endif

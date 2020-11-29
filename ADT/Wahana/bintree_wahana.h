@@ -6,8 +6,6 @@
 #ifndef _BINTREE_WAHANA_H_
 #define _BINTREE_WAHANA_H_
 
-
-
 #define Nil NULL
 
 /* Modul lain yang digunakan : */
@@ -15,7 +13,6 @@
 // #include "../Player/pemain.h"
 #include "boolean.h"
 #include "../Jam/jam.h"
-
 
 // typedef struct Material
 // {
@@ -25,13 +22,12 @@
 //   int Kuantitas;
 // } Material;
 
-
 /* ADT Wahana */
 typedef struct tElmt_Wahana
 {
    int ID;
    char Nama[32];
-   int Harga;  // Harga tiket masuk bukan harga build
+   int Harga; // Harga tiket masuk bukan harga build
    // Koordinat Lokasi;
    char Deskripsi[256];
    int Kapasitas;
@@ -49,22 +45,22 @@ typedef struct tElmt_Wahana
 /* Makro Wahana */
 typedef Elmt_Wahana Wahana;
 
-
 /* BAGIAN LISTREK */
 /* Definisi Type */
-typedef struct tElmtlist_Wahana* address_Wahana;
+typedef struct tElmtlist_Wahana *address_Wahana;
 
 // typedef int Wahana;
-typedef struct tElmtlist_Wahana { 
-	Wahana info;
-	address_Wahana next;
+typedef struct tElmtlist_Wahana
+{
+   Wahana info;
+   address_Wahana next;
 } ElmtList_Wahana;
 
 /* Definisi list : */
 /* List_Wahana kosong : L = Nil */
 
 typedef address_Wahana List_Wahana;
-/* Deklarasi  nama untuk variabel kerja */ 
+/* Deklarasi  nama untuk variabel kerja */
 /*  	L : List_Wahana */
 /*  	P : address_Wahana 	*/
 /* Maka penulisan First(L) menjadi L */
@@ -73,7 +69,6 @@ typedef address_Wahana List_Wahana;
 /* Selektor */
 #define Info(P) (P)->info
 #define Next(P) (P)->next
-
 
 /* BAGIAN TREE */
 /* *** Definisi Type Pohon Biner *** */
@@ -104,15 +99,14 @@ typedef addrNode BinTree;
 #define Durasi_Wahana(W) W.Durasi
 #define Upgrade_Cost(W) W.Upgrade_Cost
 #define Status_Wahana(W) W.statusWahana
-#define Upgrade_Material(W,i) W.Upgrade_Material[i]
-
+#define Upgrade_Material(W, i) W.Upgrade_Material[i]
 
 /* ADT WAHANA */
 /* Gunakan ini buat database material */
-void init_material(Material* Database_Material,char* namaFileMaterial);
+void init_material(Material *Database_Material, char *namaFileMaterial);
 /* Inisialisasi database dengan Database_Material[10] */
 /* Gunakan ini buat bikin wahana */
-void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database_Material[]);
+void init_wahana(BinTree *Bintree_Wahana, char *namaFileWahana, Material Database_Material[]);
 /* Karena passing by reference, harus pake ini */
 Wahana CopyWahana(Wahana W);
 Material CopyMaterial(Material M);
@@ -132,7 +126,7 @@ Wahana Wahana_Pindah_Node(addrNode W, boolean kiri);
 
 List_Wahana RiwayatUpgrade(int ID_Wahana, BinTree Database_W[]);
 
-void Read_File_Material(Material* List_M,char* nama_file);
+void Read_File_Material(Material *List_M, char *nama_file);
 void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[]);
 void Print_Tree_Wahana(BinTree T);
 void Make_Tree_Wahana(BinTree *Tree_Wahana, Wahana List_W[], Material Database_M[]);
@@ -215,8 +209,6 @@ void DelDaun(BinTree *P, Wahana X);
 // /* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
 // /* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
 
-
-
 // #include "boolean.h"
 // #include "bintree_wahana.h"
 // #include "../Jam/jam.h"
@@ -258,36 +250,35 @@ e dialokasi terlebih dahulu. Jika alokasi gagal, mengirimkan L. */
 List_Wahana KonsB(List_Wahana L, Wahana e);
 /* Mengirimkan list L dengan tambahan e sebagai elemen terakhirnya */
 /* e harus dialokasi terlebih dahulu */
-/* Jika alokasi e gagal, mengirimkan L */ 
+/* Jika alokasi e gagal, mengirimkan L */
 
 /* *** Operasi Lain *** */
-List_Wahana Copy (List_Wahana L);
+List_Wahana Copy(List_Wahana L);
 /* Mengirimkan salinan list L (menjadi list baru) */
-/* Jika ada alokasi gagal, mengirimkan L */ 
-void MCopy (List_Wahana Lin, List_Wahana *Lout);
+/* Jika ada alokasi gagal, mengirimkan L */
+void MCopy(List_Wahana Lin, List_Wahana *Lout);
 /* I.S. Lin terdefinisi */
 /* F.S. Lout berisi salinan dari Lin */
 /* Proses : menyalin Lin ke Lout */
-List_Wahana Concat (List_Wahana L1, List_Wahana L2);
+List_Wahana Concat(List_Wahana L1, List_Wahana L2);
 /* Mengirimkan salinan hasil konkatenasi list L1 dan L2 (menjadi list baru) */
 /* Jika ada alokasi gagal, menghasilkan Nil */
-void MConcat (List_Wahana L1, List_Wahana L2, List_Wahana *LHsl);
+void MConcat(List_Wahana L1, List_Wahana L2, List_Wahana *LHsl);
 /* I.S. L1, L2 terdefinisi */
 /* F.S. LHsl adalah hasil melakukan konkatenasi L1 dan L2 dengan cara "disalin" */
 /* Proses : Menghasilkan salinan hasil konkatenasi list L1 dan L2 */
-void PrintList (List_Wahana L);
+void PrintList(List_Wahana L);
 /* I.S. L terdefinisi. */
 /* F.S. Setiap elemen list dicetak. */
-int NbElmtList (List_Wahana L);
+int NbElmtList(List_Wahana L);
 /* Mengirimkan banyaknya elemen list L, Nol jika L kosong */
-boolean Search (List_Wahana L, Wahana X);
+boolean Search(List_Wahana L, Wahana X);
 /* Mengirim true jika X adalah anggota list, false jika tidak */
 
 /*** Operasi-Operasi Lain ***/
-List_Wahana InverseList (List_Wahana L);
+List_Wahana InverseList(List_Wahana L);
 /* Mengirimkan list baru, hasil invers dari L dengan menyalin semua elemen list.
 Semua elemen list baru harus dialokasi */
 /* Jika alokasi gagal, hasilnya list kosong */
-
 
 #endif
