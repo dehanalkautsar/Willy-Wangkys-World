@@ -1,3 +1,6 @@
+/* DIGABUNG DALAM BINTREE WAHANA */
+
+
 // /* File: listrek.h */
 // /* ADT list linier dengan representasi pointer */
 // /* Implementasi list linier secara rekursif */

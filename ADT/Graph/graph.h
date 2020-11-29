@@ -18,18 +18,17 @@
 #define firstSource(G) G.firstSource
 #define firstDest(G) G.firstDest
 
-
 typedef elmtVertex *adrVertex;
 typedef elmtEdge *adrEdge;
 
-typedef struct {
+typedef struct Vertex{
     int numVertex;
     Map Wahana;
     adrEdge firstEdge;
     adrVertex nextVertex;
 }elmtVertex;
 
-typedef struct {
+typedef struct Edge{
     int source;
     int dest;
     adrEdge sNextEdge;

@@ -122,38 +122,57 @@ WahanaMap wahanaTerdekat(Map M, Koordinat PlayerPosition)
     y = ordinat(PlayerPosition);
     found = false;
 
-    while (i < totalWahana(M) && !found)
+    while (!found && i < totalWahana(M))
     {
         if (absis(infoKoordinatWahanaMap(M, i)) == x && ordinat(infoKoordinatWahanaMap(M, i)) == (y + 1))
         {
-            W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
-            W.Occupancy = infoOccupancy(M, i);
-            found = true;
+            if ((infoIdWahana(M, i) != 1) && (infoIdWahana(M, i) != 2) && infoIdWahana(M, i) != 5)
+            {
+                //  printf("1id : %d\n", W.IdWahana);
+                W.IdWahana = infoIdWahana(M, i);
+                W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
+                W.Occupancy = infoOccupancy(M, i);
+                found = true;
+            }
         }
-        else if (absis(infoKoordinatWahanaMap(M, i)) == (x + 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
+        if (absis(infoKoordinatWahanaMap(M, i)) == (x + 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
         {
-            W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
-            W.Occupancy = infoOccupancy(M, i);
-            found = true;
+            if ((infoIdWahana(M, i) != 1 && infoIdWahana(M, i) != 2) && infoIdWahana(M, i) != 5)
+            {
+                // printf("2id : %d\n", W.IdWahana);
+                W.IdWahana = infoIdWahana(M, i);
+                W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
+                W.Occupancy = infoOccupancy(M, i);
+                found = true;
+            }
         }
-        else if (absis(infoKoordinatWahanaMap(M, i)) == x && ordinat(infoKoordinatWahanaMap(M, i)) == (y - 1))
+        if (absis(infoKoordinatWahanaMap(M, i)) == x && ordinat(infoKoordinatWahanaMap(M, i)) == (y - 1))
         {
-            W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
-            W.Occupancy = infoOccupancy(M, i);
-            found = true;
+            if ((infoIdWahana(M, i) != 1 && infoIdWahana(M, i) != 2) && infoIdWahana(M, i) != 5)
+            {
+                // printf("3id : %d\n", W.IdWahana);
+                W.IdWahana = infoIdWahana(M, i);
+                W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
+                W.Occupancy = infoOccupancy(M, i);
+                found = true;
+            }
         }
-        else if (absis(infoKoordinatWahanaMap(M, i)) == (x - 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
+        if (absis(infoKoordinatWahanaMap(M, i)) == (x - 1) && ordinat(infoKoordinatWahanaMap(M, i)) == y)
         {
-            W.IdWahana = infoIdWahana(M, i);
-            W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
-            W.Occupancy = infoOccupancy(M, i);
-            found = true;
+            if ((infoIdWahana(M, i) != 1 && infoIdWahana(M, i) != 2) && infoIdWahana(M, i) != 5)
+            {
+                // printf("4id : %d\n", W.IdWahana);
+                W.IdWahana = infoIdWahana(M, i);
+                W.KoordinatWahana = infoKoordinatWahanaMap(M, i);
+                W.Occupancy = infoOccupancy(M, i);
+                found = true;
+            }
         }
         i++;
     }
+
+    // printf("id : %d\n", W.IdWahana);
+    // found ? printf("found\n") : printf("not found\n");
 
     if (!found || W.IdWahana == 1 || W.IdWahana == 2 || W.IdWahana == 5)
     {

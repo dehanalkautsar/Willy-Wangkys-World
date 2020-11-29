@@ -1,7 +1,7 @@
-111,Test1,100,AA,10,10,100
-121,Test2,200,AA,10,10,200
-122,Test3,300,AA,10,10,200
-131,Test4,400,AA,10,10,-1
-132,Test5,500,AA,10,10,-1
-133,Test6,600,AA,10,10,-1
-134,Test7,700,AA,10,10,-1
+111,Turangga-Rangga,100,Komedi Putar dengan Kuda,10,10,100
+121,Bianglala,200,Kincir Besar yang berputar,10,10,200
+122,Gajah Bledug,300,Komedi Putar Berbentuk Gajah,10,10,200
+131,Kora-Kora,400,Permainan perahu yang diayun kencang,10,10,-1
+132,Hysteria,500,Permainan dilemparkan ke atas hanya dalam hitungan detik,10,10,-1
+133,Kicir-Kicir,600,Permainan berputar 360 derajat,10,10,-1
+134,Tornado,700,Permainan ekstrem duduk terbalik,10,10,-1

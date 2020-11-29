@@ -10,8 +10,8 @@
 
 
 Wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasitas, int Durasi_Menit, int Upgrade_Biaya, Material Upgrade_M[])
+/* Membuat wahana dari parameter yang dimasukkan */
 {
-    
     Wahana W;
     ID_Wahana(W) = ID;
     strcpy(Nama_Wahana(W),Nama);
@@ -29,6 +29,7 @@ Wahana MakeWahana(int ID, char Nama[], int Harga, char Deskripsi[], int Kapasita
 
 // Parameter input/output list of Wahana
 void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Material[])
+/* Membaca file wahana dan disimpan dalam database */
 {
     /* INISIALISASI */
     int ID;
@@ -49,7 +50,8 @@ void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Materia
     int j = 0;
     
     while (fgets(buff, sizeof(buff), fp))
-    {                                    // fgets buat ngebaca buff
+    {                  
+        // Pisahkan setiap token dengan koma
         char *token = strtok(buff, ","); // strtok buat ngesplit string dengan delimiter ','
         int i = 0;
         
@@ -118,6 +120,7 @@ void Read_File_Wahana(Wahana *List_W, char *nama_file, Material Database_Materia
 }
 
 void Make_Tree_Wahana(BinTree *Tree_Wahana, Wahana List_W[], Material Database_M[])
+/* Membuat pohon wahana */
 {
     
     MakeTree(List_W[0], Nil, Nil, Tree_Wahana);
@@ -130,6 +133,7 @@ void Make_Tree_Wahana(BinTree *Tree_Wahana, Wahana List_W[], Material Database_M
 }
 
 void Print_Tree_Wahana(BinTree T)
+/* Mengeluarkan output berupa bentuk tree wahana */
 {
     printf("(");
     if (!IsTreeEmpty(T))
@@ -141,8 +145,10 @@ void Print_Tree_Wahana(BinTree T)
     printf(")");
 }
 
+
+addrNode Search_Wahana(BinTree T, int ID) 
 /* Mengembalikan alamat Wahana ditemukan, NIL jika gagal ditemukan */
-addrNode Search_Wahana(BinTree T, int ID) {
+{
     /* KAMUS LOKAL */
     
     /* ALGORITMA */
@@ -170,6 +176,7 @@ addrNode Search_Wahana(BinTree T, int ID) {
 
 
 addrNode Search_DatabaseWahana(BinTree Database_Wahana[], int ID) {
+/* Mencari wahana dari database, return Nil jika tidak ditemukan */
     /* KAMUS LOKAL */
     
     /* ALGORITMA */
@@ -185,6 +192,7 @@ addrNode Search_DatabaseWahana(BinTree Database_Wahana[], int ID) {
 }
 
 Wahana Wahana_Pindah_Node(addrNode W, boolean kiri) {
+/* Pindah node dari upgrade */
     /* KAMUS LOKAL */
     
     /* ALGORITMA */
@@ -199,6 +207,7 @@ Wahana Wahana_Pindah_Node(addrNode W, boolean kiri) {
 /* ADT MATERIAL */
 /* Membuat ADT Material */
 Material Make_Material(int ID, char Nama[], int Harga)
+/* Membuat ADT Material */
 {
     Material M;
     
@@ -212,6 +221,7 @@ Material Make_Material(int ID, char Nama[], int Harga)
 
 /* Baca File material */
 void Read_File_Material(Material* List_M,char* nama_file)
+/* Membaca file material */
 {
     
     /* KAMUS LOKAL */
@@ -261,7 +271,9 @@ void Read_File_Material(Material* List_M,char* nama_file)
 }
 
 
-void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database_Material[]) {
+void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database_Material[])
+/* Menginisilisasi wahana */
+{
     Wahana Database_W[30];
     // Material Database_M[10];
     //Read_File_Material(Database_M, namaFileMaterial);
@@ -269,11 +281,15 @@ void init_wahana(BinTree* Bintree_Wahana,char* namaFileWahana, Material Database
     Make_Tree_Wahana(Bintree_Wahana,Database_W,Database_Material);
 }
 
-void init_material(Material* Database_Material,char* namaFileMaterial) {
+void init_material(Material* Database_Material,char* namaFileMaterial) 
+/* Menginisilisasi material */
+{
     Read_File_Material(Database_Material, namaFileMaterial);
 }
 
-Wahana CopyWahana(Wahana W) {
+Wahana CopyWahana(Wahana W) 
+/* Menyalin ADT Wahana */
+{
     Wahana New_Wahana;
     int temp_durasi;
 
@@ -292,7 +308,9 @@ Wahana CopyWahana(Wahana W) {
     return New_Wahana;
 }
 
-Material CopyMaterial(Material M) {
+Material CopyMaterial(Material M) 
+/* Menyalin ADT Material */
+{
     Material New_Material;
     ID_Material(New_Material) = ID_Material(M);
     strcpy(Nama_Material(New_Material),Nama_Material(M));
@@ -302,7 +320,9 @@ Material CopyMaterial(Material M) {
     return New_Material;
 }
 
-List_Wahana MakeListRiwayat(int ID_Wahana, BinTree P) {
+List_Wahana MakeListRiwayat(int ID_Wahana, BinTree P) 
+/* Membuat riwayat upgrade dari Tree */
+{
     /* KAMUS LOKAL */
     address_Wahana E;
     List_Wahana L;
@@ -325,6 +345,7 @@ List_Wahana MakeListRiwayat(int ID_Wahana, BinTree P) {
 }
 
 List_Wahana RiwayatUpgrade(int ID_Wahana, BinTree Database_W[]) {
+/* Membuat riwayat upgrade dari Database Tree */
     BinTree T;
 
     if (SearchTree(Database_W[0],ID_Wahana)) {

@@ -1,7 +1,7 @@
-211,Test1,100,AA,10,10,100
-221,Test2,200,AA,10,10,200
-222,Test3,300,AA,10,10,200
-231,Test4,400,AA,10,10,-1
-232,Test5,500,AA,10,10,-1
-233,Test6,600,AA,10,10,-1
-234,Test7,700,AA,10,10,-1
+211,Gajah Duduk,100,Beranikah kamu diduduki gajah?,10,10,100
+221,Tembak Alien,200,AAAALIENNNNN!!!,20,10,200
+222,Kong King,300,King Kong tapi dibalik,20,10,200
+231,Dunia Lain,400,Kuys uji nyali dulu,30,10,-1
+232,Vertigo,500,Ini mah penyakit,30,10,-1
+233,Simulasi Neraka,600,Ayolohh masuk neraka,30,10,-1
+234,Simulasi Surga,700,Gw bantu doa aja,30,10,-1

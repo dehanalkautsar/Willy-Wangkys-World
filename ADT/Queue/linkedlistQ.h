@@ -127,5 +127,6 @@ void DelAfter(WahanaAntrean *L, address *Pdel, address Prec);
 /* F.S. Menghapus Next(Prec): */
 /*      Pdel adalah alamat elemen list yang dihapus  */
 void PrintInfoLQ(WahanaAntrean L, BinTree T[]);
+void PrintInfoList(WahanaAntrean L);
 
 #endif

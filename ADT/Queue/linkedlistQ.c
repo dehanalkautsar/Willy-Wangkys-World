@@ -385,3 +385,22 @@ void PrintInfoLQ(WahanaAntrean L, BinTree T[])
      }
      printf(")");
 }
+
+
+void PrintInfoList(WahanaAntrean L){
+     address P = First(L);
+     printf("(");
+     if (!IsEmptyW(L))
+     {
+          while (P != Nill)
+          {
+               if (Next(P)!=Nill){
+                    printf("%d,",Info(P));
+               }else{
+                    printf("%d",Info(P));
+               }
+               P = Next(P);
+          }
+     }
+     printf(")");
+}
