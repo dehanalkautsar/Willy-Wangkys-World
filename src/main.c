@@ -831,7 +831,7 @@ void buy(int *Need_Money, int *Need_Menit)
     }
 
     choice = -1;
-    
+
     // STARTKATA();
     // while (!EndKata && choice == -1)
     // {
@@ -898,7 +898,6 @@ void buy(int *Need_Money, int *Need_Menit)
         Push(&StackPreparationPhase, isi);
 
         printf("// Memasukkan perintah membeli %s sebanyak %d pada stack //\n", string, jumlahMaterial);
-        
     }
 }
 

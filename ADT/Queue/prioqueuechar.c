@@ -226,6 +226,7 @@ void printAntrean(PrioQueue Q, BinTree T[])
     int P;
     P = Head(Q);
 
+    // dari kepala
     while (P != Tail(Q))
     {
         infotypeQ R = Q.T[P]; //kesabaran sama list wahana
@@ -279,10 +280,13 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
 
     for (int i = 0; i < 5; i++)
     {
+
         int r = (rand() % Rand);
+        // ini bikin list wahana yang di antre
         CreateEmpty(&X.WahanaString);
         for (int j = 0; j < r; j++)
         {
+            // ini insert list wahana yang di random
             InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, r));
         }
         //X.Wahana = random dari array wahana customer
