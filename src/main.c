@@ -26,6 +26,7 @@ Stack StackPreparationPhase; //Insialisasi Empty Stack
 Map M1, M2, M3, M4;          // Inisialisasi Map
 Pemain P1;
 boolean isGoing;
+PrioQueue antrean;
 
 /* PROTOTIPE */
 void preparation_phase(int *day, Pemain *P);
@@ -39,7 +40,7 @@ void Ignore_Stack(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Mat
 void main_phase(int *day, boolean isGoing, Pemain *P);
 void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, Pemain *P, JAM *currentTime);
 int searchIdWahana(char *namaWahana, Map M);
-void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentTime);
+void serve(Pemain *P, int idWahana, JAM *currentTime);
 void repair(Pemain *P, Map *currentMap, JAM *currentTime);
 void detail(Map currentMap, Koordinat Pemain);
 void detailOffice(Map currentMap);
@@ -64,10 +65,16 @@ void game_on(int *day, Pemain *P)
     {
         jamPemain(*P) = MakeJAM(21, 0);
         preparation_phase(day, P);
+        MakeEmpty(&antrean, 20);
+        makeQueue(&antrean, M1);
+        // makeQueue(&antrean, M2);
+        // makeQueue(&antrean, M3);
+        // makeQueue(&antrean, M4);
         // idMap = currentMap(*P);
         // Map_Current = idMapToMap(idMap);
         jamPemain(*P) = MakeJAM(9, 0);
         main_phase(day, isGoing, P);
+
     }
     // Terminasi program
 }
@@ -104,7 +111,7 @@ void preparation_phase(int *day, Pemain *P)
     /* Looping preparation phase */
     while (status)
     {
-        printf("Preparation phase day %d\n", *day);
+        printf("========= PREPARATION PHASE DAY(s) %d =======\n", *day);
         // Panggil fungsi gambar peta
         C_Map = idMapToMap(currentMap(*P));
         printMap(C_Map, *P);
@@ -118,21 +125,24 @@ void preparation_phase(int *day, Pemain *P)
 
         // Panggil status player
         // Need ADT Player
-        printf("Duid lau : %d\n", uang(*P));
+        printf("================== STATUS ==================\n");
+        printf(" Nama     : %s\n",nama(*P));
+        printf(" Money    : %d\n", uang(*P));
         //ngeprint material
+        printf(" Material : \n");
         for(int i = 0; i < 5; i++) {
-          printf("- %s ", Nama_Material(materialPemain(*P, i)));  
-          printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
+            printf("   - %s ", Nama_Material(materialPemain(*P, i)));  
+            printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
         }
         // Panggil current waktu dan limit waktu
-        printf("Current Time: ");
+        printf(" Current Time : ");
         CJam = jamPemain(*P);
         TulisJAM(CJam);
         printf("\n");
-        printf("Opening Time: ");
+        printf(" Opening Time : ");
         TulisJAM(OPJam);
         printf("\n");
-
+        printf("================ TIME LIMIT ================\n");
         SisaJam = Durasi(CJam, OPJam);
         if (JAMToMenit(SisaJam) != 0)
         {
@@ -150,9 +160,8 @@ void preparation_phase(int *day, Pemain *P)
             printf("Time Remaining: 0\n");
         }
 
-        // Panggil status jumlah aksi, waktu dan uang yang dibutuhkan
-        // Menampilkan Count_isi stack aski : TBA
-
+        
+        printf("=========== OPERATIONAL NEEDED =============\n");
         // Menampilkan total waktu yang dibutuhkan
         if (JAMToMenit(Need_Time) != 0)
         {
@@ -171,7 +180,7 @@ void preparation_phase(int *day, Pemain *P)
         }
         // Menampilkan total uang yang dibutuhkan:
         printf("Total uang yang dibutuhkan: %d\n", Need_Money);
-        printf("\n");
+        printf("===========================================\n\n");
         // Panggil input dan jalankan
         input_preparation_phase(&status, P, &Need_Money, &Need_Menit, &Need_Time, Need_Material, day);
     }
@@ -256,18 +265,14 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 makeKoordinat(&movedPosition, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) + 1);
                 if (isAccessible(M1, movedPosition))
                 {
-                    printf("Hei 3");
                     setKoordinatPemain(P, 'd');
                     move = true;
                 }
                 else if (isGate(M1, movedPosition))
                 {
-                    printf("Hei 2");
-
                     pindahMap(M1, P, movedPosition);
                     move = true;
                 }
-                printf("Hei 4");
             }
         }
         else if (idMap == 2)
@@ -1196,7 +1201,7 @@ void main_phase(int *day, boolean isGoing, Pemain *P)
 { // Parameternya masih harus ditambah ADT Player, Peta
     /* KAMUS */
     boolean status;
-    JAM CurrentJam;
+    JAM CJam;
     JAM CloseJam;
     JAM SisaJam;
     PrioQueue antrean;
@@ -1204,17 +1209,15 @@ void main_phase(int *day, boolean isGoing, Pemain *P)
 
     /* ALGORITMA */
     /* Inisialisasi */
-    // CurrentJam = jamPemain(*P);
+    // CJam = jamPemain(*P);
     CloseJam = MakeJAM(21, 0);
 
     status = true;
 
-    //makeQueue(&antrean, M1);
-
     /* Looping main phase */
     while (status)
     {
-        printf("Main phase day %d\n", *day);
+        printf("============ MAIN PHASE DAY(s) %d ===========\n", *day);
         // Panggil fungsi gambar peta
         C_Map = idMapToMap(currentMap(*P));
         printMap(C_Map, *P);
@@ -1228,20 +1231,25 @@ void main_phase(int *day, boolean isGoing, Pemain *P)
 
         // Panggil status player
         // Need ADT Player
+        printf("================== STATUS ==================\n");
+        printf(" Nama     : %s\n",nama(*P));
+        printf(" Money    : %d\n", uang(*P));
+        //ngeprint material
+        printf(" Material : \n");
         for(int i = 0; i < 5; i++) {
-          printf("- %s ", Nama_Material(materialPemain(*P, i)));
-          printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
+            printf("   - %s ", Nama_Material(materialPemain(*P, i)));  
+            printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
         }
         // Panggil current waktu dan limit waktu
-        printf("Current Time: ");
-        CurrentJam = jamPemain(*P);
-        TulisJAM(CurrentJam);
+        printf(" Current Time : ");
+        CJam = jamPemain(*P);
+        TulisJAM(CJam);
         printf("\n");
-        printf("Opening Time: ");
+        printf(" Opening Time : ");
         TulisJAM(CloseJam);
         printf("\n");
-
-        SisaJam = Durasi(CurrentJam, CloseJam);
+        printf("================ TIME LIMIT ================\n");
+        SisaJam = Durasi(CJam, CloseJam);
         if (JAMToMenit(SisaJam) != 0)
         {
             if (Minute(SisaJam) == 0)
@@ -1257,15 +1265,15 @@ void main_phase(int *day, boolean isGoing, Pemain *P)
         {
             printf("Time Remaining: 0\n");
         }
-
+        printf("================= ANTREAN =================\n");
         // Panggil Priority Queue buat tampilan antrian
         printf("Assalamualaikum antrean\n");
-        //printAntrean(antrean, Database_Wahana);
+        printAntrean(antrean, Database_Wahana);
         // Panggil wahana apa yang rusak.
-
-        printf("cek\n");
+        printf("===========================================\n\n");
+        // printf("cek\n");
         // input_main_phase(&status, day, isGoing)
-        input_main_phase(&status, day, isGoing, &antrean, P, &CurrentJam); //panggil input dan jalankan
+        input_main_phase(&status, day, isGoing, &antrean, P, &CJam); //panggil input dan jalankan
     }
     // printMap(M1, *P);
     *day++;
@@ -1535,28 +1543,28 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         {
             idWahana = searchIdWahana(namaWahana, M1);
             // Lakukan serve
-            serve(P, Q, &M1, idWahana, currentTime);
+            serve(P, idWahana, currentTime);
             // ini harusnya cek nama wahana juga
         }
         else if (idMap == 2)
         {
             idWahana = searchIdWahana(namaWahana, M2);
             // Lakukan serve
-            serve(P, Q, &M2, idWahana, currentTime);
+            serve(P, idWahana, currentTime);
             // ini harusnya cek nama wahana juga
         }
         else if (idMap == 3)
         {
             idWahana = searchIdWahana(namaWahana, M3);
             // Lakukan serve
-            serve(P, Q, &M3, idWahana, currentTime);
+            serve(P, idWahana, currentTime);
             // ini harusnya cek nama wahana juga
         }
         else if (idMap == 4)
         {
             idWahana = searchIdWahana(namaWahana, M4);
             // Lakukan serve
-            serve(P, Q, &M4, idWahana, currentTime);
+            serve(P, idWahana, currentTime);
             // ini harusnya cek nama wahana juga
         }
     }
@@ -1695,69 +1703,204 @@ int searchIdWahana(char *namaWahana, Map M)
     }
 }
 
-void serve(Pemain *P, PrioQueue *Q, Map *currentMap, int idWahana, JAM *currentTime)
+void gabungListWahana(WahanaMap listGabung[],int* nWahana){
+    
+    int i = 0;
+    int k = 0;
+    while (i < totalWahana(M1)) {
+        if ((infoIdWahana(M1, i) != 1) && (infoIdWahana(M1, i) != 2) && (infoIdWahana(M1, i) != 5)) {
+            listGabung[k].IdWahana = infoIdWahana(M1,i);
+            listGabung[k].KoordinatWahana = infoKoordinatWahanaMap(M1,i);
+            listGabung[k].Occupancy = infoOccupancy(M1,i);
+            listGabung[k].penghasilan = infoPenghasilan(M1,i);
+            listGabung[k].statusWahana = infoStatusWahana(M1,i);
+            listGabung[k].totalOccupancy = infoTotalOccupancy(M1,i);
+            listGabung[k].totalPenghasilan = infoTotalPenghasilan(M1,i);
+            k++; 
+        }
+        i++;
+    }
+    i = 0;
+    while (i < totalWahana(M2)) {
+        if ((infoIdWahana(M2, i) != 1) && (infoIdWahana(M2, i) != 2) && (infoIdWahana(M2, i) != 5)) {
+            listGabung[k].IdWahana = infoIdWahana(M2,i);
+            listGabung[k].KoordinatWahana = infoKoordinatWahanaMap(M2,i);
+            listGabung[k].Occupancy = infoOccupancy(M2,i);
+            listGabung[k].penghasilan = infoPenghasilan(M2,i);
+            listGabung[k].statusWahana = infoStatusWahana(M2,i);
+            listGabung[k].totalOccupancy = infoTotalOccupancy(M2,i);
+            listGabung[k].totalPenghasilan = infoTotalPenghasilan(M2,i);
+            k++; 
+        }
+        i++;
+    }
+    i = 0;
+    while (i < totalWahana(M3)) {
+        if ((infoIdWahana(M3, i) != 1) && (infoIdWahana(M3, i) != 2) && (infoIdWahana(M3, i) != 5)) {
+            listGabung[k].IdWahana = infoIdWahana(M3,i);
+            listGabung[k].KoordinatWahana = infoKoordinatWahanaMap(M3,i);
+            listGabung[k].Occupancy = infoOccupancy(M3,i);
+            listGabung[k].penghasilan = infoPenghasilan(M3,i);
+            listGabung[k].statusWahana = infoStatusWahana(M3,i);
+            listGabung[k].totalOccupancy = infoTotalOccupancy(M3,i);
+            listGabung[k].totalPenghasilan = infoTotalPenghasilan(M3,i);
+            k++; 
+        }
+        i++;
+    }
+    i = 0;
+    while (i < totalWahana(M4)) {
+        if ((infoIdWahana(M4, i) != 1) && (infoIdWahana(M4, i) != 2) && (infoIdWahana(M4, i) != 5)) {
+            listGabung[k].IdWahana = infoIdWahana(M4,i);
+            listGabung[k].KoordinatWahana = infoKoordinatWahanaMap(M4,i);
+            listGabung[k].Occupancy = infoOccupancy(M4,i);
+            listGabung[k].penghasilan = infoPenghasilan(M4,i);
+            listGabung[k].statusWahana = infoStatusWahana(M4,i);
+            listGabung[k].totalOccupancy = infoTotalOccupancy(M4,i);
+            listGabung[k].totalPenghasilan = infoTotalPenghasilan(M4,i);
+            k++; 
+        }
+        i++;
+    }
+    *nWahana = k;
+}
+
+void serve(Pemain *P, int idWahana, JAM *currentTime)
 { // parameternya harusnya wahana, sama player
     // check wahana error atau engga
-    int kepala = Head(*Q);
+    int kepala = Head(antrean);
     infotypeQ X;
+    // Map C_Map;
+    WahanaMap listGabung[256];
+    int nWahana;
+    int idx;
+    boolean valid;
 
     // Search_DatabaseWahana(BinTree Database_Wahana[], int ID);
     addrNode N = Search_DatabaseWahana(Database_Wahana, idWahana);
 
-    WahanaMap container = wahanaTerdekat(*currentMap, posisiPemain(*P));
-
-    int idx = searchKoordinatElmtListWahana(*currentMap, container.KoordinatWahana);
-
-    // currentTime + DurasiWahana <= closeTime --> OK
-    JAM durasi = Durasi_Wahana(Akar(N));
-    long menitDurasi = JAMToMenit(durasi);
-    long menitCurrent = JAMToMenit(*currentTime);
-    JAM total = MenitToJAM(menitDurasi + menitCurrent);
-
-    // bikin jam tutup
-    JAM tutup = MakeJAM(21, 0);
-
-    boolean isOk = JLT(total, tutup);
-
-    if ((Status_Wahana(Akar(N)) && (infoOccupancy(*currentMap, idx) < Kapasitas_Wahana(Akar(N)))) && isOk) //cekWahananya rusak ato engga, durasi offisde atau engga, sm penuh atau engga
-    {
-        //proses serve
-        uang(*P) += Harga_Wahana(Akar(N));
-        // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
-        if (SearchLQ((*Q).T[kepala].WahanaString, idWahana) != Nil)
-        {
-            //kalo ternyata ada wahana ybs di head, maka diapus dr list
-            DelP(&(*Q).T[kepala].WahanaString, idWahana);
-            //mengurangi semua kesabaran
-            kurangSabar(Q);
-            //kalo list wahana udah kosong dequeue headnya
-            if (IsEmptyW((*Q).T[kepala].WahanaString))
-            {
-                Dequeue(Q, &X);
-            }
-            else
-            {
-                Dequeue(Q, &X);
-                Enqueue(Q, X);
-            }
-            //random kerusakan wahana
-            int constRandom;
-            constRandom = (rand() % (5));
-            if (constRandom == 0)
-            {
-                infoStatusWahana(*currentMap, idx) = false;
+    if (N != Nil){
+        gabungListWahana(listGabung,&nWahana);
+        // C_Map = idMapToMap(currentMap(*P));
+        // int idx = searchElmtListWahana(C_Map, ID_Wahana(Akar(N)));
+        //int idx = searchKoordinatElmtListWahana(*currentMap, container.KoordinatWahana);
+        valid = false;
+        
+        for (int i = 0; i < nWahana && !valid; i++){
+            if (listGabung[i].IdWahana == ID_Wahana(Akar(N)) && listGabung[i].Occupancy < Kapasitas_Wahana(Akar(N)) && listGabung[i].statusWahana){
+                valid = true;
+                idx = i;
             }
         }
-        *currentTime = total;
-        jamPemain(*P) = total;
 
-        infoOccupancy(*currentMap, idx) += 1;
-        infoTotalOccupancy(*currentMap, idx) += 1;
-        infoPenghasilan(*currentMap, idx) += Harga_Wahana(Akar(N));
-        infoTotalPenghasilan(*currentMap, idx) += Harga_Wahana(Akar(N));
-    }
-    else
-    {
+        // currentTime + DurasiWahana <= closeTime --> OK
+        JAM durasi = Durasi_Wahana(Akar(N));
+        long menitDurasi = JAMToMenit(durasi);
+        long menitCurrent = JAMToMenit(*currentTime);
+        JAM total = MenitToJAM(menitDurasi + menitCurrent);
+
+        // bikin jam tutup
+        JAM tutup = MakeJAM(21, 0);
+
+        boolean isOk = JLT(total, tutup);
+
+        if (isOk){
+            //proses serve
+            uang(*P) += Harga_Wahana(Akar(N));
+            // ngecek customer queue pertama, apakah dia ngantri di wahana ybs atau engga
+            if (SearchLQ((antrean).T[kepala].WahanaString, idWahana) != Nil)
+            {
+                //kalo ternyata ada wahana ybs di head, maka diapus dr list
+                DelP(&(antrean).T[kepala].WahanaString, idWahana);
+                //mengurangi semua kesabaran
+                kurangSabar(&antrean);
+                //kalo list wahana udah kosong dequeue headnya
+                if (IsEmptyW((antrean).T[kepala].WahanaString))
+                {
+                    Dequeue(&antrean, &X);
+                }
+                else
+                {
+                    Dequeue(&antrean, &X);
+                    Enqueue(&antrean, X);
+                }
+            }
+            *currentTime = total;
+            jamPemain(*P) = total;
+            // C_Map = idMapToMap(currentMap(*P));
+            
+            valid = false;
+            for (int i = 0; i < totalWahana(M1) && !valid; i++){
+                if (listGabung[idx].IdWahana == infoIdWahana(M1,i) && listGabung[idx].Occupancy < infoOccupancy(M1,i)){
+                    infoOccupancy(M1, i) += 1;
+                    infoTotalOccupancy(M1, i) += 1;
+                    infoPenghasilan(M1, i) += Harga_Wahana(Akar(N));
+                    infoTotalPenghasilan(M1, i) += Harga_Wahana(Akar(N));
+                    //random kerusakan wahana
+                    int constRandom;
+                    constRandom = (rand() % (5));
+                    if (constRandom == 0)
+                    {
+                        infoStatusWahana(M1, i) = false;
+                    }
+                    valid = true;
+                }
+            }
+            for (int i = 0; i < totalWahana(M2) && !valid; i++){
+                if (listGabung[idx].IdWahana == infoIdWahana(M2,i) && listGabung[idx].Occupancy < infoOccupancy(M2,i)){
+                    infoOccupancy(M2, i) += 1;
+                    infoTotalOccupancy(M2, i) += 1;
+                    infoPenghasilan(M2, i) += Harga_Wahana(Akar(N));
+                    infoTotalPenghasilan(M2, i) += Harga_Wahana(Akar(N));
+                    //random kerusakan wahana
+                    int constRandom;
+                    constRandom = (rand() % (5));
+                    if (constRandom == 0)
+                    {
+                        infoStatusWahana(M2, i) = false;
+                    }
+                    valid = true;
+                }
+            }
+            for (int i = 0; i < totalWahana(M3) && !valid; i++){
+                if (listGabung[idx].IdWahana == infoIdWahana(M3,i) && listGabung[idx].Occupancy < infoOccupancy(M3, i)){
+                    infoOccupancy(M3, i) += 1;
+                    infoTotalOccupancy(M3, i) += 1;
+                    infoPenghasilan(M3, i) += Harga_Wahana(Akar(N));
+                    infoTotalPenghasilan(M3, i) += Harga_Wahana(Akar(N));
+                    //random kerusakan wahana
+                    int constRandom;
+                    constRandom = (rand() % (5));
+                    if (constRandom == 0)
+                    {
+                        infoStatusWahana(M3, i) = false;
+                    }
+                    valid = true;
+                }
+            }
+            for (int i = 0; i < totalWahana(M4) && !valid; i++){
+                if (listGabung[idx].IdWahana == infoIdWahana(M4,i) && listGabung[idx].Occupancy < infoOccupancy(M4,i)){
+                    infoOccupancy(M4, i) += 1;
+                    infoTotalOccupancy(M4, i) += 1;
+                    infoPenghasilan(M4, i) += Harga_Wahana(Akar(N));
+                    infoTotalPenghasilan(M4, i) += Harga_Wahana(Akar(N));
+                    //random kerusakan wahana
+                    int constRandom;
+                    constRandom = (rand() % (5));
+                    if (constRandom == 0)
+                    {
+                        infoStatusWahana(M4, i) = false;
+                    }
+                    valid = true;
+                }
+            }
+
+
+        }else{
+            printf("Waktu tidak cukup!");
+        }
+            
+    }else{
         printf("Oops! Wahana tidak tersedia..");
     }
 }
@@ -1855,6 +1998,7 @@ void detailOffice(Map currentMap)
     int idx;
     int count = 0;
     Koordinat xy;
+    printf("%d\n", totalWahana(currentMap));
     while (i < totalWahana(currentMap))
     {
         addrNode N = Search_DatabaseWahana(Database_Wahana, infoIdWahana(currentMap, i));
@@ -2157,16 +2301,16 @@ Map idMapToMap(int idMap)
 void new_game()
 {
     /* KAMUS */
-    char *nama;
     int start_day;
     int start_money;
+    char nama[256];
 
     /* ALGORITMA */
     printf("Memulai permainan baru..\n");
-    // printf("Masukkan nama: ");
-    // ReadInput();
+    printf("Masukkan nama: ");
+    ReadInput();
     // scanf("%s", &nama);
-
+    KataToString(CKata,nama);
     /* Inisialisasi Permainan */
     start_day = 1;
     start_money = 500;
@@ -2174,7 +2318,7 @@ void new_game()
     // MakePlayer
     // Inisialisasi Pemain
     Pemain P;
-    makePemain(&P, 20000, "Yayan Kanebo", Database_Material);
+    makePemain(&P, 20000, nama, Database_Material);
     /* Jalankan permainan */
     game_on(&start_day, &P); //tambah parameter player dll
 }

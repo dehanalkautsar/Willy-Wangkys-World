@@ -12,6 +12,7 @@
 #include "../Wahana/bintree_wahana.h"
 
 #define NilQ -1
+#define nMax 20
 /* Konstanta untuk mendefinisikan index tak terdefinisi */
 
 /* Definisi elemen dan index */
@@ -94,5 +95,6 @@ void kurangSabar(PrioQueue *Q);
 void printAntrean(PrioQueue Q, BinTree T[]);
 void makeQueue(PrioQueue *Q, Map WahanaMap);
 void tendangAntrean(PrioQueue *Q);
+void bikinQueue(PrioQueue *Q);
 
 #endif

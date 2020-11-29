@@ -22,7 +22,8 @@ void CreateEmpty(WahanaAntrean *L)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
-     First(*L) = Nill;
+     printf("create Empty\n");
+          First(*L) = Nill;
 }
 
 /****************** Manajemen Memori ******************/
@@ -177,10 +178,12 @@ void InsVLast(WahanaAntrean *L, infotypeLQ X)
      {
           if (IsEmptyW(*L))
           {
+               printf("insVlast 1");
                First(*L) = P;
           }
           else
           {
+               printf("insVLast 2");
                while (Next(Node) != Nill)
                {
                     Node = Next(Node);
@@ -371,16 +374,14 @@ void PrintInfoLQ(WahanaAntrean L, BinTree T[])
      printf("(");
      if (!IsEmptyW(L))
      {
-          while (Next(P) != Nill)
+          while (P != Nill)
           {
                addrNode N = Search_DatabaseWahana(T, Info(P));
-
-               printf("%s, ", Nama_Wahana(Akar(N)));
+               if (N != Nil){
+                    printf("%s, ", Nama_Wahana(Akar(N)));
+               }
                P = Next(P);
           }
-          //Next(P) = Nill
-          addrNode N = Search_DatabaseWahana(T, Info(P));
-          printf("%s", Nama_Wahana(Akar(N)));
      }
      printf(")");
 }

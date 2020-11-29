@@ -225,10 +225,11 @@ void printAntrean(PrioQueue Q, BinTree T[])
 {
     int P;
     P = Head(Q);
-
+    printf("P : %d\n",P);
     // dari kepala
     while (P != Tail(Q))
     {
+        printf("ini P %d\n", P);
         infotypeQ R = Q.T[P]; //kesabaran sama list wahana
         int kesabaran = R.kesabaran;
         WahanaAntrean Wahana = R.WahanaString;
@@ -269,31 +270,68 @@ void printAntrean(PrioQueue Q, BinTree T[])
     //     }
 }
 
+
+//sebelum panggil, makeEmpty dulu
 void makeQueue(PrioQueue *Q, Map WahanaMap)
 /* Prosedur ini buat bikin antriannya */
 {
     //char *wahana[] = {"Wangky's World", "Subway rush", "Fear Factor"};
+    int RandM1 = totalWahana(WahanaMap)-4;
     int Rand = totalWahana(WahanaMap);
+    printf("ini total wahana %d", Rand);
 
-    MakeEmpty(Q, 5);
+    //MakeEmpty(Q, nMax);
     infotypeQ X;
 
-    for (int i = 0; i < 5; i++)
-    {
-
-        int r = (rand() % Rand);
-        // ini bikin list wahana yang di antre
-        CreateEmpty(&X.WahanaString);
-        for (int j = 0; j < r; j++)
+    if (isEmptyPQ(*Q)){
+        for (int i = 0; i < 5; i++)
         {
-            // ini insert list wahana yang di random
-            InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, r));
+            printf("cek2\n");
+            int r = (rand() % (Rand));
+            // ini bikin list wahana yang di antre
+            CreateEmpty(&X.WahanaString);
+            for (int j = 0; j < r; j++)
+            {
+
+                // ini insert list wahana yang di random
+                int k = 4 ;//(rand() % Rand);
+                printf("%d\n", infoIdWahana(WahanaMap,k));
+                if ((infoIdWahana(WahanaMap,k) != 1) && (infoIdWahana(WahanaMap,k) != 2) && (infoIdWahana(WahanaMap,k) != 5)){
+                    InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, r));
+                    // printf();
+                }
+            }
+            //X.Wahana = random dari array wahana customer
+            X.kesabaran = 5;
+            //X.kesabaran = (rand() % (10 - 2 + 1)+2);
+            Enqueue(Q, X);
         }
-        //X.Wahana = random dari array wahana customer
-        X.kesabaran = 5;
-        //X.kesabaran = (rand() % (10 - 2 + 1)+2);
-        Enqueue(Q, X);
+    }else{ 
+        printf("cek4\n");
+        int k = Tail(*Q);
+        for (int i = k; i < Tail(*Q)+5; i++)
+        {
+            int r = (rand() % Rand);
+            // ini bikin list wahana yang di antre
+            CreateEmpty(&X.WahanaString);
+            for (int j = 0; j < r; j++)
+            {
+                // ini insert list wahana yang di random
+                int nameWahana = (rand() % Rand);
+                if ((infoIdWahana(WahanaMap,nameWahana) != 1) && (infoIdWahana(WahanaMap,nameWahana) != 2) && (infoIdWahana(WahanaMap,nameWahana) != 5)){
+                    InsVLast(&X.WahanaString, infoIdWahana(WahanaMap, r));
+                }
+            }
+            //X.Wahana = random dari array wahana customer
+            X.kesabaran = 5;
+            //X.kesabaran = (rand() % (10 - 2 + 1)+2);
+            Enqueue(Q, X);
+        }
     }
+}
+
+void bikinQueue(PrioQueue *Q){
+
 }
 
 // /* Operasi Tambahan */
