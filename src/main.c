@@ -118,7 +118,12 @@ void preparation_phase(int *day, Pemain *P)
 
         // Panggil status player
         // Need ADT Player
-
+        printf("Duid lau : %d\n", uang(*P));
+        //ngeprint material
+        for(int i = 0; i < 5; i++) {
+          printf("- %s ", Nama_Material(materialPemain(*P, i)));  
+          printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
+        }
         // Panggil current waktu dan limit waktu
         printf("Current Time: ");
         CJam = jamPemain(*P);
@@ -179,17 +184,17 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
     Kata W, A, S, D, Build, Upgrade, Buy, Undo, Execute, Main, Quit;
     int temp;
 
-    W = StringToKata("w");
-    A = StringToKata("a");
-    S = StringToKata("s");
-    D = StringToKata("d");
-    Build = StringToKata("build");
-    Upgrade = StringToKata("upgrade");
-    Buy = StringToKata("buy");
-    Undo = StringToKata("undo");
-    Execute = StringToKata("execute");
-    Main = StringToKata("main");
-    Quit = StringToKata("quit");
+    StringToKata(&W ,"w");
+    StringToKata(&A,"a");
+    StringToKata(&S,"s");
+    StringToKata(&D,"d");
+    StringToKata(&Build,"build");
+    StringToKata(&Upgrade, "upgrade");
+    StringToKata(&Buy, "buy");
+    StringToKata(&Undo, "undo");
+    StringToKata(&Execute,"execute");
+    StringToKata(&Main,"main");
+    StringToKata(&Quit,"quit");
 
     EndKata = false;
     // printf("Yoyoyoyyy\n");
@@ -202,6 +207,7 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
     printf("Yoyoyoyyy\n");
     if ((IsKataSama(W, CKata)) || (IsKataSama(A, CKata)) || (IsKataSama(S, CKata)) || (IsKataSama(D, CKata)))
     {
+        
         // Update peta  (Done)
         // parameter kurang : *Map, *Pemain
         // EndKata = true;
@@ -250,14 +256,18 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
                 makeKoordinat(&movedPosition, absis(posisiPemain(*P)), ordinat(posisiPemain(*P)) + 1);
                 if (isAccessible(M1, movedPosition))
                 {
+                    printf("Hei 3");
                     setKoordinatPemain(P, 'd');
                     move = true;
                 }
                 else if (isGate(M1, movedPosition))
                 {
+                    printf("Hei 2");
+
                     pindahMap(M1, P, movedPosition);
                     move = true;
                 }
+                printf("Hei 4");
             }
         }
         else if (idMap == 2)
@@ -424,6 +434,7 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
             jamPemain(*P) = NextNMenit(jamPemain(*P), 2);
         }
     }
+    
     else if (IsKataSama(Build, CKata))
     {
         // EndKata = true;
@@ -449,7 +460,6 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
     else if (IsKataSama(Upgrade, CKata))
     {
         // EndKata = true;
-        printf("Cek");
         // Lakukan upgrade (Done)
         int idMap = currentMap(*P);
         if (idMap == 1)
@@ -677,6 +687,7 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
     /* ALGORITMA */
     /* 1. Cek Wahana disekitar kita */
     Wahana_Terdekat = wahanaTerdekat(M, posisiPemain(P));
+    
 
     if (Wahana_Terdekat.IdWahana != -1)
     {
@@ -686,7 +697,7 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
 
         Node_Wahana = Search_DatabaseWahana(Database_Wahana, ID_Wahana);
         Curr_Wahana = Akar(Node_Wahana);
-
+        
         if (Left(Node_Wahana) != Nil && Right(Node_Wahana) != Nil)
         {
             Left_Wahana = Akar(Left(Node_Wahana));
@@ -695,12 +706,12 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
             printf("- %s\n", Nama_Wahana(Left_Wahana));
             printf("- %s\n", Nama_Wahana(Right_Wahana));
 
-            K1 = StringToKata(Nama_Wahana(Left_Wahana));
-            K2 = StringToKata(Nama_Wahana(Right_Wahana));
+            StringToKata(&K1,Nama_Wahana(Left_Wahana));
+            StringToKata(&K2,Nama_Wahana(Right_Wahana));
 
             /* 3. Input User */
             choice = 0;
-
+            printf("Wahana yang ingin diupgrade:\n");
             ReadInput();
             // while (!EndKata)
             // {
@@ -722,6 +733,10 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
             //     IgnoreBlank();
             //     ADVKATA(); //Cek apakah EndKata
             // }
+            M1 = Upgrade_Material(Curr_Wahana, 0);
+            M2 = Upgrade_Material(Curr_Wahana, 1);
+            printf("Biaya upgrade : %d\n",Upgrade_Cost(Curr_Wahana));
+            printf("Membutuhkan %s : %d buah dan %s : %d buah\n",M1.NamaMaterial,M1.Kuantitas,M2.NamaMaterial,M2.Kuantitas);
 
             valid = false;
             if (choice == 1 || choice == 2)
@@ -729,9 +744,6 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
                 // Cek apakah uang "kemungkinan" cukup
                 if (uang(P) >= Upgrade_Cost(Curr_Wahana)) //&& (JLT(WaktuUpgrade, jamPemain(P)))
                 {
-
-                    M1 = Upgrade_Material(Curr_Wahana, 0);
-                    M2 = Upgrade_Material(Curr_Wahana, 1);
 
                     v1 = false;
                     v2 = false;
@@ -741,14 +753,14 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
                     {
                         if (ID_Material(M1) == ID_Material(P.ArrMaterial[i]))
                         {
-                            if (Kuantitas_Material(M1) <= (Kuantitas_Material(P.ArrMaterial[i]) - Kuantitas_Material(Need_Material[i])))
+                            if (Kuantitas_Material(M1) <= (Kuantitas_Material(P.ArrMaterial[i]))) // - Kuantitas_Material(Need_Material[i])
                             {
                                 v1 = true;
                             }
                         }
-                        else if (ID_Material(M2) == ID_Material(P.ArrMaterial[i]))
+                        if (ID_Material(M2) == ID_Material(P.ArrMaterial[i]))
                         {
-                            if (Kuantitas_Material(M2) <= (Kuantitas_Material(P.ArrMaterial[i]) - Kuantitas_Material(Need_Material[i])))
+                            if (Kuantitas_Material(M2) <= (Kuantitas_Material(P.ArrMaterial[i])))
                             {
                                 v2 = true;
                             }
@@ -768,7 +780,7 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
                             {
                                 Kuantitas_Material(Need_Material[i]) += Kuantitas_Material(M1);
                             }
-                            else if (ID_Material(M2) == ID_Material(Need_Material[i]))
+                            if (ID_Material(M2) == ID_Material(Need_Material[i]))
                             {
                                 Kuantitas_Material(Need_Material[i]) += Kuantitas_Material(M2);
                             }
@@ -812,17 +824,17 @@ void upgrade(Pemain P, Map M, int *Need_Money, int *Need_Menit, Material Need_Ma
             }
             else if (!valid)
             {
-                printf("Error: Resource/Uang/Waktu tidak memenuhi");
+                printf("Error: Resource/Uang/Waktu tidak memenuhi\n");
             }
         }
         else
         {
-            printf("Error: Wahana tidak dapat diupgrade! ");
+            printf("Error: Wahana tidak dapat diupgrade! \n");
         }
     }
     else
     {
-        printf("Error: Tidak ada wahana didekat kamu! ");
+        printf("Error: Tidak ada wahana didekat kamu! \n");
     }
 }
 
@@ -835,11 +847,11 @@ void buy(int *Need_Money, int *Need_Menit)
     char string[256];
     IsiStack isi;
 
-    B0 = StringToKata(Nama_Material(Database_Material[0]));
-    B1 = StringToKata(Nama_Material(Database_Material[1]));
-    B2 = StringToKata(Nama_Material(Database_Material[2]));
-    B3 = StringToKata(Nama_Material(Database_Material[3]));
-    B4 = StringToKata(Nama_Material(Database_Material[4]));
+    StringToKata(&B0,Nama_Material(Database_Material[0]));
+    StringToKata(&B1,Nama_Material(Database_Material[1]));
+    StringToKata(&B2,Nama_Material(Database_Material[2]));
+    StringToKata(&B3,Nama_Material(Database_Material[3]));
+    StringToKata(&B4,Nama_Material(Database_Material[4]));
 
     /* ALGORITMA */
     printf("Ingin membeli apa?\n");
@@ -1116,17 +1128,26 @@ void execute(Stack *StackPreparation, Pemain *P, int *Need_Money, int *Need_Meni
             {
                 //lakukan buy
                 boolean materialsesuai = false;
+                int curr_jumlahmaterial;
+                int idx;
                 for (int i = 0; i < 5 && !materialsesuai; i++)
                 {
-                    if (!strcmp(infoNamaWahanaOrMaterial(isi), Nama_Material((*P).ArrMaterial[i])))
+                    //if (!strcmp(infoNamaWahanaOrMaterial(isi), Nama_Material((*P).ArrMaterial[i])))
+                    if (isi.idUpgrade == ID_Material(materialPemain(*P,i)))
                     {
                         materialsesuai = true;
+                        idx = i;
                     }
-                    tempIDMaterial = i;
+                    // tempIDMaterial = i;
                 }
-                int curr_jumlahmaterial = Kuantitas_Material((*P).ArrMaterial[tempIDMaterial]);
-                Kuantitas_Material((*P).ArrMaterial[tempIDMaterial]) = curr_jumlahmaterial + infoJumlahMaterial(isi);
+                if (materialsesuai){
+                    curr_jumlahmaterial = Kuantitas_Material((*P).ArrMaterial[idx]);
+                    Kuantitas_Material((*P).ArrMaterial[idx]) = curr_jumlahmaterial + infoJumlahMaterial(isi);    
+                    // int curr_jumlahmaterial = Kuantitas_Material((*P).ArrMaterial[tempIDMaterial]);
+                    // Kuantitas_Material((*P).ArrMaterial[tempIDMaterial]) = curr_jumlahmaterial + infoJumlahMaterial(isi);
+                }
             }
+
             // Pop(StackPreparation, &isi);
         }
         uang(*P) -= *Need_Money;
@@ -1207,7 +1228,10 @@ void main_phase(int *day, boolean isGoing, Pemain *P)
 
         // Panggil status player
         // Need ADT Player
-
+        for(int i = 0; i < 5; i++) {
+          printf("- %s ", Nama_Material(materialPemain(*P, i)));
+          printf("%d\n", Kuantitas_Material(materialPemain(*P, i)));
+        }
         // Panggil current waktu dan limit waktu
         printf("Current Time: ");
         CurrentJam = jamPemain(*P);
@@ -1259,16 +1283,16 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
     printf("Assalamualaikum main phase\n");
     Kata W, A, S, D, Serve, Repair, Detail, Office, Prepare, Quit;
 
-    W = StringToKata("w");
-    A = StringToKata("a");
-    S = StringToKata("s");
-    D = StringToKata("d");
-    Serve = StringToKata("serve");
-    Repair = StringToKata("repair");
-    Detail = StringToKata("detail");
-    Office = StringToKata("office");
-    Prepare = StringToKata("prepare");
-    Quit = StringToKata("main");
+    StringToKata(&W,"w");
+    StringToKata(&A,"a");
+    StringToKata(&S,"s");
+    StringToKata(&D,"d");
+    StringToKata(&Serve, "serve");
+    StringToKata(&Repair, "repair");
+    StringToKata(&Detail,"detail");
+    StringToKata(&Office,"office");
+    StringToKata(&Prepare,"prepare");
+    StringToKata(&Quit,"main");
 
     /* ALGORITMA */
     ReadInput();
@@ -1593,7 +1617,10 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         }
         for (int i = 0; i < idx; i++)
         {
-            infoOccupancy(M1, i) = 0;
+            if (infoIdWahana(M1,i)!=5){
+                infoOccupancy(M1, i) = 0;
+            }
+                
         }
 
         idx = totalWahana(M2);
@@ -1603,7 +1630,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         }
         for (int i = 0; i < idx; i++)
         {
-            infoOccupancy(M2, i) = 0;
+            if (infoIdWahana(M2,i)!=5){
+                infoOccupancy(M2, i) = 0;
+            }
         }
 
         idx = totalWahana(M3);
@@ -1613,7 +1642,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         }
         for (int i = 0; i < idx; i++)
         {
-            infoOccupancy(M3, i) = 0;
+            if (infoIdWahana(M3,i)!=5){
+                infoOccupancy(M3, i) = 0;
+            }
         }
 
         idx = totalWahana(M4);
@@ -1623,7 +1654,9 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
         }
         for (int i = 0; i < idx; i++)
         {
-            infoOccupancy(M4, i) = 0;
+            if (infoIdWahana(M4,i)!=5){
+                infoOccupancy(M4, i) = 0;
+            }
         }
 
         *day += 1;
@@ -1923,9 +1956,9 @@ void office(boolean *stillInOffice)
 { //parameter belom dimasukin, belum pernah ditest juga
     /* KAMUS */
     Kata Details, Report, Exit;
-    Details = StringToKata("Details");
-    Report = StringToKata("Report");
-    Exit = StringToKata("Exit");
+    StringToKata(&Details, "Details");
+    StringToKata(&Report, "Report");
+    StringToKata(&Exit, "Exit");
 
     /* ALGORITMA */
     if (*stillInOffice)
@@ -1960,10 +1993,10 @@ void office(boolean *stillInOffice)
         {
             // Lakukan details.
             Kata Map1, Map2, Map3, Map4;
-            Map1 = StringToKata("1");
-            Map2 = StringToKata("2");
-            Map3 = StringToKata("3");
-            Map4 = StringToKata("4");
+            StringToKata(&Map1,"1");
+            StringToKata(&Map2,"2");
+            StringToKata(&Map3,"3");
+            StringToKata(&Map4,"4");
 
             printf("Map yang Tersedia :");
             printf(" 1. Map 1\n");
@@ -1997,10 +2030,10 @@ void office(boolean *stillInOffice)
         {
             //lakukan report, akses reporttttt
             Kata Map1, Map2, Map3, Map4;
-            Map1 = StringToKata("1");
-            Map2 = StringToKata("2");
-            Map3 = StringToKata("3");
-            Map4 = StringToKata("4");
+            StringToKata(&Map1,"1");
+            StringToKata(&Map2,"2");
+            StringToKata(&Map3,"3");
+            StringToKata(&Map4,"4");
 
             printf("Map yang Tersedia :");
             printf(" 1. Map 1\n");
@@ -2130,12 +2163,11 @@ int main()
     initGateMap(&M3, 3);
     initGateMap(&M4, 4);
 
-    Kata New,
-        Load, Exit;
+    Kata New, Load, Exit;
 
-    New = StringToKata("new");
-    Load = StringToKata("load");
-    Exit = StringToKata("exit");
+    StringToKata(&New,"new");
+    StringToKata(&Load,"load");
+    StringToKata(&Exit,"exit");
 
     printf("// Welcome to Willy wangky's fun factory!!//\n New game / load game / exit? //\n");
 

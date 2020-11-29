@@ -408,11 +408,11 @@ boolean isAccessible(Map M, Koordinat PlayerPosition)
     {
         isAccess = false;
     }
-    else if (y == NBrsEff(mapMatriks(M)) - 1)
+    else if (y == NBrsEff(mapMatriks(M)) - 2)
     {
         isAccess = false;
     }
-    else if (x == NKolEff(mapMatriks(M)) - 1)
+    else if (x == NKolEff(mapMatriks(M)) - 2)
     {
         isAccess = false;
     }

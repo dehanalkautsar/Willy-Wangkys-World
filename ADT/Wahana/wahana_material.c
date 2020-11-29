@@ -146,18 +146,25 @@ addrNode Search_Wahana(BinTree T, int ID) {
     /* KAMUS LOKAL */
     
     /* ALGORITMA */
-    if (IsTreeEmpty(T) || !SearchTree(Left(T),ID)) {
+    if (IsTreeEmpty(T)) {
         return Nil;
     } else {
-        while (ID_Wahana(Akar(T))!=ID)
-        {
-            if (SearchTree(Left(T),ID)) {
-                T = Left(T);
-            } else {
-                T = Right(T);
-            } 
+        // while (ID_Wahana(Akar(T))!=ID)
+        // {
+        //     if (SearchTree(Left(T),ID)) {
+        //         T = Left(T);
+        //     } else {
+        //         T = Right(T);
+        //     } 
+        // }
+        if (ID_Wahana(Akar(T))==ID) {
+            return T;
+        } else if (SearchTree(Left(T),ID)) {
+            return Search_Wahana(Left(T), ID);
+        } else {
+            return Search_Wahana(Right(T), ID);
         }
-        return T;  
+  
     }
 }
 

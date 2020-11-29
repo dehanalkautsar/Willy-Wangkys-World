@@ -106,22 +106,22 @@ int PanjangString(char *string)
     return i;
 }
 
-Kata StringToKata(char *string)
+void StringToKata(Kata* Pass ,char *string)
 {
     /* KAMUS LOKAL */
-    Kata Pass;
+    // Kata Pass;
     int n;
 
     /* ALGORITMA */
     n = PanjangString(string);
-    Pass.Length = n;
+    (*Pass).Length = n;
 
     for (int i = 0; i < n; i++)
     {
-        Pass.TabKata[i] = string[i];
+        (*Pass).TabKata[i] = string[i];
     }
 
-    return Pass;
+    // return Pass;
 }
 
 void KataToString(Kata Kata, char buff[256])
