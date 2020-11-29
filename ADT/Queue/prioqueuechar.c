@@ -81,7 +81,7 @@ void Enqueue(PrioQueue *Q, infotypeQ X)
         TAIL "maju" dengan mekanisme circular buffer; */
 {
     /* Kamus Lokal */
-    index a, b;
+    idx a, b;
 
     /* Algoritma */
     // Kasus Kosong
@@ -168,7 +168,7 @@ void Dequeue(PrioQueue *Q, infotypeQ *X)
 void kurangSabar(PrioQueue *Q)
 {
 
-    index P;
+    idx P;
     P = Head(*Q);
 
     while (P != Tail(*Q))
@@ -189,7 +189,7 @@ void kurangSabar(PrioQueue *Q)
 void tendangAntrean(PrioQueue *Q)
 {
 
-    index P;
+    idx P;
     P = Head(*Q);
 
     while (P != Tail(*Q) && ((*Q).T[P].kesabaran == 0))
@@ -216,7 +216,7 @@ void tendangAntrean(PrioQueue *Q)
 //     infotypeQ R = (*Q).T[P]; //kesabaran sama list wahana
 //     int kesabaran = R.kesabaran;
 //     WahanaAntrean Wahana = R.Wahana;
-//     index info = info;
+//     idx info = info;
 //     PrintInfo(Wahana);
 //     printf(", kesabaran: %d\n", kesabaran);
 // }
@@ -251,7 +251,7 @@ void printAntrean(PrioQueue Q, BinTree T[])
     //     infotypeQ R = Q.T[P]; //kesabaran sama list wahana
     //     int kesabaran = R.kesabaran;
     //     WahanaAntrean Wahana = R.Wahana;
-    //     index info = info;
+    //     idx info = info;
     //     PrintInfo(Wahana);
     //     printf(", kesabaran: %d\n", kesabaran);
     // }
@@ -308,7 +308,7 @@ void makeQueue(PrioQueue *Q, Map WahanaMap)
 // */
 // {
 //     /* Kamus Lokal */
-//     index p;
+//     idx p;
 
 //     /* Algoritma */
 //     p = Head(Q);

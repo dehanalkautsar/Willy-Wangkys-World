@@ -21,14 +21,14 @@ typedef struct
     int kesabaran; /* [1..100], prioritas dengan nilai 1..100 (1 adalah prioritas tertinggi) */
     WahanaAntrean WahanaString;   /* elemen Wahana */
 } infotypeQ;
-typedef int index; /* indeks tabel */
+typedef int idx; /* indeks tabel */
 /* Contoh deklarasi variabel bertype PrioQueueChar : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
 typedef struct
 {
     infotypeQ *T; /* tabel penyimpan elemen */
-    index HEAD; /* alamat penghapusan */
-    index TAIL; /* alamat penambahan */
+    idx HEAD; /* alamat penghapusan */
+    idx TAIL; /* alamat penambahan */
     int MaxEl;    /* Max elemen queue */
 } PrioQueue;
 /* Definisi PrioQueueChar kosong: HEAD=Nil; TAIL=Nil. */
