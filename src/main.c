@@ -440,8 +440,6 @@ void input_preparation_phase(boolean *status, Pemain *P, int *Need_Money, int *N
         // EndKata = true;
         // Lakukan undo
         undo(&StackPreparationPhase, Need_Money, Need_Menit, Need_Material);
-
-        // temp = JAMToMenit(*Need_Time);
         *Need_Time = MenitToJAM(*Need_Menit);
     }
     else if (IsKataSama(Execute, CKata))
@@ -532,7 +530,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
             KoordinatBuild.Y = P.posisiPemain.Y;
 
             // Masukan ke Stack
-            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[0]->info.ID, 0, Need_Material_Build, *Need_Money, *Need_Menit, currentMap(P));
+            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[0]->info.ID, 0, Need_Material_Build, UangBuild, JAMToMenit(WaktuBuild), currentMap(P));
             Push(&StackPreparationPhase, StackWahanaBuild);
             printf("// Memasukkan perintah build ke dalam stack. //\n");
             printf("\n");
@@ -562,7 +560,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
             KoordinatBuild.Y = P.posisiPemain.Y;
 
             // Masukan ke Stack
-            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[1]->info.ID, 0, Need_Material_Build, *Need_Money, *Need_Menit, currentMap(P));
+            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[1]->info.ID, 0, Need_Material_Build, UangBuild, JAMToMenit(WaktuBuild), currentMap(P));
             Push(&StackPreparationPhase, StackWahanaBuild);
             printf("// Memasukkan perintah build ke dalam stack. //\n");
             printf("\n");
@@ -592,7 +590,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
             KoordinatBuild.Y = P.posisiPemain.Y;
 
             // Masukan ke Stack
-            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[2]->info.ID, 0, Need_Material_Build, *Need_Money, *Need_Menit, currentMap(P));
+            AddElementIsiStack(&StackWahanaBuild, "build", KoordinatBuild, Database_Wahana[0]->info.Nama, Database_Wahana[2]->info.ID, 0, Need_Material_Build, UangBuild, JAMToMenit(WaktuBuild), currentMap(P));
             Push(&StackPreparationPhase, StackWahanaBuild);
             printf("// Memasukkan perintah build ke dalam stack. //\n");
             printf("\n");
@@ -807,12 +805,12 @@ void buy(int *Need_Money, int *Need_Menit)
     }
 
     choice = -1;
-    printf("Masukkan jumlah barang :\n");
-    ReadInput();
+
     // STARTKATA();
     // while (!EndKata && choice == -1)
     // {
-
+    printf("Masukkan jumlah barang :\n");
+    ReadInput();
     jumlahMaterial = KataToInt(CKata);
 
     // ADVKATA();
@@ -868,12 +866,12 @@ void buy(int *Need_Money, int *Need_Menit)
             Kuantitas_Material(Dummy[i]) = 0;
         }
         makeKoordinat(&DumKoor, 0, 0);
+        *Need_Menit = *Need_Menit + 10; //ini durasi buy
 
-        AddElementIsiStack(&isi, "buy", DumKoor, " ", choice + 1, jumlahMaterial, Dummy, total, 0, 0);
+        AddElementIsiStack(&isi, "buy", DumKoor, " ", choice + 1, jumlahMaterial, Dummy, total, 10, 0);
         Push(&StackPreparationPhase, isi);
 
         printf("// Memasukkan perintah membeli %s sebanyak %d pada stack //\n", string, jumlahMaterial);
-        *Need_Menit = *Need_Menit + 10; //ini durasi buy
     }
 }
 
@@ -897,6 +895,7 @@ void undo(Stack *StackPreparation, int *Need_Money, int *Need_Menit, Material Ne
     }
     /* PROSES PENGHAPUSAN KOMPONEN EKSEKUSI TERAKHIR*/
     *Need_Money = *Need_Money - infoNeedMoney(isi);
+    // printf("%d\n",infoNeedMoney(isi));
     *Need_Menit = *Need_Menit - infoNeedMenit(isi);
     for (int i = 0; i < 5; i++)
     {
