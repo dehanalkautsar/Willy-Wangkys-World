@@ -1,7 +1,7 @@
-#include "bintree_Wahana.h"
+#include "bintree_wahana.h"
 #include "boolean.h"
 #include "string.h"
-#include "../Wahana/bintree_wahana.h"
+// #include "../Wahana/bintree_wahana.h"
 #include <stdlib.h>
 #include <stdio.h>
 

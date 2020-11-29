@@ -571,7 +571,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
     int InputPilihanWahana = KataToInt(CKata);
 
     //3rd step cek resource player dengan requirement wahana
-    if (InputPilihanWahana = 1)
+    if (InputPilihanWahana == 1)
     {
 
         if (((*Need_Money + UangBuild) <= P.uang) && (JLT(WaktuBuild, P.jamPemain)))
@@ -602,7 +602,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
             }
         }
     }
-    else if (InputPilihanWahana = 2)
+    else if (InputPilihanWahana == 2)
     {
         if ((*Need_Money + UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain)))
         {                                                               //JLT sudah diubah jump least than equal
@@ -632,7 +632,7 @@ void build(Pemain P, int *Need_Money, int *Need_Menit, JAM *Need_Jam, Map Map_Cu
             }
         }
     }
-    else if (InputPilihanWahana = 3)
+    else if (InputPilihanWahana == 3)
     {
         if ((*Need_Money + UangBuild <= P.uang) && (JLT(WaktuBuild, P.jamPemain)))
         {                                                               //JLT sudah diubah jump least than equal
@@ -1525,7 +1525,7 @@ void input_main_phase(boolean *status, int *day, boolean isGoing, PrioQueue *Q, 
     }
     else if (IsKataSama(Serve, CKata))
     {
-        ADVKATA();
+        // ADVKATA();
         char namaWahana[256];
         KataToString(CKata, namaWahana);
         int idMap = currentMap(*P);
@@ -1850,14 +1850,18 @@ void detail(Map currentMap, Koordinat Pemain)
 
 void detailOffice(Map currentMap)
 {
+    printf("Hello\n");
     int i = 0;
     int idx;
     Koordinat xy;
     while (i < totalWahana(currentMap))
     {
         addrNode N = Search_DatabaseWahana(Database_Wahana, infoIdWahana(currentMap, i));
-        printf(" -> Nama Wahana (%d,%d) : %s \n", infoKoordinatWahanaMap(currentMap, i).X, infoKoordinatWahanaMap(currentMap, i).Y, Nama_Wahana(Akar(N)));
+        if (N != Nil) {
+            printf(" -> Nama Wahana (%d,%d) : %s \n", infoKoordinatWahanaMap(currentMap, i).X, infoKoordinatWahanaMap(currentMap, i).Y, Nama_Wahana(Akar(N)));
+        }
         i++;
+        
     }
     int x, y;
     printf("Masukan Koordinat wahana yang ingin anda tampilkan: \n");
@@ -1870,31 +1874,42 @@ void detailOffice(Map currentMap)
 
     makeKoordinat(&xy, x, y);
     idx = searchKoordinatElmtListWahana(currentMap, xy);
+    if (idx!=-1){
+        int idWahana = infoIdWahana(currentMap, idx);
+        addrNode Node_Wahana = Search_DatabaseWahana(Database_Wahana, idWahana);
+        
+        if (Node_Wahana != Nil) {
+            printf("// Melihat detail wahana //\n");
+            printf("// Nama : %s \n", Nama_Wahana(Akar(Node_Wahana))); //print nama wahana yang ingin dilihat detail nya
+            printf("// Lokasi : (%d,%d) \n", xy.X, xy.Y);              //print dimana letak lokasi wahana
+            printf("// Upgrade(s) : \n");                              //print upgrade(s)
+            if (Left(Node_Wahana) != Nil && Right(Node_Wahana) != Nil)
+            {
+                printf("- %s\n", Nama_Wahana(Akar(Left(Node_Wahana))));
+                printf("- %s\n", Nama_Wahana(Akar(Right(Node_Wahana))));
+            }
+            printf("// History : \n");
+            PrintList(RiwayatUpgrade(idWahana, Database_Wahana)); //print history upgrade wahana
 
+            if (infoStatusWahana(currentMap, idx))
+            {
+                printf("// Status : Berfungsi \n"); //print status wahana berfungsi atau tidak
+            }
+            else
+            {
+                printf("// Status : Rusak \n"); //print status wahana berfungsi atau tidak
+            }
+        } 
+        else{
+            printf("Wahana tidak ditemukan\n");
+        }
+    }
+    else{
+        printf("Wahana tidak ditemukan\n");
+    }
+    
     // Belum yakin gan -> Apus Gan
-    int idWahana = infoIdWahana(currentMap, idx);
-    addrNode Node_Wahana = Search_DatabaseWahana(Database_Wahana, idWahana);
-
-    printf("// Melihat detail wahana //\n");
-    printf("// Nama : %s \n", Nama_Wahana(Akar(Node_Wahana))); //print nama wahana yang ingin dilihat detail nya
-    printf("// Lokasi : (%d,%d) \n", xy.X, xy.Y);              //print dimana letak lokasi wahana
-    printf("// Upgrade(s) : \n");                              //print upgrade(s)
-    if (Left(Node_Wahana) != Nil && Right(Node_Wahana) != Nil)
-    {
-        printf("- %s\n", Nama_Wahana(Akar(Left(Node_Wahana))));
-        printf("- %s\n", Nama_Wahana(Akar(Right(Node_Wahana))));
-    }
-    printf("// History : \n");
-    PrintList(RiwayatUpgrade(idWahana, Database_Wahana)); //print history upgrade wahana
-
-    if (infoStatusWahana(currentMap, idx))
-    {
-        printf("// Status : Berfungsi \n"); //print status wahana berfungsi atau tidak
-    }
-    else
-    {
-        printf("// Status : Rusak \n"); //print status wahana berfungsi atau tidak
-    }
+    
 }
 void reportOffice(Map currentMap)
 {
@@ -1907,7 +1922,9 @@ void reportOffice(Map currentMap)
     while (i < totalWahana(currentMap))
     {
         addrNode N = Search_DatabaseWahana(Database_Wahana, infoIdWahana(currentMap, i));
-        printf(" -> Nama Wahana (%d,%d) : %s \n", infoKoordinatWahanaMap(currentMap, i).X, infoKoordinatWahanaMap(currentMap, i).Y, Nama_Wahana(Akar(N)));
+        if (N != Nil){
+            printf(" -> Nama Wahana (%d,%d) : %s \n", infoKoordinatWahanaMap(currentMap, i).X, infoKoordinatWahanaMap(currentMap, i).Y, Nama_Wahana(Akar(N)));
+        }
         i++;
     }
     int x, y;
@@ -1921,26 +1938,35 @@ void reportOffice(Map currentMap)
 
     makeKoordinat(&xy, x, y);
     idx = searchKoordinatElmtListWahana(currentMap, xy);
-
+    if (idx!=-1){
+        int idWahana = infoIdWahana(currentMap, idx);
+        addrNode Node_Wahana = Search_DatabaseWahana(Database_Wahana, idWahana);
+        
+        if (Node_Wahana!=Nil){
+            printf("// Melihat detail wahana //\n");
+            printf("// Nama : %s \n", Nama_Wahana(Akar(Node_Wahana))); //print nama wahana yang ingin dilihat detail nya
+            printf("// Lokasi : (%d,%d) \n", xy.X, xy.Y);              //print dimana letak lokasi wahana
+            printf("TOTAL : \n");
+            printf("// Wahana ini telah dinaiki secara total sebanyak   : %d kali\n", infoTotalOccupancy(currentMap, idx));
+            printf("// Total penghasilan wahana ini adalah : %d\n", infoTotalPenghasilan(currentMap, idx));
+            printf("DAILY: \n");
+            printf("// Wahana ini telah dinaiki sebanyak  : %d kali\n", infoOccupancy(currentMap, idx));
+            printf("// Penghasilan wahana ini untuk hari ini adalah : %d\n", infoPenghasilan(currentMap, idx));
+        } else {
+            printf("Wahana tidak ditemukan\n");
+        }
+    } else {
+        printf("Wahana tidak ditemukan\n");
+    }
     // Belum yakin gan -> Apus Gan
-    int idWahana = infoIdWahana(currentMap, idx);
-    addrNode Node_Wahana = Search_DatabaseWahana(Database_Wahana, idWahana);
-
+    
     /**
     1. Berapa kali wahana dinaiki.
     2. Total penghasilan dari wahana.
     3. Berapa kali wahana dinaiki dalam hari ini.
     4. Total penghasilan dari wahana dalam hari ini.**/
 
-    printf("// Melihat detail wahana //\n");
-    printf("// Nama : %s \n", Nama_Wahana(Akar(Node_Wahana))); //print nama wahana yang ingin dilihat detail nya
-    printf("// Lokasi : (%d,%d) \n", xy.X, xy.Y);              //print dimana letak lokasi wahana
-    printf("TOTAL : \n");
-    printf("// Wahana ini telah dinaiki secara total sebanyak   : %d kali\n", infoTotalOccupancy(currentMap, idx));
-    printf("// Total penghasilan wahana ini adalah : %d\n", infoTotalPenghasilan(currentMap, idx));
-    printf("DAILY: \n");
-    printf("// Wahana ini telah dinaiki sebanyak  : %d kali\n", infoOccupancy(currentMap, idx));
-    printf("// Penghasilan wahana ini untuk hari ini adalah : %d\n", infoPenghasilan(currentMap, idx));
+
 
     // printf("// Upgrade(s) : \n"); //print upgrade(s)
     // if (Left(Node_Wahana) != Nil && Right(Node_Wahana) != Nil) {
@@ -2013,13 +2039,13 @@ void office(boolean *stillInOffice)
             printf(" 4. Map 4\n");
             printf("Pilih Peta (1/2/3/4) : \n");
             ReadInput();
-            printf("adter read input");
-            // while (!EndKata)
+            printf("setelah read input %d\n");
+
             
             // {
             if (IsKataSama(C1, CKata))
             {
-                printf("gnu prolog");
+                // printf("gnu prolog");
                 detailOffice(M1);
             }
             else if (IsKataSama(C2, CKata))

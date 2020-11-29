@@ -1,4 +1,4 @@
-clang ./src/main.c ./ADT/Wahana/wahana_material.c ./ADT/Wahana/bintree_wahana.c ./ADT/Wahana/listrek_wahana.c ./ADT/Stack/stackt.c ./ADT/Queue/linkedlistQ.c ./ADT/Queue/prioqueuechar.c ./ADT/Point/point.c ./ADT/Player/pemain.c ./ADT/Mesin/mesinkar.c ./ADT/Mesin/mesinkata.c ./ADT/Matriks/matriks.c ./ADT/Map/map.c ./ADT/Jam/jam.c ./ADT/Graph/graph.c -o mainProgram
+clang ../src/main.c ../ADT/Wahana/wahana_material.c ../ADT/Wahana/bintree_wahana.c ../ADT/Wahana/listrek_wahana.c ../ADT/Stack/stackt.c ../ADT/Queue/linkedlistQ.c ../ADT/Queue/prioqueuechar.c ../ADT/Point/point.c ../ADT/Player/pemain.c ../ADT/Mesin/mesinkar.c ../ADT/Mesin/mesinkata.c ../ADT/Matriks/matriks.c ../ADT/Map/map.c ../ADT/Jam/jam.c -o mainProgram
 gcc ../src/main.c ../ADT/Wahana/wahana_material.c ../ADT/Wahana/bintree_wahana.c ../ADT/Wahana/listrek_wahana.c ../ADT/Stack/stackt.c ../ADT/Queue/linkedlistQ.c ../ADT/Queue/prioqueuechar.c ../ADT/Point/point.c ../ADT/Player/pemain.c ../ADT/Mesin/mesinkar.c ../ADT/Mesin/mesinkata.c ../ADT/Matriks/matriks.c ../ADT/Map/map.c ../ADT/Jam/jam.c -o mainProgram
 
 Syntax
