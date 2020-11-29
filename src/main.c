@@ -2001,10 +2001,10 @@ void office(boolean *stillInOffice)
         if (choice == 1)
         {
             // Lakukan details.
-            StringToKata(&C1,"Map 1");
-            StringToKata(&C2,"Map 2");
-            StringToKata(&C3,"Map 3");
-            StringToKata(&C4,"Map 4");
+            StringToKata(&C1,"1");
+            StringToKata(&C2,"2");
+            StringToKata(&C3,"3");
+            StringToKata(&C4,"4");
 
             printf("Map yang Tersedia :\n");
             printf(" 1. Map 1\n");

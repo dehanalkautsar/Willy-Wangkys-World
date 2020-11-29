@@ -9,7 +9,6 @@
 
 #define NMax 100
 #define BLANK ' '
-#define EOI '\n'
 
 typedef struct
 {

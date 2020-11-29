@@ -55,27 +55,28 @@ void SalinKata()
 }
 
 void ReadInput()
+/* Nani? */
 {
     /* KAMUS */
-    int i;
+    int i = 0;
     /* ALGORITMA */
-    i = 0;
     printf("$ ");
     do
     {
         ADV_Input();
         CKata.TabKata[i] = CC;
         i++;
-    } while ((CC != EOI) && (i <= NMax));
+    } while ((CC != '\n') && (i <= NMax));
     CKata.Length = i - 1;
 }
-/* Nani? */
+
 
 boolean IsKataSama(Kata K1, Kata K2)
 {
     /* KAMUS LOKAL */
     int i = 0;
     boolean sama = true;
+
 
     /* ALGORITMA */
     if (K1.Length == K2.Length)
@@ -85,8 +86,10 @@ boolean IsKataSama(Kata K1, Kata K2)
             if (K1.TabKata[i] != K2.TabKata[i])
             {
                 sama = false;
+            } else {
+                i++;
             }
-            i++;
+            
         }
     }
     else
