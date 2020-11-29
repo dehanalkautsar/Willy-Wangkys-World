@@ -1850,7 +1850,7 @@ void detail(Map currentMap, Koordinat Pemain)
 
 void detailOffice(Map currentMap)
 {
-    printf("Hello\n");
+    // printf("Hello\n");
     int i = 0;
     int idx;
     Koordinat xy;
@@ -2039,7 +2039,7 @@ void office(boolean *stillInOffice)
             printf(" 4. Map 4\n");
             printf("Pilih Peta (1/2/3/4) : \n");
             ReadInput();
-            printf("setelah read input %d\n");
+            printf("setelah read input\n");
 
             
             // {
