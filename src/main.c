@@ -1827,6 +1827,8 @@ void detail(Map currentMap, Koordinat Pemain)
         {
             printf("- %s\n", Nama_Wahana(Akar(Left(Node_Wahana))));
             printf("- %s\n", Nama_Wahana(Akar(Right(Node_Wahana))));
+        } else {
+            printf("- Wahana tidak dapat diupgrade\n");
         }
         printf("// History : \n");
         PrintList(RiwayatUpgrade(container.IdWahana, Database_Wahana)); //print history upgrade wahana

@@ -190,7 +190,7 @@ void PrintList (List_Wahana L)
     /* ALGORITMA */
     if (!IsEmpty_Listrek(L)) {
         if (Tail(L) != Nil) {
-            printf("%s ->",Nama_Wahana(FirstElmt_Listrek(L)));
+            printf("%s -> ",Nama_Wahana(FirstElmt_Listrek(L)));
         } else {
             printf("%s\n",Nama_Wahana(FirstElmt_Listrek(L)));
         }
