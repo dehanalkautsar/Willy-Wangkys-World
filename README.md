@@ -11,15 +11,6 @@ Program ini dibuat untuk memenuhi tugas Mata Kuliah **IF 2110 Algoritma Struktur
 *Semester I Tahun 2020/2021*
 
 
-## Description
-
-Program ini dapat digunakan untuk melakukan beberapa hal, yaitu :
-
-1. 
-2. 
-3. 
-4.
-
 ### Build With
 
 - [C](https://en.wikipedia.org/wiki/C_(programming_language))
